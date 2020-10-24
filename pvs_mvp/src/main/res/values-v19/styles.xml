@@ -1,0 +1,8 @@
+<resources>
+    <style name="AppTheme" parent="@style/BaseAppTheme">
+        //沉浸状态栏
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+    </style>
+
+</resources>

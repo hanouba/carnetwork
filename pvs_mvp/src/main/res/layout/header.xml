@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_dp_200"
+        android:background="@color/grey2"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="16dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车联APP"
+            android:textSize="@dimen/dimen_sp_14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_dp_40"
+            android:layout_margin="@dimen/dimen_dp_20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="上班/下班"
+                android:textColor="@color/grey8"
+                android:textSize="@dimen/dimen_sp_16" />
+
+            <TextView
+                android:layout_width="0dp"
+
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_dp_40"
+            android:layout_marginLeft="@dimen/dimen_dp_20"
+            android:layout_marginTop="@dimen/dimen_dp_10"
+            android:layout_marginRight="@dimen/dimen_dp_20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="车辆编号"
+                android:textColor="@color/grey8"
+                android:textSize="@dimen/dimen_sp_16" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="001"
+                android:textColor="@color/color_323232"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_dp_40"
+            android:layout_marginLeft="@dimen/dimen_dp_20"
+            android:layout_marginTop="@dimen/dimen_dp_10"
+            android:layout_marginRight="@dimen/dimen_dp_20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="车牌号"
+                android:textColor="@color/grey8"
+                android:textSize="@dimen/dimen_sp_16" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="鄂A95698"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_dp_40"
+            android:layout_marginLeft="@dimen/dimen_dp_20"
+            android:layout_marginTop="@dimen/dimen_dp_10"
+            android:layout_marginRight="@dimen/dimen_dp_20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="手机号"
+                android:textColor="@color/grey8"
+                android:textSize="@dimen/dimen_sp_16" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="13687548525"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_dp_40"
+            android:layout_marginLeft="@dimen/dimen_dp_20"
+            android:layout_marginTop="@dimen/dimen_dp_10"
+            android:layout_marginRight="@dimen/dimen_dp_20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="姓名"
+
+                android:textColor="@color/grey8"
+                android:textSize="@dimen/dimen_sp_16" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="展示那"></TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

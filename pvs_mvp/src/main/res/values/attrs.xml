@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+    <declare-styleable name="MyView">
+        <attr name="text" format="string" />
+        <attr name="textcolor" format="color" />
+        <attr name="textsize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="RangeSeekBar">
+        <attr name="max" format="float" />
+        <attr name="min" format="float" />
+        <attr name="reserve" format="float" />
+        <attr name="cells" format="integer" />
+        <attr name="lineColorSelected" format="color" />
+        <attr name="lineColorEdge" format="color" />
+        <attr name="seekBarResId" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="play">
+        <attr name="play_line_color" format="color" />
+        <attr name="play_bg_line_color" format="color" />
+        <attr name="play_line_width" format="integer" />
+        <attr name="play_bg_line_width" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="download">
+        <attr name="download_line_color" format="color" />
+        <attr name="download_bg_line_color" format="color" />
+        <attr name="download_text_color" format="color" />
+        <attr name="download_line_width" format="integer" />
+        <attr name="download_bg_line_width" format="integer" />
+        <attr name="download_text_size" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="DigitalTimer">
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleTextView">
+        <attr name="storkColor" format="color" />
+        <attr name="backColor" format="color" />
+        <attr name="storkWidth" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="Search_View">
+        <attr name="textSizeSearch" format="dimension" />
+        <attr name="textColorSearch" format="color" />
+        <attr name="textHintSearch" format="string" />
+        <attr name="searchBlockHeight" format="integer" />
+        <attr name="searchBlockColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="ZoomLayout">
+        <attr name="min_zoom" format="float" />
+        <attr name="max_zoom" format="float" />
+        <attr name="double_click_zoom" format="float" />
+
+    </declare-styleable>
+
+
+
+    <declare-styleable name="FLowLineView">
+        <!--文字大小-->
+        <attr name="fLowtextSize" format="dimension"/>
+        <!--节点远点直径-->
+        <attr name="mRoundSize" format="dimension"/>
+        <!--进行中节点光晕透明度-->
+        <attr name="haloAlpha" format="integer"/>
+        <!--光晕宽度-->
+        <attr name="haloWidth" format="dimension"/>
+        <!--流程线条高-->
+        <attr name="lineHeight" format="dimension"/>
+        <!--已完成节点颜色-->
+        <attr name="doneColor" format="color"/>
+        <!--进行中节点颜色-->
+        <attr name="doingColor" format="color"/>
+        <!--未开始节点颜色-->
+        <attr name="todongColor" format="color"/>
+        <!--未开始节点颜色-->
+        <attr name="whiteColor" format="color"/>
+        <!--显示内容的行间距-->
+        <attr name="rowRpacing" format="dimension"/>
+    </declare-styleable>
+
+
+    <!--滚轮弹窗选择-->
+    <declare-styleable name="WheelView">
+        <attr name="wheelTextColor" format="color" />
+        <attr name="wheelTextSize" format="dimension" />
+        <attr name="wheelShowCount" format="integer" />
+        <attr name="wheelTotalOffsetX" format="dimension" />
+        <attr name="wheelItemVerticalSpace" format="dimension" />
+        <attr name="wheelRotationX" format="float" />
+        <attr name="wheelVelocityUnits" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="WheelMaskView">
+        <attr name="wheelMaskLineColor" format="color" />
+    </declare-styleable>
+
+
+
+    <!--下拉刷新-->
+    <declare-styleable name="CirCleRefreshLayout">
+        <attr name="AniBackColor" format="color" />
+        <attr name="AniForeColor" format="color" />
+        <attr name="CircleSmaller" format="integer" />
+    </declare-styleable>
+
+<!--    三角图-->
+    <declare-styleable name="SanJiaoView">
+        <attr name="sjv_resolutionWidth" format="dimension" />
+        <attr name="sjv_resolutionHeight" format="dimension" />
+        <attr name="sjv_color" format="color" />
+        <attr name="sjv_direction">
+            <enum name="top" value="0" />
+            <enum name="bottom" value="1" />
+            <enum name="right" value="2" />
+            <enum name="left" value="3" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="MsgView">
+        <!-- 圆角矩形背景色 -->
+        <attr name="mv_backgroundColor" format="color"/>
+        <!-- 圆角弧度,单位dp-->
+        <attr name="mv_cornerRadius" format="dimension"/>
+        <!-- 圆角弧度,单位dp-->
+        <attr name="mv_strokeWidth" format="dimension"/>
+        <!-- 圆角边框颜色-->
+        <attr name="mv_strokeColor" format="color"/>
+        <!-- 圆角弧度是高度一半-->
+        <attr name="mv_isRadiusHalfHeight" format="boolean"/>
+        <!-- 圆角矩形宽高相等,取较宽高中大值-->
+        <attr name="mv_isWidthHeightEqual" format="boolean"/>
+    </declare-styleable>
+
+
+    <!-- indicator -->
+    <!-- 设置显示器颜色 -->
+    <attr name="tl_indicator_color" format="color"/>
+    <!-- 设置显示器高度 -->
+    <attr name="tl_indicator_height" format="dimension"/>
+    <!-- 设置显示器固定宽度 -->
+    <attr name="tl_indicator_width" format="dimension"/>
+    <!-- 设置显示器margin,当indicator_width大于0,无效 -->
+    <attr name="tl_indicator_margin_left" format="dimension"/>
+    <attr name="tl_indicator_margin_top" format="dimension"/>
+    <attr name="tl_indicator_margin_right" format="dimension"/>
+    <attr name="tl_indicator_margin_bottom" format="dimension"/>
+    <!-- 设置显示器圆角弧度-->
+    <attr name="tl_indicator_corner_radius" format="dimension"/>
+    <!-- 设置显示器上方还是下方,只对圆角矩形有用-->
+    <attr name="tl_indicator_gravity" format="enum">
+        <enum name="TOP" value="48"/>
+        <enum name="BOTTOM" value="80"/>
+    </attr>
+    <!-- 设置显示器为常规|三角形|背景色块|-->
+    <attr name="tl_indicator_style" format="enum">
+        <enum name="NORMAL" value="0"/>
+        <enum name="TRIANGLE" value="1"/>
+        <enum name="BLOCK" value="2"/>
+    </attr>
+    <!-- 设置显示器长度与title一样长,只有在STYLE_NORMAL并且indicatorWidth小于零有效-->
+    <attr name="tl_indicator_width_equal_title" format="boolean"/>
+    <!-- 设置显示器支持动画-->
+    <attr name="tl_indicator_anim_enable" format="boolean"/>
+    <!-- 设置显示器动画时间-->
+    <attr name="tl_indicator_anim_duration" format="integer"/>
+    <!-- 设置显示器支持动画回弹效果-->
+    <attr name="tl_indicator_bounce_enable" format="boolean"/>
+
+    <!-- underline -->
+    <!-- 设置下划线颜色 -->
+    <attr name="tl_underline_color" format="color"/>
+    <!-- 设置下划线高度 -->
+    <attr name="tl_underline_height" format="dimension"/>
+    <!-- 设置下划线上方还是下方-->
+    <attr name="tl_underline_gravity" format="enum">
+        <enum name="TOP" value="48"/>
+        <enum name="BOTTOM" value="80"/>
+    </attr>
+
+    <!-- divider -->
+    <!-- 设置分割线颜色 -->
+    <attr name="tl_divider_color" format="color"/>
+    <!-- 设置分割线宽度 -->
+    <attr name="tl_divider_width" format="dimension"/>
+    <!-- 设置分割线的paddingTop和paddingBottom -->
+    <attr name="tl_divider_padding" format="dimension"/>
+
+    <!-- tab -->
+    <!-- 设置tab的paddingLeft和paddingRight -->
+    <attr name="tl_tab_padding" format="dimension"/>
+    <!-- 设置tab大小等分 -->
+    <attr name="tl_tab_space_equal" format="boolean"/>
+    <!-- 设置tab固定大小 -->
+    <attr name="tl_tab_width" format="dimension"/>
+
+    <!-- title -->
+    <!-- 设置字体大小 -->
+    <attr name="tl_textsize" format="dimension"/>
+    <!-- 设置字体选中颜色 -->
+    <attr name="tl_textSelectColor" format="color"/>
+    <!-- 设置字体未选中颜色 -->
+    <attr name="tl_textUnselectColor" format="color"/>
+    <!-- 设置字体加粗 -->
+    <attr name="tl_textBold" format="enum">
+        <enum name="NONE" value="0"/>
+        <enum name="SELECT" value="1"/>
+        <enum name="BOTH" value="2"/>
+    </attr>
+    <!-- 设置字体全大写 -->
+    <attr name="tl_textAllCaps" format="boolean"/>
+    <declare-styleable name="SlidingTabLayout">
+        <!-- indicator -->
+        <attr name="tl_indicator_color"/>
+        <attr name="tl_indicator_height"/>
+        <attr name="tl_indicator_width"/>
+        <attr name="tl_indicator_margin_left"/>
+        <attr name="tl_indicator_margin_top"/>
+        <attr name="tl_indicator_margin_right"/>
+        <attr name="tl_indicator_margin_bottom"/>
+        <attr name="tl_indicator_corner_radius"/>
+        <attr name="tl_indicator_gravity"/>
+        <attr name="tl_indicator_style"/>
+        <attr name="tl_indicator_width_equal_title"/>
+
+        <!-- underline -->
+        <attr name="tl_underline_color"/>
+        <attr name="tl_underline_height"/>
+        <attr name="tl_underline_gravity"/>
+
+        <!-- divider -->
+        <attr name="tl_divider_color"/>
+        <attr name="tl_divider_width"/>
+        <attr name="tl_divider_padding"/>
+
+        <!-- tab -->
+        <attr name="tl_tab_padding"/>
+        <attr name="tl_tab_space_equal"/>
+        <attr name="tl_tab_width"/>
+
+        <!-- title -->
+        <attr name="tl_textsize"/>
+        <attr name="tl_textSelectColor"/>
+        <attr name="tl_textUnselectColor"/>
+        <attr name="tl_textBold"/>
+        <attr name="tl_textAllCaps"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="DragTopLayout">
+
+        <!--Set the collapse panel offset-->
+        <attr name="dtlCollapseOffset" format="dimension"/>
+
+        <!--Set enable drag over.The default value is true.-->
+        <attr name="dtlOverDrag" format="boolean"/>
+
+        <!--Open the top view after the drag layout is created. The default value is false.-->
+        <attr name="dtlOpen" format="boolean"/>
+
+        <!-- The id of the top view (which will be dragged) -->
+        <attr name="dtlTopView" format="reference" />
+
+        <!-- The content view which will be dragged together with "dtlTopView" -->
+        <attr name="dtlDragContentView" format="reference" />
+
+        <!-- True the top view can be dragged -->
+        <attr name="dtlCaptureTop" format="boolean" />
+    </declare-styleable>
+
+
+    <declare-styleable name="ProgressWheel">
+        <attr name="matProg_progressIndeterminate" format="boolean"/>
+        <attr name="matProg_barColor" format="color"/>
+        <attr name="matProg_rimColor" format="color"/>
+        <attr name="matProg_rimWidth" format="dimension"/>
+        <attr name="matProg_spinSpeed" format="float"/>
+        <attr name="matProg_barSpinCycleTime" format="integer"/>
+        <attr name="matProg_circleRadius" format="dimension"/>
+        <attr name="matProg_fillRadius" format="boolean"/>
+        <attr name="matProg_barWidth" format="dimension"/>
+        <attr name="matProg_linearProgress" format="boolean"/>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/home_visom"
+        title="@string/tab_title_home" />
+    <tab
+        id="@+id/tab_work"
+        icon="@drawable/work"
+        title="@string/tab_title_work" />
+    <tab
+        id="@+id/tab_message"
+        icon="@drawable/icon_mine_normal"
+        title="@string/tab_title_msg" />
+
+    <tab
+        id="@+id/tab_mine"
+        icon="@drawable/icon_mine_normal"
+        title="@string/tab_title_mine" />
+
+
+</tabs>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.carnetwork.hansen">
+
+
+    <!--允许程序打开网络套接字-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--允许程序设置内置sd卡的写权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--允许程序获取网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--允许程序访问WiFi网络信息-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--允许程序读写手机状态和身份-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <application
+        android:name="com.carnetwork.hansen.app.SophixStubApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:persistent="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="LockedOrientationActivity"
+        tools:targetApi="n">
+
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" /> <!-- 适配小米刘海屏 -->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+
+
+        <activity
+            android:name=".ui.main.activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme" />
+        <activity
+            android:name=".ui.main.activity.SplashFirstActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.main.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme" />
+
+        <activity
+            android:name=".ui.main.activity.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/MainTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.carnetwork.hansen"
+                    android:path="/push_detail"
+                    android:scheme="myscheme" />
+            </intent-filter>
+        </activity>
+
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="db2a3c3c0cdcaf1e519016b56f99016e" />
+        <service android:name="com.amap.api.location.APSService"></service>
+        <!-- 友盟统计 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="59e8398f734be47f9e000337" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Channel ID" /> <!-- 配置APP ID -->
+        <!-- ====================================    极光  ==================================== -->
+
+
+        <!-- 网络状态监听 -->
+        <!-- 监听网络状态 -->
+        <!-- =====================================热修复==================================== -->
+        <meta-data
+            android:name="com.taobao.android.hotfix.IDSECRET"
+            android:value="24769835-1" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="cb2b2779d63b3d57b33e8fbb48528a07" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIIEwAIBADANBgkqhkiG9w0BAQEFAASCBKowggSmAgEAAoIBAQCabqKIPf/qfo+/Dk7U6OOss+OB5Woeercr5aIltmM99ZW1mdkcS7/n8XLYuN6heK5MQCO4PZhOOyxTFo5PnWF9iRzCtMunLVAYjCZrOZDovS+CLF2RUjGGmkMETkRyoY3DkNfjJORaizUi3eqTfMi16da+vEvLCOcudkqmXGsHskzPHjWDSRImShxLT6yqrc4S+UpbAqvozfU8CbOWSELQ9KBGCzWa288uI/5A9p1oxxG1DHV8sgyf2PbsRsy3UFgZeAR/zVx2QzLbQuAwpwDUxaXC6IYi0FQLZ/XLb4cEPyQhBJdKIXrcX7Ff2WdD0ooEyvmn1O+jELTApfXYFudBAgMBAAECggEBAJMzSXEbx8e4g0PVW4bNxdZkUUMLba9HwTjyVTAlPUtdvymuT6gM/AsVtialcG/xHBJKQMHo1DgdZw57vYJdvQNvoh5lPolHQ8ViMWybHmj5i0NFDprqAZMPjzmXcN7i5sG2WlGEZLV5Y1istl+G3bmn/q0nxgbtoY5D6rvP86UM7RcVwBS2OIsXEDLADP786V0XUf9yvcAs6nss/w9ZwqHXGXF8ERkBKEwA8RBS2MCDbXvDbrVoQG+slWHvr2bS+g28pXc8NfBQgK1PBOyt9ZSu3PGh5ohw816DurSpp0/U33cqsd+RYowGdv6uj+HsQDViggI2R5sQDLTi/UbPQxECgYEA4Ih0EnnXbEqrbzOr6Jt1BxNnafu4uj5Qt/uMtEvUGLp0zpkzAQrh239bL55MbRK65h7Jck0bzhscnFFmIfYz/+0qCUyY2E47sy9zFctuBuxyulPTOtA5fV7HrP8CqORwfT5PLJxUua/Sf3qFscFDSz00nTpOFVDagA8/apii1ZcCgYEAsBMuS7Z0ykKQz6Pb9cPf4URh3esc6MDBa7UjgIK5ucCg+9m0T9GNl8QOgNT5Mhvvjq6qkceloQ2wpTquw1lagDNLCKzQPTltkfD0vw2X6WO5WVv5cWBLnVoxRSQ0fozuPi/so2+9w2XKJVWkKzSUlJZM+YvFAVzA4uyDRVwWtOcCgYEAntJGcE84/wOuUgFVxzo3RGMIUmJY33x2sj0/4MSGaVtyhjS9bC5bZlymjn9Fhh2qkF4UlkJOubJZwYSeXsV9MLl8c4l30AE+n1ef6zmzQTh9SqlCj6Z8E984FHlpUzgLDbxGWsLV92aT2dI7wWl4BT9s+Q4l71P6ynx+mhMPk08CgYEAp5nqdJl9/FV2oJ/aLcvAnR5JhkNZ5lgtBUiMPbSx85Xf5zvovh27iR5Pq+SOPFuJIakzpcaD65Urc2wzlLHGSsgIgX52TgEPQl85qW7YDoolkWDSRVCjSWnkAmufKGMgGMPnnf8shAWtcPJfbd0EHZggN14LLevLk3YM0oYA+zsCgYEAzq1QtS1VYAP2TbmENDIUPnPbDtatbh/rh0C5e+2b0gXHkBro7KeqpH7UNak3ikYBBHVOgQG6gSWmhrBVmHTWFqhPeLIKmOgjp43fSEkfGrd0f3wDgizY3j/sjVcRl8OA8SQkjMCyHY4Byynsc3VbixpQpd2nI6thuO5zySWA6mc=" /> <!-- cordova -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.carnetwork.hansen.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="45e48c8f841df8459e34618074454410" />
+        <!--高德-->
+
+
+    </application>
+</manifest>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="videorate_array">
+        <item>@string/video_rate_type</item>
+        <item>@string/video_rate_type_one</item>
+        <item>@string/video_rate_type_two</item>
+        <item>@string/video_rate_type_others</item>
+    </string-array>
+</resources>

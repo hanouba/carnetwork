@@ -1,0 +1,9 @@
+.gradle/
+.idea/
+CordovaLib/build/
+gsyvideoplayer-androidvideocache/build/
+qrcodecore/build/
+smartview/build/
+pvs_mvp/release/
+*.iml
+bannerlib/build/
