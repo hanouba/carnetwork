@@ -30,6 +30,8 @@ public class Constants {
 
 //    xinix
     public static final String CAR_NO ="";
+    public static final String CAR_NAME ="";
+    public static final String CAR_PHONE ="";
 
 
 

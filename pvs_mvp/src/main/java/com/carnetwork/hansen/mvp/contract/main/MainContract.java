@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.carnetwork.hansen.base.BasePresenter;
 import com.carnetwork.hansen.base.BaseView;
+import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 
 
 /**
@@ -22,6 +23,7 @@ public interface MainContract {
 
     interface Presenter extends BasePresenter<View> {
 
+        void mapUpLoad(UploadMapEntity uploadMapEntity);
 
     }
 }

@@ -6,9 +6,11 @@ package com.carnetwork.hansen.mvp.model;
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.LoginBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
+import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.carnetwork.hansen.mvp.model.db.DBHelper;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 import com.carnetwork.hansen.mvp.model.http.HttpHelper;
+import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
 import com.carnetwork.hansen.mvp.model.prefs.PreferencesHelper;
 
 import java.util.List;
@@ -58,6 +60,11 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
     @Override
     public Flowable<LoginBean> getLogin(LoginEntity loginEntity) {
         return mHttpHelper.getLogin(loginEntity);
+    }
+
+    @Override
+    public Flowable<MyHttpResponse> upLoadMap(UploadMapEntity uploadMapEntity) {
+        return mHttpHelper.upLoadMap(uploadMapEntity);
     }
 
     @Override

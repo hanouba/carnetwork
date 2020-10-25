@@ -6,6 +6,7 @@ import android.support.annotation.RawRes;
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.LoginBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
+import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
 
 import org.greenrobot.greendao.annotation.Entity;

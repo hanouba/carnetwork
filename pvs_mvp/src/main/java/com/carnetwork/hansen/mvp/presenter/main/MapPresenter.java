@@ -8,11 +8,14 @@ import com.carnetwork.hansen.mvp.contract.main.MapContract;
 import com.carnetwork.hansen.mvp.model.DataManager;
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.LoginBean;
+import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
+import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
 import com.carnetwork.hansen.util.RxUtil;
 import com.carnetwork.hansen.widget.CommonSubscriber;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -41,6 +44,7 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
 
         addSubscribe(mDataManager.getAllCar(carNo)
                 .compose(RxUtil.<AllCar>rxSchedulerHelper())
+
                 .subscribeWith(new CommonSubscriber<AllCar>(mView) {
                     @Override
                     public void onNext(AllCar allCar) {
@@ -56,4 +60,6 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
                 })
         );
     }
+
+
 }

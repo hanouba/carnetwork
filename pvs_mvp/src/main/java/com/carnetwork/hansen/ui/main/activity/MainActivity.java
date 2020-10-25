@@ -23,6 +23,7 @@ import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.app.MyApplication;
 import com.carnetwork.hansen.base.BaseActivity;
 import com.carnetwork.hansen.mvp.contract.main.MainContract;
+import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 import com.carnetwork.hansen.mvp.presenter.main.MainPresenter;
 import com.carnetwork.hansen.ui.main.fragment.MapFragment;
@@ -173,15 +174,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
                 //                转换地位为百度定位
                 double[] doubles = PccGo2MapUtil.gaoDeToBaidu(longitude, latitude);
-                locpvs = doubles[1] + "," + doubles[0];
-                SPUtils.getInstance().put("GetLocationpvs", locpvs);
-                Log.i("locpvs", "location locpvs"+locpvs);
-                @SuppressLint("SimpleDateFormat")
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                long currentTimeMillis = System.currentTimeMillis();
-                Date date = new Date(currentTimeMillis);
-                String currentTimeDate = df.format(date);
 
+                String name = SPUtils.getInstance().getString(Constants.CAR_NAME);
+                String phone = SPUtils.getInstance().getString(Constants.CAR_PHONE);
+                String carNo = SPUtils.getInstance().getString(Constants.CAR_NO);
+                UploadMapEntity uploadMapEntity = new UploadMapEntity(carNo, Double.toString(latitude),Double.toString(longitude),name,phone);
+                mPresenter.mapUpLoad(uploadMapEntity);
 
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。

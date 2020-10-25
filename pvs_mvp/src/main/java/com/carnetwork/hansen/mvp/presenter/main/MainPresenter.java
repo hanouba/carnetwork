@@ -2,9 +2,11 @@ package com.carnetwork.hansen.mvp.presenter.main;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.google.gson.Gson;
 import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.base.RxPresenter;
@@ -21,6 +23,7 @@ import com.carnetwork.hansen.widget.CommonSubscriber;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -85,7 +88,27 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
     }
 
 
+    @Override
+    public void mapUpLoad(UploadMapEntity uploadMapEntity) {
+        addSubscribe(mDataManager.upLoadMap(uploadMapEntity)
 
+                .compose(RxUtil.<MyHttpResponse>rxSchedulerHelper())
+
+                .subscribeWith(new CommonSubscriber<MyHttpResponse>(mView) {
+                    @Override
+                    public void onNext(MyHttpResponse myHttpResponse) {
+                        Log.i("", "mapUpLoad: 提交经纬度"+myHttpResponse.isSuccess());
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        Log.i("", "onNext: 提交经纬度失败"+e.toString());
+                    }
+                })
+        );
+    }
 
 
 

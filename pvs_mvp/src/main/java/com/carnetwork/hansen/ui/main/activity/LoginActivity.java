@@ -1,6 +1,7 @@
 package com.carnetwork.hansen.ui.main.activity;
 
 import android.content.Intent;
+import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -140,6 +141,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         }
 
         SPUtils.getInstance().put(Constants.CAR_NO, carNo);
+        SPUtils.getInstance().put(Constants.CAR_NAME, name);
+        SPUtils.getInstance().put(Constants.CAR_PHONE, phone);
         showProcessDialog("登录中...");
         LoginEntity postingString = new LoginEntity(carNo,carLicence,phone,name);// json传递
 
