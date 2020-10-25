@@ -33,4 +33,6 @@ public interface MyApis {
 
 
 
+    @POST("map/upload")
+    Flowable<MyHttpResponse> mapUpload(@Body UploadMapEntity uploadMapEntity);
 }
