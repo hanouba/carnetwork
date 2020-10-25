@@ -4,8 +4,14 @@ package com.carnetwork.hansen.mvp.presenter.main;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.carnetwork.hansen.mvp.model.bean.LoginBean;
+import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
+import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
+import com.carnetwork.hansen.util.SystemUtil;
 import com.google.gson.Gson;
 import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.base.RxPresenter;
@@ -47,14 +53,30 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
     }
 
     @Override
-    public void login(String carno, String carLicence, String phone, String name) {
-        Map<String, Object> map = new HashMap();
-        map.put("carLicence", carLicence);
-        map.put("carNo", carno);
-        map.put("name", name);
-        map.put("phone", phone);
+    public void login(LoginEntity loginEntity) {
 
 
+        addSubscribe(mDataManager.getLogin(loginEntity)
+                .compose(RxUtil.<LoginBean>rxSchedulerHelper())
+                .subscribeWith(new CommonSubscriber<LoginBean>(mView) {
+                    @Override
+                    public void onNext(LoginBean loginBean) {
+                        if (loginBean.isSuccess().equals("true")) {
+                            mView.gotoMainActivity();
+                        }else {
+                          mView.loginFail("服务器错误");
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        mView.loginFail("网络错误");
+                    }
+                })
+        );
 
 
     }

@@ -28,4 +28,10 @@ public class Constants {
 
 
 
+//    xinix
+    public static final String CAR_NO ="";
+
+
+
+
 }

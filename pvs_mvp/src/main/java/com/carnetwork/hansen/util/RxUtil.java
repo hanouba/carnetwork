@@ -49,10 +49,10 @@ public class RxUtil {
                     @Override
                     public Flowable<T> apply(MyHttpResponse<T> tMyHttpResponse) {
 
-                        if(tMyHttpResponse.getResult().equals("ok")) {
-                            return createData(tMyHttpResponse.getData());
+                        if(tMyHttpResponse.isSuccess()) {
+                            return createData(tMyHttpResponse.getModel());
                         } else {
-                            return Flowable.error(new ApiException(tMyHttpResponse.getMsg(), Integer.parseInt(tMyHttpResponse.getErrorCode())));
+                            return Flowable.error(new ApiException(tMyHttpResponse.getErrorMessage(), Integer.parseInt(tMyHttpResponse.getErrorCode())));
                         }
                     }
                 });
@@ -98,10 +98,10 @@ public class RxUtil {
                     @Override
                     public Flowable<MyHttpResponse> apply(MyHttpResponse tMyHttpResponse) {
 //                                                LogUtil.e("RxUtil.handleMyResult：：",tMyHttpResponse.toString());
-                        if (tMyHttpResponse.getResult() .equals("ok")) {
+                        if (tMyHttpResponse.isSuccess()) {
                             return createEmptyData(tMyHttpResponse);
                         } else {
-                            return Flowable.error(new ApiException(tMyHttpResponse.getMsg(), Integer.parseInt(tMyHttpResponse.getErrorCode())));
+                            return Flowable.error(new ApiException(tMyHttpResponse.getErrorMessage(), Integer.parseInt(tMyHttpResponse.getErrorCode())));
                         }
                     }
                 });

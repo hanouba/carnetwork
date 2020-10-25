@@ -19,81 +19,85 @@ public class LoginInfo {
     @Unique
     private String username;
     //密码
-    private String password;
+    private String carNo;
 
-    private String serverIp;
-    private String serverPort;
-    private String projectName;
+    private String carLicence;
+    private String phone;
 
-    public LoginInfo(String username, String password ,String serverIp,String serverPort) {
+
+    public LoginInfo(String username, String carNo ,String carLicence,String phone) {
         this.username = username;
-        this.password = password;
-        this.serverIp = serverIp;
-        this.serverPort = serverPort;
+        this.carNo = carNo;
+        this.carLicence = carLicence;
+        this.phone = phone;
     }
 
-    public LoginInfo(String username, String password ,String serverIp,String serverPort, String projectName) {
-        this.username = username;
-        this.password = password;
-        this.serverIp = serverIp;
-        this.serverPort = serverPort;
-        this.projectName = projectName;
-    }
 
-    @Generated(hash = 1298991920)
-    public LoginInfo(Long id, String username, String password, String serverIp, String serverPort,
-            String projectName) {
+    @Generated(hash = 1233857666)
+    public LoginInfo(Long id, String username, String carNo, String carLicence,
+            String phone) {
         this.id = id;
         this.username = username;
-        this.password = password;
-        this.serverIp = serverIp;
-        this.serverPort = serverPort;
-        this.projectName = projectName;
+        this.carNo = carNo;
+        this.carLicence = carLicence;
+        this.phone = phone;
     }
+
 
     @Generated(hash = 1911824992)
     public LoginInfo() {
     }
+
+
     public Long getId() {
         return this.id;
     }
+
+
     public void setId(Long id) {
         this.id = id;
     }
+
+
     public String getUsername() {
         return this.username;
     }
+
+
     public void setUsername(String username) {
         this.username = username;
     }
-    public String getPassword() {
-        return this.password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
+
+
+    public String getCarNo() {
+        return this.carNo;
     }
 
-    public String getServerIp() {
-        return this.serverIp;
+
+    public void setCarNo(String carNo) {
+        this.carNo = carNo;
     }
 
-    public void setServerIp(String serverIp) {
-        this.serverIp = serverIp;
+
+    public String getCarLicence() {
+        return this.carLicence;
     }
 
-    public String getServerPort() {
-        return this.serverPort;
+
+    public void setCarLicence(String carLicence) {
+        this.carLicence = carLicence;
     }
 
-    public void setServerPort(String serverPort) {
-        this.serverPort = serverPort;
+
+    public String getPhone() {
+        return this.phone;
     }
 
-    public String getProjectName() {
-        return projectName;
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
+
+
 }

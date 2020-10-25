@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -306,4 +307,28 @@ public class SystemUtil {
         return m.matches();
     }
 
+    public static String iso2utf(String isoStr){
+        String utfStr = null;
+        try {
+// 入参汉字的转码
+            utfStr = new String(isoStr.getBytes("ISO-8859-1"), "UTF-8");
+
+        } catch (UnsupportedEncodingException e) {
+// TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return utfStr;
+    }
+    public static String iso2gbk(String isoStr){
+        String utfStr = null;
+        try {
+// 入参汉字的转码
+            utfStr = new String(isoStr.getBytes("ISO-8859-1"), "GBK");
+
+        } catch (UnsupportedEncodingException e) {
+// TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return utfStr;
+    }
 }

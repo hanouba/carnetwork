@@ -3,15 +3,21 @@ package com.carnetwork.hansen.ui.main.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.CompoundButton;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.carnetwork.hansen.R;
+import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.app.MyApplication;
 import com.carnetwork.hansen.base.BaseActivity;
 import com.carnetwork.hansen.mvp.contract.main.LoginContract1;
+import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 import com.carnetwork.hansen.mvp.presenter.main.LoginPresenter1;
 import com.carnetwork.hansen.util.SystemUtil;
@@ -74,6 +80,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     @Override
     public void gotoMainActivity() {
 
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void loginFail(String msg) {
+
+        dismissProcessDialog();
+        ToastUtils.showShort(msg);
     }
 
     @Override
@@ -122,10 +139,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
             return;
         }
 
-
+        SPUtils.getInstance().put(Constants.CAR_NO, carNo);
         showProcessDialog("登录中...");
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        LoginEntity postingString = new LoginEntity(carNo,carLicence,phone,name);// json传递
+
+        mPresenter.login(postingString);
+
     }
 }

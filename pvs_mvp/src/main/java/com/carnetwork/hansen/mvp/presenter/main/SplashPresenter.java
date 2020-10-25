@@ -102,17 +102,8 @@ public class SplashPresenter extends RxPresenter<SplashContract.View> implements
     public void getAutoLoginInfo(Activity context) {
         LoginInfo userInfo = mDataManager.getUserInfo();
         if (userInfo != null) {
-            String username = userInfo.getUsername();
-            String password = userInfo.getPassword();
-            String serverIp = userInfo.getServerIp();
-            String serverPort = userInfo.getServerPort();
-            if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password) || TextUtils.isEmpty(serverIp) || TextUtils.isEmpty(serverPort)) {
-                gotoLoginActivity(context);
-            } else {
-                String BASE_URL = new StringBuilder().append("http://").append(serverIp).append(":").append(serverPort).append("/portal/r/").toString();
-                changeBaseUrl(BASE_URL);
-                autoLogin(username, password, context, serverIp, serverPort);
-            }
+
+
         } else {
             gotoLoginActivity(context);
         }

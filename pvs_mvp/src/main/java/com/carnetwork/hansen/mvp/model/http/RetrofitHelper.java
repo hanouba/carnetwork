@@ -1,6 +1,9 @@
 package com.carnetwork.hansen.mvp.model.http;
 
 
+import com.carnetwork.hansen.mvp.model.bean.AllCar;
+import com.carnetwork.hansen.mvp.model.bean.LoginBean;
+import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
 import com.carnetwork.hansen.mvp.model.http.api.MyApis;
 
 import java.util.Map;
@@ -25,7 +28,12 @@ public class RetrofitHelper implements HttpHelper {
 
 
     @Override
-    public Flowable<String> getLogin( Map res) {
-        return mMyApiService.login(res);
+    public Flowable<LoginBean> getLogin(LoginEntity map) {
+        return mMyApiService.login(map);
+    }
+
+    @Override
+    public Flowable<AllCar> getAllCar(String carNo) {
+        return mMyApiService.getAllCar(carNo);
     }
 }

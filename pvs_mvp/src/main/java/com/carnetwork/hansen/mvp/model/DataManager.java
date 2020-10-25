@@ -3,6 +3,9 @@ package com.carnetwork.hansen.mvp.model;
 
 
 
+import com.carnetwork.hansen.mvp.model.bean.AllCar;
+import com.carnetwork.hansen.mvp.model.bean.LoginBean;
+import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
 import com.carnetwork.hansen.mvp.model.db.DBHelper;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 import com.carnetwork.hansen.mvp.model.http.HttpHelper;
@@ -53,7 +56,12 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
     }
 
     @Override
-    public Flowable<String> getLogin( Map res) {
-        return mHttpHelper.getLogin(res);
+    public Flowable<LoginBean> getLogin(LoginEntity loginEntity) {
+        return mHttpHelper.getLogin(loginEntity);
+    }
+
+    @Override
+    public Flowable<AllCar> getAllCar(String carNo) {
+        return mHttpHelper.getAllCar(carNo);
     }
 }

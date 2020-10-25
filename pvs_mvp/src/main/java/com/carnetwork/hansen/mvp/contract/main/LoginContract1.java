@@ -2,6 +2,7 @@ package com.carnetwork.hansen.mvp.contract.main;
 
 import com.carnetwork.hansen.base.BasePresenter;
 import com.carnetwork.hansen.base.BaseView;
+import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 
 /**
@@ -15,6 +16,7 @@ public interface LoginContract1 {
 
 //
         void gotoMainActivity();
+        void loginFail(String msg);
 
 
     }
@@ -26,7 +28,7 @@ public interface LoginContract1 {
 
         boolean getRemberPsdState();
 
-        void login(String carno,String carLicence,String phone,String name);
+        void login(LoginEntity loginEntity);
 
 
     }

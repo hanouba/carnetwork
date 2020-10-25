@@ -1,6 +1,8 @@
 package com.carnetwork.hansen.ui.main.fragment;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -24,10 +26,13 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.Text;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.carnetwork.hansen.R;
+import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.base.BaseFragment;
 import com.carnetwork.hansen.mvp.contract.main.MapContract;
+import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.presenter.main.MapPresenter;
 
 import java.util.ArrayList;
@@ -57,6 +62,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     @BindView(R.id.bt_reset)
     ImageButton mBtReset;
     AMap aMap;
+    private List<AllCar.ModelBean> carLists;
 
     @Nullable
     @Override
@@ -94,8 +100,8 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     protected void initEventAndData() {
 
         showCurrentLocation();
-
-        getData();
+        String carNo = SPUtils.getInstance().getString(Constants.CAR_NO);
+        mPresenter.getAllCar("",carNo);
 
         aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
             @Override
@@ -123,15 +129,11 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         ImageView ivCarPhone = view.findViewById(R.id.iv_car_phone);
         tvCarNo.setText(marker.getTitle());
         String snippet = marker.getSnippet();
-        String[] substring = snippet.split(",");
-        tvCarL.setText(substring[0]);
-
-
-
         ivCarPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showLong("打电话"+substring[1]);
+                ToastUtils.showLong("打电话"+snippet);
+                callPhone(snippet);
             }
         });
 
@@ -140,7 +142,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     private List<Map<String, String>> list;
     private void getData() {
         //模拟数据源
-         list = getLatData();
+         list = getLatData(carLists);
 
         //循坏在地图上添加自定义marker
         for (int i = 0; i < list.size(); i++) {
@@ -184,16 +186,44 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     /**
      * 模拟数据源
      */
-    private List<Map<String, String>> getLatData() {
+    private List<Map<String, String>> getLatData(List<AllCar.ModelBean>  carLists) {
         List<Map<String, String>> list = new ArrayList<>();
-        for (int i = 1; i < 11; i++) {
+        for (int i = 0; i < carLists.size(); i++) {
             Map<String, String> map = new HashMap<>();
-            map.put("title", "车辆编号" + i);
-            map.put("carLince", "车牌15848766" + (i-1)+","+"1379578546"+i);
-            map.put("latitude", 30 + Math.random() + "");
-            map.put("longitude", 114 + Math.random() + "");
+            map.put("title", "车辆编号" + carLists.get(i).getCarNum());
+            map.put("carLince", "手机号码" + carLists.get(i).getPhone());
+            map.put("latitude", carLists.get(i).getLat());
+            map.put("longitude",carLists.get(i).getLon());
             list.add(map);
         }
         return list;
     }
+
+    @Override
+    public void showAllCar(AllCar allCar) {
+        if (allCar.isSuccess()) {
+            if (carLists == null) {
+                carLists = new ArrayList<>();
+
+            }
+            carLists.clear();
+            carLists = allCar.getModel();
+
+
+            getData();
+        }
+    }
+
+    /**
+     * 拨打电话（跳转到拨号界面，用户手动点击拨打）
+     *
+     * @param phoneNum 电话号码
+     */
+    public void callPhone(String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        startActivity(intent);
+    }
+
 }

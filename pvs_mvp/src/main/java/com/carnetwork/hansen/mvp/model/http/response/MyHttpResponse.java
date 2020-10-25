@@ -1,49 +1,17 @@
 package com.carnetwork.hansen.mvp.model.http.response;
 
 /**
- * author：Sun on 2017/8/25/0025.
- * email：1564063766@qq.com
- * remark:
+
  */
 public class MyHttpResponse<T> {
 
-    private T data;
-    private String msg;
-    private String id;
-    private String result;
+    private T model;
+    private boolean success;
+    private String errorMessage;
     private String errorCode;
+    private String errorTips;
 
-    public T getData() {
-        return data;
-    }
 
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
 
     public String getErrorCode() {
         return errorCode;
@@ -53,14 +21,35 @@ public class MyHttpResponse<T> {
         this.errorCode = errorCode;
     }
 
-    @Override
-    public String toString() {
-        return "MyHttpResponse{" +
-                "data=" + data +
-                ", msg='" + msg + '\'' +
-                ", id='" + id + '\'' +
-                ", result='" + result + '\'' +
-                ", errorCode='" + errorCode + '\'' +
-                '}';
+    public T getModel() {
+        return model;
+    }
+
+    public void setModel(T model) {
+        this.model = model;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getErrorTips() {
+        return errorTips;
+    }
+
+    public void setErrorTips(String errorTips) {
+        this.errorTips = errorTips;
     }
 }
