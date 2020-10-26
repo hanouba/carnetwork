@@ -11,6 +11,7 @@ public interface DBHelper {
     void insertLoginUserInfo(LoginInfo mLoginUserInfo);
 
     List<LoginInfo> loadLoginUserInfo();
+    LoginInfo loadByCarNo(String carNo);
 
 
 

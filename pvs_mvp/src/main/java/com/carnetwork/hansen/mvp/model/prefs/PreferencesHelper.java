@@ -10,9 +10,8 @@ import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 
 public interface PreferencesHelper {
 
-    void setLoginUerInfo(String name,String psd,String ip,String port);
-
-    LoginInfo getUserInfo();
+    String getToken();
+    void setToken(String token);
 
 
 }

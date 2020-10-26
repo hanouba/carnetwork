@@ -58,10 +58,10 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 //            mPresenter.checkPermissions(new RxPermissions(this),this , false);
 //        }
 
-        String token = SPUtils.getInstance().getString(Constants.TOKEN);
+        String token = mPresenter.getToken();
 
-        LogUtils.d("tokentokentoken"+Constants.MYTOKEN);
-        if (!"".equals(Constants.MYTOKEN)) {
+        LogUtils.d("tokentokentoken"+token);
+        if (!"".equals(token)) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

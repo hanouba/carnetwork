@@ -119,7 +119,8 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
                 .subscribeWith(new CommonSubscriber<MyHttpResponse>(mView) {
                     @Override
                     public void onNext(MyHttpResponse httpResponse) {
-                        SPUtils.getInstance().put(Constants.TOKEN,"");
+                        mDataManager.setToken("");
+
                         mView.logOutSuccess();
                     }
 

@@ -111,15 +111,7 @@
         <meta-data
             android:name="com.taobao.android.hotfix.RSASECRET"
             android:value="MIIEwAIBADANBgkqhkiG9w0BAQEFAASCBKowggSmAgEAAoIBAQCabqKIPf/qfo+/Dk7U6OOss+OB5Woeercr5aIltmM99ZW1mdkcS7/n8XLYuN6heK5MQCO4PZhOOyxTFo5PnWF9iRzCtMunLVAYjCZrOZDovS+CLF2RUjGGmkMETkRyoY3DkNfjJORaizUi3eqTfMi16da+vEvLCOcudkqmXGsHskzPHjWDSRImShxLT6yqrc4S+UpbAqvozfU8CbOWSELQ9KBGCzWa288uI/5A9p1oxxG1DHV8sgyf2PbsRsy3UFgZeAR/zVx2QzLbQuAwpwDUxaXC6IYi0FQLZ/XLb4cEPyQhBJdKIXrcX7Ff2WdD0ooEyvmn1O+jELTApfXYFudBAgMBAAECggEBAJMzSXEbx8e4g0PVW4bNxdZkUUMLba9HwTjyVTAlPUtdvymuT6gM/AsVtialcG/xHBJKQMHo1DgdZw57vYJdvQNvoh5lPolHQ8ViMWybHmj5i0NFDprqAZMPjzmXcN7i5sG2WlGEZLV5Y1istl+G3bmn/q0nxgbtoY5D6rvP86UM7RcVwBS2OIsXEDLADP786V0XUf9yvcAs6nss/w9ZwqHXGXF8ERkBKEwA8RBS2MCDbXvDbrVoQG+slWHvr2bS+g28pXc8NfBQgK1PBOyt9ZSu3PGh5ohw816DurSpp0/U33cqsd+RYowGdv6uj+HsQDViggI2R5sQDLTi/UbPQxECgYEA4Ih0EnnXbEqrbzOr6Jt1BxNnafu4uj5Qt/uMtEvUGLp0zpkzAQrh239bL55MbRK65h7Jck0bzhscnFFmIfYz/+0qCUyY2E47sy9zFctuBuxyulPTOtA5fV7HrP8CqORwfT5PLJxUua/Sf3qFscFDSz00nTpOFVDagA8/apii1ZcCgYEAsBMuS7Z0ykKQz6Pb9cPf4URh3esc6MDBa7UjgIK5ucCg+9m0T9GNl8QOgNT5Mhvvjq6qkceloQ2wpTquw1lagDNLCKzQPTltkfD0vw2X6WO5WVv5cWBLnVoxRSQ0fozuPi/so2+9w2XKJVWkKzSUlJZM+YvFAVzA4uyDRVwWtOcCgYEAntJGcE84/wOuUgFVxzo3RGMIUmJY33x2sj0/4MSGaVtyhjS9bC5bZlymjn9Fhh2qkF4UlkJOubJZwYSeXsV9MLl8c4l30AE+n1ef6zmzQTh9SqlCj6Z8E984FHlpUzgLDbxGWsLV92aT2dI7wWl4BT9s+Q4l71P6ynx+mhMPk08CgYEAp5nqdJl9/FV2oJ/aLcvAnR5JhkNZ5lgtBUiMPbSx85Xf5zvovh27iR5Pq+SOPFuJIakzpcaD65Urc2wzlLHGSsgIgX52TgEPQl85qW7YDoolkWDSRVCjSWnkAmufKGMgGMPnnf8shAWtcPJfbd0EHZggN14LLevLk3YM0oYA+zsCgYEAzq1QtS1VYAP2TbmENDIUPnPbDtatbh/rh0C5e+2b0gXHkBro7KeqpH7UNak3ikYBBHVOgQG6gSWmhrBVmHTWFqhPeLIKmOgjp43fSEkfGrd0f3wDgizY3j/sjVcRl8OA8SQkjMCyHY4Byynsc3VbixpQpd2nI6thuO5zySWA6mc=" /> <!-- cordova -->
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.carnetwork.hansen.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
+
 
 
         <meta-data

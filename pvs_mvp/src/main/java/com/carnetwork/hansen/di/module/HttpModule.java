@@ -133,7 +133,7 @@ public class HttpModule {
                     // 有网络时, 不缓存, 最大保存时长为0
                     response.newBuilder()
                             .header("Cache-Control", "public, max-age=" + maxAge)
-                            .addHeader("X-APP-TOKEN",Constants.MYTOKEN)
+                            .addHeader("X-APP-TOKEN",token)
                             .removeHeader("Pragma")
                             .build();
                 } else {

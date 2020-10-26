@@ -9,7 +9,7 @@ import java.io.File;
  * remark:  常量池
  */
 public class Constants {
-
+    public static final String GREEN_DB ="car_net.db";
     //================= PATH ====================
 
     public static final String PATH_DATA = MyApplication.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
@@ -29,13 +29,13 @@ public class Constants {
 
 
 //    xinix
+
     public static final String CAR_NO ="carno";
     public static final String CAR_NAME ="carname";
     public static final String CAR_PHONE ="carphone";
     public static final String CAR_LICENCE ="carlicence";
     public static final String IS_ON_WORK ="isonwork";
     public static  final String  TOKEN ="token";
-    public static   String  MYTOKEN ="";
 
 
 

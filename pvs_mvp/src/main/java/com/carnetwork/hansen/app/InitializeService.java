@@ -116,7 +116,7 @@ public class InitializeService extends IntentService {
      * 更新GreenDao数据库
      */
     private void upGreenDao() {
-        MySQLiteOpenHelper o = new MySQLiteOpenHelper(this, "jxjl.db", null);
+        MySQLiteOpenHelper o = new MySQLiteOpenHelper(this, Constants.GREEN_DB, null);
         DaoMaster daoMaster = new DaoMaster(o.getWritableDatabase());
     }
 

@@ -100,27 +100,17 @@ public class SplashPresenter extends RxPresenter<SplashContract.View> implements
      */
     @Override
     public void getAutoLoginInfo(Activity context) {
-        LoginInfo userInfo = mDataManager.getUserInfo();
-        if (userInfo != null) {
 
-
-        } else {
             gotoLoginActivity(context);
-        }
 
     }
 
-
-    /**
-     * 获取自动登录的状态
-     *
-     * @return 是否需要自动登录
-     */
     @Override
-    public boolean getAgetAutoLoginState() {
-//        return mDataManager.getAutoLoginState();
-        return false;
+    public String getToken() {
+        return mDataManager.getToken();
     }
+
+
 
     /**
      * 自动登录（后台登录）

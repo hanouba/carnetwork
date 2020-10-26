@@ -204,8 +204,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void logOutSuccess() {
+        try {
+            Thread.sleep(500);
+            MyApplication.getInstance().exitApp();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        MyApplication.getInstance().exitApp();
     }
 
 
@@ -301,10 +306,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_logout:
-//                SPUtils.getInstance().put(Constants.TOKEN,"");
-//                String token = SPUtils.getInstance().getString(Constants.TOKEN);
-                Constants.MYTOKEN ="";
-                LogUtils.d("tokentokentoken22222--"+  Constants.MYTOKEN);
                 mPresenter.logout(carNo);
                 break;
             default:

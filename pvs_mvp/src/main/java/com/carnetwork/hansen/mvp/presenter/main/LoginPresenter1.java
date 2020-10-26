@@ -40,11 +40,10 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
     }
 
 
-
     @Override
     public LoginInfo getLoginInfo() {
-        LoginInfo userInfo = mDataManager.getUserInfo();
-        return userInfo;
+
+        return null;
     }
 
     @Override
@@ -62,12 +61,12 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                     @Override
                     public void onNext(LoginBean loginBean) {
                         if (loginBean.isSuccess().equals("true")) {
-                            Constants.MYTOKEN = loginBean.getModel();
-//                            SPUtils.getInstance().put(Constants.TOKEN,loginBean.getModel());
+
+                            mDataManager.setToken(loginBean.getModel());
 
                             mView.gotoMainActivity();
-                        }else {
-                          mView.loginFail("服务器错误");
+                        } else {
+                            mView.loginFail("服务器错误");
                         }
 
 

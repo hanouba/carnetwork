@@ -12,4 +12,20 @@ public class LoginEntity {
         this.phone = phone;
         this.name = name;
     }
+
+    public String getCarNo() {
+        return carNo;
+    }
+
+    public String getCarLicence() {
+        return carLicence;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

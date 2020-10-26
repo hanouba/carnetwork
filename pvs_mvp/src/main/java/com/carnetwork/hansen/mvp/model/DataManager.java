@@ -48,14 +48,11 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
     }
 
     @Override
-    public void setLoginUerInfo(String name, String psd, String ip, String port) {
-
+    public LoginInfo loadByCarNo(String carNo) {
+        return mDBHelper.loadByCarNo(carNo);
     }
 
-    @Override
-    public LoginInfo getUserInfo() {
-        return null;
-    }
+
 
     @Override
     public Flowable<LoginBean> getLogin(LoginEntity loginEntity) {
@@ -75,5 +72,15 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
     @Override
     public Flowable<MyHttpResponse> logout(String carNo) {
         return mHttpHelper.logout(carNo);
+    }
+
+    @Override
+    public String getToken() {
+        return mPreferencesHelper.getToken();
+    }
+
+    @Override
+    public void setToken(String token) {
+        mPreferencesHelper.setToken(token);
     }
 }

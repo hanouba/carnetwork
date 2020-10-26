@@ -17,12 +17,11 @@ import javax.inject.Inject;
 
 public class ImplPreferencesHelper implements PreferencesHelper {
 
-    private static final boolean DEFAULT_LOGOUT = false;
-    private static final boolean DEFAULT_ONLINE = false;
+    private static final String DEFAULT_TOKEN = "token";
+
 
     private static final String SHAREDPREFERENCES_NAME = "my_sp";
-    private static final boolean DEFAULT_AUTOLOGIN_MODE = false;
-    private static final boolean DEFAULT_REMPSD_MODE = false;
+
     private final SharedPreferences mSPrefs;
 
     @Inject
@@ -32,13 +31,13 @@ public class ImplPreferencesHelper implements PreferencesHelper {
 
 
     @Override
-    public void setLoginUerInfo(String name, String psd, String serverip, String serverport) {
-
+    public String getToken() {
+        return mSPrefs.getString(DEFAULT_TOKEN,"");
     }
 
     @Override
-    public LoginInfo getUserInfo() {
-        return null;
+    public void setToken(String token) {
+        mSPrefs.edit().putString(DEFAULT_TOKEN, token).apply();
     }
 }
 

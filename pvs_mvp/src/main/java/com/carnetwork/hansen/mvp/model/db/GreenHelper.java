@@ -19,7 +19,7 @@ import javax.inject.Inject;
 public class GreenHelper implements DBHelper {
     private LoginInfoDao loginInfoDao;
 
-    private UserLocationInfoDao userLocationInfoDao;
+
 
 
     private static DaoSession mDaoSession;
@@ -39,7 +39,6 @@ public class GreenHelper implements DBHelper {
         setupDatabase();
         loginInfoDao = mDaoSession.getLoginInfoDao();
 
-        userLocationInfoDao = mDaoSession.getUserLocationInfoDao();
 
     }
 
@@ -57,6 +56,7 @@ public class GreenHelper implements DBHelper {
     @Override
     public void insertLoginUserInfo(LoginInfo mLoginUserInfo) {
         loginInfoDao.insertOrReplace(mLoginUserInfo);
+
     }
 
     @Override
@@ -64,7 +64,13 @@ public class GreenHelper implements DBHelper {
         return loginInfoDao.loadAll();
     }
 
+    @Override
+    public LoginInfo loadByCarNo(String carNo) {
 
+        LoginInfo unique = loginInfoDao.queryBuilder().where(LoginInfoDao.Properties.CarNo.eq(carNo)).build().unique();
+
+        return unique;
+    }
 
 
 }
