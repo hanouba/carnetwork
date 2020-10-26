@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.widget.ImageView;
 
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.carnetwork.hansen.R;
+import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.base.BaseActivity;
 import com.carnetwork.hansen.mvp.contract.main.SplashContract;
 import com.carnetwork.hansen.mvp.presenter.main.SplashPresenter;
@@ -54,7 +57,18 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 //        }else {
 //            mPresenter.checkPermissions(new RxPermissions(this),this , false);
 //        }
-        mPresenter.checkPermissions(new RxPermissions(this),this , false);
+
+        String token = SPUtils.getInstance().getString(Constants.TOKEN);
+
+        LogUtils.d("tokentokentoken"+Constants.MYTOKEN);
+        if (!"".equals(Constants.MYTOKEN)) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }else {
+            mPresenter.checkPermissions(new RxPermissions(this),this , false);
+        }
+
     }
 
 

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.google.gson.Gson;
 import com.carnetwork.hansen.app.Constants;
@@ -110,6 +111,25 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
         );
     }
 
+    @Override
+    public void logout(String carNo) {
+        addSubscribe(mDataManager.logout(carNo)
+                .compose(RxUtil.<MyHttpResponse>rxSchedulerHelper())
+
+                .subscribeWith(new CommonSubscriber<MyHttpResponse>(mView) {
+                    @Override
+                    public void onNext(MyHttpResponse httpResponse) {
+                        SPUtils.getInstance().put(Constants.TOKEN,"");
+                        mView.logOutSuccess();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
+                })
+        );
+    }
 
 
 }

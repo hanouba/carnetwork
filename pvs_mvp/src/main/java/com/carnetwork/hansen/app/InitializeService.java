@@ -9,6 +9,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.carnetwork.hansen.mvp.model.db.DaoMaster;
 import com.carnetwork.hansen.util.MySQLiteOpenHelper;
 import com.carnetwork.hansen.util.SystemUtil;
+import com.tencent.bugly.Bugly;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.smtt.sdk.QbSdk;
 
@@ -106,7 +107,9 @@ public class InitializeService extends IntentService {
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
         strategy.setUploadProcess(processName == null || processName.equals(packageName));
 //        初始化
-        CrashReport.initCrashReport(context, Constants.BUGLY_ID, false, strategy);
+//        CrashReport.initCrashReport(context, Constants.BUGLY_ID, false, strategy);
+
+        Bugly.init(getApplicationContext(), Constants.BUGLY_ID, false);
     }
 
     /**

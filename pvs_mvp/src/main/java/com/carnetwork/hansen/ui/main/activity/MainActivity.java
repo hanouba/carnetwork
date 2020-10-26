@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.carnetwork.hansen.R;
 import com.carnetwork.hansen.app.Constants;
@@ -80,14 +82,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     protected void initEventAndData() {
         replaceFragment(new MapFragment(), R.id.fl_main_content);
 
-
-        NavigationView navigationView = findViewById(R.id.nv_menu_left);
-        View headerView = navigationView.getHeaderView(0);
-        tvCarNo = headerView.findViewById(R.id.tv_car_no);
-        tvCarLicence = headerView.findViewById(R.id.tv_car_licence);
-        tvUserName = headerView.findViewById(R.id.tv_user_name);
-        tvUserPhone = headerView.findViewById(R.id.tv_user_phone);
-        SwitchButton switchButton = headerView.findViewById(R.id.switch_button);
+        tvCarNo = findViewById(R.id.tv_car_no);
+        tvCarLicence = findViewById(R.id.tv_car_licence);
+        tvUserName = findViewById(R.id.tv_user_name);
+        tvUserPhone =findViewById(R.id.tv_user_phone);
+        Button logOut =findViewById(R.id.bt_logout);
+        SwitchButton switchButton =findViewById(R.id.switch_button);
         location();
 
          userName = SPUtils.getInstance().getString(Constants.CAR_NAME);
@@ -100,6 +100,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         tvUserName.setText(userName);
         tvUserPhone.setText(userPhone);
 
+
+        logOut.setOnClickListener(this::onClick);
 
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -176,7 +178,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式  不使用GPS
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         //设置定位间隔,单位毫秒,默认为100000ms
-        mLocationOption.setInterval(10000);
+        mLocationOption.setInterval(30000);
 
         if (mLocationClient != null && mLocationOption != null) {
             mLocationClient.setLocationOption(mLocationOption);
@@ -200,6 +202,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         builder.show();
     }
 
+    @Override
+    public void logOutSuccess() {
+
+        MyApplication.getInstance().exitApp();
+    }
 
 
     @Override
@@ -215,9 +222,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
                 //                转换地位为百度定位
                 double[] doubles = PccGo2MapUtil.gaoDeToBaidu(longitude, latitude);
-
+                boolean isWork = SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
                 UploadMapEntity uploadMapEntity = new UploadMapEntity(carNo, Double.toString(latitude),Double.toString(longitude),userName,userPhone);
+                if (isWork) {
                 mPresenter.mapUpLoad(uploadMapEntity);
+                }
 
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
@@ -291,7 +300,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
+            case R.id.bt_logout:
+//                SPUtils.getInstance().put(Constants.TOKEN,"");
+//                String token = SPUtils.getInstance().getString(Constants.TOKEN);
+                Constants.MYTOKEN ="";
+                LogUtils.d("tokentokentoken22222--"+  Constants.MYTOKEN);
+                mPresenter.logout(carNo);
+                break;
+            default:
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.carnetwork.hansen.di.module;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
@@ -126,10 +127,13 @@ public class HttpModule {
                 }
 
                 if (SystemUtil.isNetworkConnected()) {
+                    String token = SPUtils.getInstance().getString(Constants.TOKEN);
+                    LogUtils.d("token值"+token);
                     int maxAge = 0;
                     // 有网络时, 不缓存, 最大保存时长为0
                     response.newBuilder()
                             .header("Cache-Control", "public, max-age=" + maxAge)
+                            .addHeader("X-APP-TOKEN",Constants.MYTOKEN)
                             .removeHeader("Pragma")
                             .build();
                 } else {

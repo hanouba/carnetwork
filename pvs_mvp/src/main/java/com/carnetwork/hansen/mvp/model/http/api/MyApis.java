@@ -28,6 +28,9 @@ public interface MyApis {
 
     Flowable<LoginBean> login(@Body LoginEntity loginEntity);
 
+    @POST("sys/logout")
+    Flowable<MyHttpResponse> logout(@Query("carNo") String carNo);
+
     //    回去车辆
     @POST("map/allCar")
     Flowable<AllCar> getAllCar(@Query("carNo") String carNo);

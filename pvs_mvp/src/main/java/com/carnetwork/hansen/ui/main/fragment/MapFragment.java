@@ -6,8 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -61,9 +63,12 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     MapView mMapView;
     @BindView(R.id.bt_reset)
     ImageButton mBtReset;
+    @BindView(R.id.tv_work_state)
+    TextView tvWorkState;
     AMap aMap;
     private List<AllCar.ModelBean> carLists;
 
+    private Marker curShowWindowMarker;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -85,7 +90,6 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     }
 
 
-
     @Override
     protected void initInject() {
         getFragmentComponent().inject(this);
@@ -95,13 +99,15 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     protected int getLayoutId() {
         return R.layout.fragment_map;
     }
+
     View infoWindow = null;
+
     @Override
     protected void initEventAndData() {
 
         showCurrentLocation();
         String carNo = SPUtils.getInstance().getString(Constants.CAR_NO);
-        mPresenter.getAllCar("",carNo);
+        mPresenter.getAllCar("", carNo);
 
         aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
             @Override
@@ -111,7 +117,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
             @Override
             public View getInfoContents(Marker marker) {
-                if(infoWindow == null) {
+                if (infoWindow == null) {
                     infoWindow = LayoutInflater.from(getContext()).inflate(
                             R.layout.custom_info_window, null);
                 }
@@ -119,7 +125,35 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
                 return infoWindow;
             }
         });
+
+        aMap.setOnMapTouchListener(new AMap.OnMapTouchListener() {
+            @Override
+            public void onTouch(MotionEvent motionEvent) {
+                if (aMap != null && curShowWindowMarker != null) {
+                    if (curShowWindowMarker.isInfoWindowShown()){
+                        curShowWindowMarker.hideInfoWindow();
+                    }
+                }
+
+            }
+        });
+
+        aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                curShowWindowMarker = marker;
+                return false;
+            }
+        });
+
+        aMap.setOnInfoWindowClickListener(new AMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+
+            }
+        });
     }
+
     /**
      * 自定义infowinfow窗口
      */
@@ -132,17 +166,19 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         ivCarPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showLong("打电话"+snippet);
+                ToastUtils.showLong("打电话" + snippet);
                 callPhone(snippet);
             }
         });
 
 
     }
+
     private List<Map<String, String>> list;
+
     private void getData() {
         //模拟数据源
-         list = getLatData(carLists);
+        list = getLatData(carLists);
 
         //循坏在地图上添加自定义marker
         for (int i = 0; i < list.size(); i++) {
@@ -186,14 +222,14 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     /**
      * 模拟数据源
      */
-    private List<Map<String, String>> getLatData(List<AllCar.ModelBean>  carLists) {
+    private List<Map<String, String>> getLatData(List<AllCar.ModelBean> carLists) {
         List<Map<String, String>> list = new ArrayList<>();
         for (int i = 0; i < carLists.size(); i++) {
             Map<String, String> map = new HashMap<>();
             map.put("title", "车辆编号" + carLists.get(i).getCarNum());
             map.put("carLince", "手机号码" + carLists.get(i).getPhone());
             map.put("latitude", carLists.get(i).getLat());
-            map.put("longitude",carLists.get(i).getLon());
+            map.put("longitude", carLists.get(i).getLon());
             list.add(map);
         }
         return list;
@@ -214,6 +250,19 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         }
     }
 
+    @Override
+    public void changeWorkState() {
+        boolean work = SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
+        if (work) {
+
+            tvWorkState.setText("工作中...");
+            tvWorkState.setBackground(ContextCompat.getDrawable(getActivity(),R.color.color_3BD134));
+        } else {
+            tvWorkState.setText("休息中...");
+            tvWorkState.setBackground(ContextCompat.getDrawable(getActivity(),R.color.grey8));
+        }
+    }
+
     /**
      * 拨打电话（跳转到拨号界面，用户手动点击拨打）
      *
@@ -225,5 +274,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         intent.setData(data);
         startActivity(intent);
     }
+
+
 
 }

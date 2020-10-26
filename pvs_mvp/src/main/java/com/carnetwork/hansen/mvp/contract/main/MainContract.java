@@ -19,11 +19,13 @@ public interface MainContract {
 
         void resetLocation();
         void relogin();
+        void logOutSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
 
         void mapUpLoad(UploadMapEntity uploadMapEntity);
+        void logout(String carNo);
 
     }
 }

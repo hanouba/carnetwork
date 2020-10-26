@@ -43,4 +43,9 @@ public class RetrofitHelper implements HttpHelper {
     public Flowable<AllCar> getAllCar(String carNo) {
         return mMyApiService.getAllCar(carNo);
     }
+
+    @Override
+    public Flowable<MyHttpResponse> logout(String carNo) {
+        return mMyApiService.logout(carNo);
+    }
 }

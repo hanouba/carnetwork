@@ -39,7 +39,7 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
 
     @Override
     public void insertLoginUserInfo(LoginInfo mLoginUserInfo) {
-
+        mDBHelper.insertLoginUserInfo(mLoginUserInfo);
     }
 
     @Override
@@ -70,5 +70,10 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
     @Override
     public Flowable<AllCar> getAllCar(String carNo) {
         return mHttpHelper.getAllCar(carNo);
+    }
+
+    @Override
+    public Flowable<MyHttpResponse> logout(String carNo) {
+        return mHttpHelper.logout(carNo);
     }
 }

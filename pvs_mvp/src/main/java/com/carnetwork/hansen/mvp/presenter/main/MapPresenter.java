@@ -3,12 +3,15 @@ package com.carnetwork.hansen.mvp.presenter.main;
 import android.util.Log;
 
 import com.carnetwork.hansen.base.RxPresenter;
+import com.carnetwork.hansen.component.RxBus;
 import com.carnetwork.hansen.mvp.contract.main.MainContract;
 import com.carnetwork.hansen.mvp.contract.main.MapContract;
 import com.carnetwork.hansen.mvp.model.DataManager;
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.LoginBean;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
+import com.carnetwork.hansen.mvp.model.event.CommonEvent;
+import com.carnetwork.hansen.mvp.model.event.EventCode;
 import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
 import com.carnetwork.hansen.util.RxUtil;
 import com.carnetwork.hansen.widget.CommonSubscriber;
@@ -35,6 +38,38 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
     @Inject
     public MapPresenter(DataManager mDataManager) {
         this.mDataManager = mDataManager;
+    }
+    @Override
+    public void attachView(MapContract.View view) {
+        super.attachView(view);
+        registerEvent();
+    }
+
+
+    private void registerEvent() {
+        addSubscribe(RxBus.getDefault().toFlowable(CommonEvent.class)
+                .compose(RxUtil.<CommonEvent>rxSchedulerHelper())
+                .subscribeWith(new CommonSubscriber<CommonEvent>(mView, null) {
+
+                    @Override
+                    public void onNext(CommonEvent commonevent) {
+                        switch (commonevent.getCode()) {
+                            case EventCode.WORK_STATE:
+                            mView.changeWorkState();
+                                break;
+
+                            default:
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        registerEvent();
+                    }
+                })
+        );
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 public interface MapContract {
     interface View extends BaseView {
         void showAllCar(AllCar allCar);
+        void changeWorkState();
     }
 
     interface Presenter extends BasePresenter<MapContract.View> {

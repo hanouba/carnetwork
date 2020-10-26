@@ -14,6 +14,5 @@ public class EventCode {
     //401 重新登录
     public static final int ERROR_RELOGIN = 3001;
 
-
     public static final int WORK_STATE = 4001;
 }

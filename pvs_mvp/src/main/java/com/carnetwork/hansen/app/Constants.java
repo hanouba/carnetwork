@@ -22,7 +22,7 @@ public class Constants {
     public static final String TAKE_PHOTO_PATH = PATH_SDCARD + File.separator + "takePhoto";
     public static final String PATH_DOWNLOAD_VIDEO = PATH_SDCARD + File.separator + "download" + File.separator + "video";
 
-    public static final String BUGLY_ID = "";
+    public static final String BUGLY_ID = "db2fd2e040";
     public static final String DATABASE_USER_NAME = "car_net_hansen";
 
 
@@ -34,6 +34,8 @@ public class Constants {
     public static final String CAR_PHONE ="carphone";
     public static final String CAR_LICENCE ="carlicence";
     public static final String IS_ON_WORK ="isonwork";
+    public static  final String  TOKEN ="token";
+    public static   String  MYTOKEN ="";
 
 
 

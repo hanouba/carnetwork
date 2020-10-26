@@ -20,5 +20,6 @@ public interface HttpHelper {
     Flowable<LoginBean> getLogin(LoginEntity loginEntity);
     Flowable<MyHttpResponse> upLoadMap(UploadMapEntity uploadMapEntity);
     Flowable<AllCar> getAllCar(String carNo);
+    Flowable<MyHttpResponse> logout(String carNo);
 
 }

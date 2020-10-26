@@ -23,24 +23,27 @@ public class LoginInfo {
 
     private String carLicence;
     private String phone;
+    private String token;
 
 
-    public LoginInfo(String username, String carNo ,String carLicence,String phone) {
+    public LoginInfo(String username, String carNo ,String carLicence,String phone,String token) {
         this.username = username;
         this.carNo = carNo;
         this.carLicence = carLicence;
         this.phone = phone;
+        this.token = token;
     }
 
 
-    @Generated(hash = 1233857666)
-    public LoginInfo(Long id, String username, String carNo, String carLicence,
-            String phone) {
+    @Generated(hash = 712700232)
+    public LoginInfo(Long id, String username, String carNo, String carLicence, String phone,
+            String token) {
         this.id = id;
         this.username = username;
         this.carNo = carNo;
         this.carLicence = carLicence;
         this.phone = phone;
+        this.token = token;
     }
 
 
@@ -96,6 +99,16 @@ public class LoginInfo {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+
+    public String getToken() {
+        return this.token;
+    }
+
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 

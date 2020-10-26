@@ -2,35 +2,37 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_root"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-   android:paddingTop="@dimen/dimen_dp_10"
-    android:id="@+id/cl_root"
-    android:paddingBottom="@dimen/dimen_dp_10"
-    android:layout_centerVertical="true">
+    android:layout_centerVertical="true"
+    android:paddingTop="@dimen/dimen_dp_10"
+    android:paddingBottom="@dimen/dimen_dp_10">
+
 
     <TextView
         android:id="@+id/tv_map_car_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="车辆编号: 001"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.179"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.225" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_car_map_licence"
         android:layout_width="@dimen/dimen_dp_100"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:textSize="@dimen/dimen_sp_12"
+        android:layout_marginTop="8dp"
         android:text="车牌号 鄂A574586"
+        android:textSize="@dimen/dimen_sp_12"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.159"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_map_car_no"
         app:layout_constraintVertical_bias="0.0" />
@@ -42,8 +44,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.195"
-        app:layout_constraintStart_toEndOf="@+id/tv_car_map_licence"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.515"
         app:srcCompat="@drawable/icon_phone" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="35dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="120dp" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="left" />
 </android.support.constraint.ConstraintLayout>
