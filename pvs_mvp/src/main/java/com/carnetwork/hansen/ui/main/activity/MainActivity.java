@@ -9,9 +9,13 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -22,13 +26,18 @@ import com.carnetwork.hansen.R;
 import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.app.MyApplication;
 import com.carnetwork.hansen.base.BaseActivity;
+import com.carnetwork.hansen.component.RxBus;
 import com.carnetwork.hansen.mvp.contract.main.MainContract;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
+import com.carnetwork.hansen.mvp.model.event.CommonEvent;
+import com.carnetwork.hansen.mvp.model.event.EventCode;
 import com.carnetwork.hansen.mvp.presenter.main.MainPresenter;
 import com.carnetwork.hansen.ui.main.fragment.MapFragment;
 import com.carnetwork.hansen.util.PccGo2MapUtil;
+import com.carnetwork.hansen.util.RxUtil;
 import com.carnetwork.hansen.util.StatusBarUtil;
+import com.carnetwork.hansen.widget.SwitchButton;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
@@ -40,7 +49,7 @@ import java.util.Date;
  * Created by codeest on 16/8/9.
  */
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, AMapLocationListener {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, AMapLocationListener, View.OnClickListener {
 
 
     /**
@@ -58,6 +67,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
      */
     private int keyCode = 0;
 
+    private TextView tvCarNo,tvCarLicence,tvUserName,tvUserPhone;
+    private String userName,userPhone,carNo,carLicence;
 
     @Override
     protected int getLayout() {
@@ -68,7 +79,37 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initEventAndData() {
         replaceFragment(new MapFragment(), R.id.fl_main_content);
+
+
+        NavigationView navigationView = findViewById(R.id.nv_menu_left);
+        View headerView = navigationView.getHeaderView(0);
+        tvCarNo = headerView.findViewById(R.id.tv_car_no);
+        tvCarLicence = headerView.findViewById(R.id.tv_car_licence);
+        tvUserName = headerView.findViewById(R.id.tv_user_name);
+        tvUserPhone = headerView.findViewById(R.id.tv_user_phone);
+        SwitchButton switchButton = headerView.findViewById(R.id.switch_button);
         location();
+
+         userName = SPUtils.getInstance().getString(Constants.CAR_NAME);
+         userPhone = SPUtils.getInstance().getString(Constants.CAR_PHONE);
+         carNo = SPUtils.getInstance().getString(Constants.CAR_NO);
+         carLicence = SPUtils.getInstance().getString(Constants.CAR_LICENCE);
+
+        tvCarNo.setText(carNo);
+        tvCarLicence.setText(carLicence);
+        tvUserName.setText(userName);
+        tvUserPhone.setText(userPhone);
+
+
+        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SPUtils.getInstance().put(Constants.IS_ON_WORK,isChecked);
+                RxBus.getDefault().post(new CommonEvent(EventCode.WORK_STATE));
+            }
+        });
+
+
     }
 
     @Override
@@ -175,10 +216,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 //                转换地位为百度定位
                 double[] doubles = PccGo2MapUtil.gaoDeToBaidu(longitude, latitude);
 
-                String name = SPUtils.getInstance().getString(Constants.CAR_NAME);
-                String phone = SPUtils.getInstance().getString(Constants.CAR_PHONE);
-                String carNo = SPUtils.getInstance().getString(Constants.CAR_NO);
-                UploadMapEntity uploadMapEntity = new UploadMapEntity(carNo, Double.toString(latitude),Double.toString(longitude),name,phone);
+                UploadMapEntity uploadMapEntity = new UploadMapEntity(carNo, Double.toString(latitude),Double.toString(longitude),userName,userPhone);
                 mPresenter.mapUpLoad(uploadMapEntity);
 
             } else {
@@ -250,4 +288,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private String selectDate = "";
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+        }
+    }
 }

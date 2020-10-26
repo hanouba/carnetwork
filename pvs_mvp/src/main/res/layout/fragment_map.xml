@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
     <com.amap.api.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
@@ -13,6 +15,17 @@
 
 
     </com.amap.api.maps.MapView>
+
+
+    <TextView
+        android:layout_marginTop="@dimen/dimen_dp_25"
+        android:background="@color/color_3BD134"
+        android:textSize="@dimen/dimen_sp_14"
+        android:text="工作中....."
+        android:id="@+id/tv_work_state"
+        android:padding="@dimen/dimen_dp_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <ImageButton
         android:id="@+id/bt_reset"

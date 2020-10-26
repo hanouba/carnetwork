@@ -143,6 +143,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         SPUtils.getInstance().put(Constants.CAR_NO, carNo);
         SPUtils.getInstance().put(Constants.CAR_NAME, name);
         SPUtils.getInstance().put(Constants.CAR_PHONE, phone);
+        SPUtils.getInstance().put(Constants.CAR_LICENCE, carLicence);
         showProcessDialog("登录中...");
         LoginEntity postingString = new LoginEntity(carNo,carLicence,phone,name);// json传递
 

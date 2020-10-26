@@ -29,9 +29,11 @@ public class Constants {
 
 
 //    xinix
-    public static final String CAR_NO ="";
-    public static final String CAR_NAME ="";
-    public static final String CAR_PHONE ="";
+    public static final String CAR_NO ="carno";
+    public static final String CAR_NAME ="carname";
+    public static final String CAR_PHONE ="carphone";
+    public static final String CAR_LICENCE ="carlicence";
+    public static final String IS_ON_WORK ="isonwork";
 
 
 

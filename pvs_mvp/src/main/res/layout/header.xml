@@ -45,22 +45,18 @@
             android:layout_margin="@dimen/dimen_dp_20"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="0dp"
 
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
+
+            <com.carnetwork.hansen.widget.SwitchButton
+                android:layout_width="0dp"
+                android:id="@+id/switch_button"
                 android:text="上班/下班"
                 android:textColor="@color/grey8"
-                android:textSize="@dimen/dimen_sp_16" />
-
-            <TextView
-                android:layout_width="0dp"
-
+                android:textSize="@dimen/dimen_sp_16"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_vertical"></TextView>
+                android:paddingRight="@dimen/dimen_dp_10"
+                android:gravity="center_vertical"></com.carnetwork.hansen.widget.SwitchButton>
         </LinearLayout>
 
         <LinearLayout
@@ -82,6 +78,7 @@
                 android:textSize="@dimen/dimen_sp_16" />
 
             <TextView
+                android:id="@+id/tv_car_no"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -109,6 +106,7 @@
                 android:textSize="@dimen/dimen_sp_16" />
 
             <TextView
+                android:id="@+id/tv_car_licence"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -135,6 +133,7 @@
                 android:textSize="@dimen/dimen_sp_16" />
 
             <TextView
+                android:id="@+id/tv_user_phone"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -162,6 +161,7 @@
                 android:textSize="@dimen/dimen_sp_16" />
 
             <TextView
+                android:id="@+id/tv_user_name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

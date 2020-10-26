@@ -15,5 +15,5 @@ public class EventCode {
     public static final int ERROR_RELOGIN = 3001;
 
 
-
+    public static final int WORK_STATE = 4001;
 }

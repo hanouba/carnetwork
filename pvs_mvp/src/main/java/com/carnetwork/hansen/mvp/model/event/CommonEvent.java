@@ -3,9 +3,7 @@ package com.carnetwork.hansen.mvp.model.event;
 
 
 /**
- * author：Sun on 2017/8/28/0028.
- * email：1564063766@qq.com
- * remark:
+
  */
 public class CommonEvent {
     private int code;
