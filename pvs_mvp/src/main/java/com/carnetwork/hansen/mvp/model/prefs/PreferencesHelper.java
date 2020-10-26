@@ -13,5 +13,8 @@ public interface PreferencesHelper {
     String getToken();
     void setToken(String token);
 
+    void setWorkState(boolean state);
+    boolean getWorkState();
+
 
 }

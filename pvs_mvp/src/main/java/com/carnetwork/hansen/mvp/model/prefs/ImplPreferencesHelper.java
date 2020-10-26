@@ -18,6 +18,7 @@ import javax.inject.Inject;
 public class ImplPreferencesHelper implements PreferencesHelper {
 
     private static final String DEFAULT_TOKEN = "token";
+    private static final String DEFAULT_WORK_STATE = "workstate";
 
 
     private static final String SHAREDPREFERENCES_NAME = "my_sp";
@@ -38,6 +39,16 @@ public class ImplPreferencesHelper implements PreferencesHelper {
     @Override
     public void setToken(String token) {
         mSPrefs.edit().putString(DEFAULT_TOKEN, token).apply();
+    }
+
+    @Override
+    public void setWorkState(boolean state) {
+        mSPrefs.edit().putBoolean(DEFAULT_WORK_STATE, state).apply();
+    }
+
+    @Override
+    public boolean getWorkState() {
+        return mSPrefs.getBoolean(DEFAULT_WORK_STATE,false);
     }
 }
 

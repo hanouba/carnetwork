@@ -27,5 +27,8 @@ public interface MainContract {
         void mapUpLoad(UploadMapEntity uploadMapEntity);
         void logout(String carNo);
 
+        void setWorkState(boolean state);
+        boolean getWorkState();
+
     }
 }

@@ -62,15 +62,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private LocationManager lm;
     //定位结果
     private String locpvs = "";
-;
+    ;
 
     /**
      * 跳转至工作页 "未处理" 标识
      */
     private int keyCode = 0;
 
-    private TextView tvCarNo,tvCarLicence,tvUserName,tvUserPhone;
-    private String userName,userPhone,carNo,carLicence;
+    private TextView tvCarNo, tvCarLicence, tvUserName, tvUserPhone;
+    private String userName, userPhone, carNo, carLicence;
 
     @Override
     protected int getLayout() {
@@ -81,33 +81,40 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initEventAndData() {
         replaceFragment(new MapFragment(), R.id.fl_main_content);
-
+        //  获取控件
         tvCarNo = findViewById(R.id.tv_car_no);
         tvCarLicence = findViewById(R.id.tv_car_licence);
         tvUserName = findViewById(R.id.tv_user_name);
-        tvUserPhone =findViewById(R.id.tv_user_phone);
-        Button logOut =findViewById(R.id.bt_logout);
-        SwitchButton switchButton =findViewById(R.id.switch_button);
+        tvUserPhone = findViewById(R.id.tv_user_phone);
+        Button logOut = findViewById(R.id.bt_logout);
+        SwitchButton switchButton = findViewById(R.id.switch_button);
         location();
+        //获取用户信息
+        userName = SPUtils.getInstance().getString(Constants.CAR_NAME);
+        userPhone = SPUtils.getInstance().getString(Constants.CAR_PHONE);
+        carNo = SPUtils.getInstance().getString(Constants.CAR_NO);
+        carLicence = SPUtils.getInstance().getString(Constants.CAR_LICENCE);
 
-         userName = SPUtils.getInstance().getString(Constants.CAR_NAME);
-         userPhone = SPUtils.getInstance().getString(Constants.CAR_PHONE);
-         carNo = SPUtils.getInstance().getString(Constants.CAR_NO);
-         carLicence = SPUtils.getInstance().getString(Constants.CAR_LICENCE);
-
+        //设置用户信息
         tvCarNo.setText(carNo);
         tvCarLicence.setText(carLicence);
         tvUserName.setText(userName);
         tvUserPhone.setText(userPhone);
 
-
+        //退出
         logOut.setOnClickListener(this::onClick);
+        //工作状态设置
 
+        boolean workState = mPresenter.getWorkState();
+        switchButton.setChecked(workState);
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SPUtils.getInstance().put(Constants.IS_ON_WORK,isChecked);
+                SPUtils.getInstance().put(Constants.IS_ON_WORK, isChecked);
                 RxBus.getDefault().post(new CommonEvent(EventCode.WORK_STATE));
+
+                mPresenter.setWorkState(isChecked);
+
             }
         });
 
@@ -228,9 +235,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 //                转换地位为百度定位
                 double[] doubles = PccGo2MapUtil.gaoDeToBaidu(longitude, latitude);
                 boolean isWork = SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
-                UploadMapEntity uploadMapEntity = new UploadMapEntity(carNo, Double.toString(latitude),Double.toString(longitude),userName,userPhone);
+//                定时上传车辆信息
+                UploadMapEntity uploadMapEntity = new UploadMapEntity(carNo, Double.toString(latitude), Double.toString(longitude), userName, userPhone);
                 if (isWork) {
-                mPresenter.mapUpLoad(uploadMapEntity);
+                    mPresenter.mapUpLoad(uploadMapEntity);
                 }
 
             } else {
@@ -276,7 +284,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 MyApplication.getInstance().exitApp();
 
 
-
             }
         });
         builder.show();
@@ -292,7 +299,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
 
     }
-
 
 
     @Override

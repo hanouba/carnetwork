@@ -83,4 +83,14 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
     public void setToken(String token) {
         mPreferencesHelper.setToken(token);
     }
+
+    @Override
+    public void setWorkState(boolean state) {
+        mPreferencesHelper.setWorkState(state);
+    }
+
+    @Override
+    public boolean getWorkState() {
+        return mPreferencesHelper.getWorkState();
+    }
 }

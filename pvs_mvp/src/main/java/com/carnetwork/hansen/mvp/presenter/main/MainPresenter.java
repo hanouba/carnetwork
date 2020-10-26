@@ -132,5 +132,15 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
         );
     }
 
+    @Override
+    public void setWorkState(boolean state) {
+        mDataManager.setWorkState(state);
+    }
+
+    @Override
+    public boolean getWorkState() {
+        return mDataManager.getWorkState();
+    }
+
 
 }
