@@ -3,8 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/dimen_dp_280"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:layout_gravity="start"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -34,161 +34,172 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_dp_40"
-            android:layout_margin="@dimen/dimen_dp_20"
-            android:orientation="horizontal">
-
-
-
-            <com.carnetwork.hansen.widget.SwitchButton
-                android:layout_width="0dp"
-                android:id="@+id/switch_button"
-                android:text="上班/下班"
-                android:textColor="@color/grey8"
-                android:textSize="@dimen/dimen_sp_16"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingRight="@dimen/dimen_dp_10"
-                android:gravity="center_vertical"></com.carnetwork.hansen.widget.SwitchButton>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_dp_40"
-            android:layout_marginLeft="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_10"
-            android:layout_marginRight="@dimen/dimen_dp_20"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="车辆编号"
-                android:textColor="@color/grey8"
-                android:textSize="@dimen/dimen_sp_16" />
-
-            <TextView
-                android:id="@+id/tv_car_no"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="001"
-                android:textColor="@color/color_323232"></TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_dp_40"
-            android:layout_marginLeft="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_10"
-            android:layout_marginRight="@dimen/dimen_dp_20"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="车牌号"
-                android:textColor="@color/grey8"
-                android:textSize="@dimen/dimen_sp_16" />
-
-            <TextView
-                android:id="@+id/tv_car_licence"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="鄂A95698"></TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_dp_40"
-            android:layout_marginLeft="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_10"
-            android:layout_marginRight="@dimen/dimen_dp_20"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="手机号"
-                android:textColor="@color/grey8"
-                android:textSize="@dimen/dimen_sp_16" />
-
-            <TextView
-                android:id="@+id/tv_user_phone"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="13687548525"></TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_dp_40"
-            android:layout_marginLeft="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_10"
-            android:layout_marginRight="@dimen/dimen_dp_20"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="姓名"
-
-                android:textColor="@color/grey8"
-                android:textSize="@dimen/dimen_sp_16" />
-
-            <TextView
-                android:id="@+id/tv_user_name"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="展示那"></TextView>
-        </LinearLayout>
-
-
-
-    </LinearLayout>
         <Button
             android:id="@+id/bt_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/dimen_dp_20"
             android:layout_marginRight="@dimen/dimen_dp_20"
-            android:layout_marginBottom="@dimen/dimen_dp_20"
-            android:layout_alignParentBottom="true"
-            android:text="登出"
 
+            android:layout_marginBottom="@dimen/dimen_dp_20"
+            android:text="登出" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_dp_40"
+                android:layout_marginTop="@dimen/dimen_dp_10"
+                android:layout_marginLeft="@dimen/dimen_dp_20"
+                android:layout_marginRight="@dimen/dimen_dp_20"
+                android:text="@string/bt_carinfo"
+                android:id="@+id/bt_opencarinfo"
+                android:textColor="@color/white"
+                android:background="@color/color_blue"
+                android:textSize="@dimen/dimen_sp_16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_dp_40"
+                android:layout_margin="@dimen/dimen_dp_20"
+                android:orientation="horizontal">
+
+
+                <com.carnetwork.hansen.widget.SwitchButton
+                    android:id="@+id/switch_button"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingRight="@dimen/dimen_dp_10"
+                    android:text="上班/下班"
+                    android:textColor="@color/grey8"
+                    android:textSize="@dimen/dimen_sp_16"></com.carnetwork.hansen.widget.SwitchButton>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_dp_40"
+                android:layout_marginLeft="@dimen/dimen_dp_20"
+                android:layout_marginTop="@dimen/dimen_dp_10"
+                android:layout_marginRight="@dimen/dimen_dp_20"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="车辆编号"
+                    android:textColor="@color/grey8"
+                    android:textSize="@dimen/dimen_sp_16" />
+
+                <TextView
+                    android:id="@+id/tv_car_no"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="001"
+                    android:textColor="@color/color_323232"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_dp_40"
+                android:layout_marginLeft="@dimen/dimen_dp_20"
+                android:layout_marginTop="@dimen/dimen_dp_10"
+                android:layout_marginRight="@dimen/dimen_dp_20"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="车牌号"
+                    android:textColor="@color/grey8"
+                    android:textSize="@dimen/dimen_sp_16" />
+
+                <TextView
+                    android:id="@+id/tv_car_licence"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="鄂A95698"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_dp_40"
+                android:layout_marginLeft="@dimen/dimen_dp_20"
+                android:layout_marginTop="@dimen/dimen_dp_10"
+                android:layout_marginRight="@dimen/dimen_dp_20"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="手机号"
+                    android:textColor="@color/grey8"
+                    android:textSize="@dimen/dimen_sp_16" />
+
+                <TextView
+                    android:id="@+id/tv_user_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="13687548525"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_dp_40"
+                android:layout_marginLeft="@dimen/dimen_dp_20"
+                android:layout_marginTop="@dimen/dimen_dp_10"
+                android:layout_marginRight="@dimen/dimen_dp_20"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="姓名"
+
+                    android:textColor="@color/grey8"
+                    android:textSize="@dimen/dimen_sp_16" />
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="展示那"></TextView>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
 
     </RelativeLayout>
 </LinearLayout>

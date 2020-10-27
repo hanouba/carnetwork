@@ -4,6 +4,7 @@ package com.carnetwork.hansen.mvp.model.http.api;
 import android.support.annotation.RawRes;
 
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
+import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
 import com.carnetwork.hansen.mvp.model.bean.LoginBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
@@ -39,4 +40,8 @@ public interface MyApis {
 
     @POST("map/upload")
     Flowable<MyHttpResponse> mapUpload(@Body UploadMapEntity uploadMapEntity);
+
+    //回去人员列表
+    @POST("user/list")
+    Flowable<AllDrvier> getAllDriver(@Query("carNo") String carNo);
 }

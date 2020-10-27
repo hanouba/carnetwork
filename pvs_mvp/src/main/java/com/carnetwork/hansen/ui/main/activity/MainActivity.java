@@ -71,6 +71,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private TextView tvCarNo, tvCarLicence, tvUserName, tvUserPhone;
     private String userName, userPhone, carNo, carLicence;
+    private Button carInfos;
 
     @Override
     protected int getLayout() {
@@ -88,7 +89,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         tvUserPhone = findViewById(R.id.tv_user_phone);
         Button logOut = findViewById(R.id.bt_logout);
         SwitchButton switchButton = findViewById(R.id.switch_button);
+         carInfos = findViewById(R.id.bt_opencarinfo);
+
+
         location();
+
         //获取用户信息
         userName = SPUtils.getInstance().getString(Constants.CAR_NAME);
         userPhone = SPUtils.getInstance().getString(Constants.CAR_PHONE);
@@ -103,6 +108,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         //退出
         logOut.setOnClickListener(this::onClick);
+        carInfos.setOnClickListener(this);
         //工作状态设置
 
         boolean workState = mPresenter.getWorkState();
@@ -117,6 +123,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
             }
         });
+
 
 
     }
@@ -313,6 +320,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         switch (v.getId()) {
             case R.id.bt_logout:
                 mPresenter.logout(carNo);
+                break;
+            case R.id.bt_opencarinfo:
+                startActivity(new Intent(this,CarInfosActivity.class));
+
                 break;
             default:
         }

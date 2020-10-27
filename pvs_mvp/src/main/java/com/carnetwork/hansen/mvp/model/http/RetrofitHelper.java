@@ -2,6 +2,7 @@ package com.carnetwork.hansen.mvp.model.http;
 
 
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
+import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
 import com.carnetwork.hansen.mvp.model.bean.LoginBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
@@ -47,5 +48,10 @@ public class RetrofitHelper implements HttpHelper {
     @Override
     public Flowable<MyHttpResponse> logout(String carNo) {
         return mMyApiService.logout(carNo);
+    }
+
+    @Override
+    public Flowable<AllDrvier> getAllDriver(String carNo) {
+        return mMyApiService.getAllDriver(carNo);
     }
 }

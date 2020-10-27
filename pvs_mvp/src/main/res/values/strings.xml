@@ -1,18 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <array name="stream">
+        <item>主码流</item>
+        <item>子码流</item>
+    </array>
+    <array name="speed">
+        <!--<item>x0.125</item>-->
+        <item>x0.25</item>
+        <item>x0.5</item>
+        <item>x1</item>
+        <item>x2</item>
+        <item>x4</item>
+        <!--<item>x8</item>-->
+    </array>
     <string name="app_name">车联APP</string>
     <string name="login_app_name">车联APP</string>
     <string name="app_title">车联APP</string>
+    <!--//main drawer-->
     <string name="about_software">关于我们</string>
     <string name="copyright_weltrans"> </string>
-    <!--//main drawer-->
     <string name="drawer_about">关于</string>
     <string name="drawer_collection">收藏</string>
     <string name="drawer_setting">设置</string>
     <string name="drawer_open">打开</string>
     <string name="drawer_close">关闭</string>
+
     <string name="error_tips">网络出现故障</string>
     <string name="error_tips2">点击空白处刷新</string>
-
     <string name="username">用户名</string>
     <string name="password">密码</string>
     <string name="server">服务器</string>
@@ -30,25 +43,25 @@
     <string name="allow_network">允许 2G/3G/4G 网络下播放视频</string>
     <string name="logout">退出登录</string>
     <string name="update_psd">修改密码</string>
+
     <string name="dialog_logout_confirm"> 退出用户将清除密码,\n确认退出用户？</string>
     <string name="call_preposition">调用预置位</string>
-
     <string name="loading">加载中...</string>
+
     <string name="logging_in">正在登录...</string>
     <string name="dialog_wait_logout">正在注销...</string>
-
     <string name="homepage">首页</string>
     <string name="event">事件</string>
     <string name="camera">视频</string>
+
     <string name="work">工作</string>
     <string name="mine">我的</string>
-
     <string name="living_video">实时视频</string>
     <string name="video_real">实时</string>
     <string name="video_history">历史</string>
+
     <string name="patrol">巡查</string>
     <string name="collect">收藏</string>
-
     <string name="lens_control">镜头</string>
     <string name="lens_control_aperture">光圈</string>
     <string name="lens_control_focus">焦距</string>
@@ -71,114 +84,110 @@
     <string name="video_play_success">播放成功</string>
     <string name="video_play_failed">播放失败</string>
     <string name="video_play_failed_netword">网络故障，播放失败，请重试</string>
+
     <string name="video_play_failed_unknown">未知错误，播放失败，请重试</string>
     <string name="video_play_net_speed">缓冲速度 ： </string>
-
     <string name="picture_save_successed">图片保存成功</string>
     <string name="picture_save_failed">图片保存失败</string>
     <string name="picture_snapshot_failed">未成功播放， 无法抓拍</string>
     <string name="video_record_start">录制开始</string>
+
     <string name="video_record_end">录制结束，文件路径：</string>
     <string name="video_record_failed">播放失败，无法录制</string>
-
     <string name="dialog_play_confirm">当前网络处于3G/4G状态，将消耗比较多的流量，是否继续播放？</string>
     <string name="dialog_3g_unable">当前设置为不可在3G/4G状态播放，请更改设置或网络。</string>
     <string name="dialog_net_unable">无网络可用，请检查网络连接。</string>
     <string name="dialog_msg_patrol_failed">请先停止录制再切换视频。</string>
     <string name="dialog_title">提示</string>
+
     <string name="radioButton_download">下载</string>
     <string name="search">检索</string>
-
     <string name="setting_cache">自动缓存</string>
     <string name="setting_image">无图模式</string>
     <string name="setting_night">夜间模式</string>
     <string name="setting_feedback">意见反馈</string>
     <string name="setting_clear">清除缓存</string>
     <string name="setting_update">检查更新</string>
+
     <string name="setting_normal">常规</string>
     <string name="setting_other">其他</string>
-
     <string name="time_retrieval">时间检索</string>
+
     <string name="time_start">起点</string>
     <string name="time_end">终点</string>
-
     <string name="choose_time">点击选择时间</string>
     <string name="year">年</string>
     <string name="month">月</string>
     <string name="day">日</string>
     <string name="hour">时</string>
+
     <string name="minute">分</string>
     <string name="second">秒</string>
-
     <string name="btn_date">日期</string>
     <string name="btn_hour">小时</string>
+
     <string name="btn_minute">分钟</string>
+
     <string name="web_title">web标题</string>
-
     <string name="app_user_auto_start">由于Android系统的原因,请您手动开启软件的自动启动设置,此设置将为您带来更好的软件体验</string>
-
     <string name="tab_title_home">主页</string>
     <string name="tab_title_work">工作</string>
     <string name="tab_title_equipment">设备</string>
+
     <string name="tab_title_msg">视频</string>
     <string name="tab_title_mine">我的</string>
-
     <string name="work_t_exception">异常</string>
     <string name="work_t_event">事件</string>
+
     <string name="work_t_order">工单</string>
     <string name="work_t_routing_inspection">巡检</string>
-
     <string name="work_t1_my_event">我的</string>
     <string name="work_t1_untreated">未处理</string>
+
+
     <string name="work_t1_all_event">全部</string>
     <string name="work_search">搜索</string>
-
-
     <string name="work_item_ignore">忽略</string>
     <string name="work_item_ping">PING</string>
     <string name="work_item_equip">设备</string>
     <string name="work_item_event">事件</string>
     <string name="work_item_video">视频</string>
+
     <string name="work_item_detail">详情</string>
     <string name="confirm">提  交</string>
-
     <string name="work_item_important">重要</string>
+
     <string name="work_item_warning">警告</string>
     <string name="work_item_notice">通知</string>
-
     <string name="work_item_exception_project">异常项目:</string>
     <string name="work_item_applicant">报修人:</string>
     <string name="work_item_handle_people">处理人:</string>
     <string name="work_item_processing_status">处理状态:</string>
+
     <string name="work_item_repair_time">报修时间:</string>
     <string name="work_item_processing_time">处理时间:</string>
-
     <string name="work_item_exception_handled">异常已处理</string>
+
+
     <string name="work_item_event_completed">事件已完成</string>
     <string name="work_item_generated_events">已生成事件</string>
 
 
     <string name="work_item_exception_detail">异常详情</string>
     <string name="add_process_confirm">确  定</string>
-
-
     <string name="default_stream">子码流</string>
-    <array name="stream">
-        <item>主码流</item>
-        <item>子码流</item>
-    </array>
-    <string name="video_list">列表</string>
 
+    <string name="video_list">列表</string>
     <string name="TrackType_video">Video</string>
     <string name="TrackType_audio">Audio</string>
     <string name="TrackType_subtitle">Subtitle</string>
     <string name="TrackType_timedtext">Timed text</string>
     <string name="TrackType_metadata">Meta data</string>
+
     <string name="TrackType_unknown">Unknown</string>
-
     <string name="media_information">Media Information</string>
-    <string name="close">Close</string>
 
+    <string name="close">Close</string>
     <string name="mi_player">Player</string>
     <string name="mi_media">Media</string>
     <string name="mi_profile_level">Profile level</string>
@@ -195,29 +204,29 @@
     <string name="mi_channels">Channels</string>
     <string name="mi__selected_video_track">*</string>
     <string name="mi__selected_audio_track">*</string>
-    <string name="mi__selected_subtitle_track">*</string>
 
+    <string name="mi__selected_subtitle_track">*</string>
     <string name="VideoView_error_button">OK</string>
     <string name="VideoView_error_text_invalid_progressive_playback">Invalid progressive playback</string>
-    <string name="VideoView_error_text_unknown">Unknown</string>
 
+    <string name="VideoView_error_text_unknown">Unknown</string>
     <string name="VideoView_ar_aspect_fit_parent">Aspect / Fit parent</string>
     <string name="VideoView_ar_aspect_fill_parent">Aspect / Fill parent</string>
     <string name="VideoView_ar_aspect_wrap_content">Aspect / Wrap content</string>
     <string name="VideoView_ar_match_parent">Free / Fill parent</string>
     <string name="VideoView_ar_16_9_fit_parent">16:9 / Fit parent</string>
-    <string name="VideoView_ar_4_3_fit_parent">4:3 / Fit parent</string>
 
+    <string name="VideoView_ar_4_3_fit_parent">4:3 / Fit parent</string>
     <string name="VideoView_render_none">Render: None</string>
     <string name="VideoView_render_surface_view">Render: SurfaceView</string>
-    <string name="VideoView_render_texture_view">Render: TextureView</string>
 
+    <string name="VideoView_render_texture_view">Render: TextureView</string>
     <string name="VideoView_player_none">Player: None</string>
     <string name="VideoView_player_AndroidMediaPlayer">Player: AndroidMediaPlayer</string>
     <string name="VideoView_player_IjkMediaPlayer">Player: IjkMediaPlayer</string>
     <string name="VideoView_player_IjkExoMediaPlayer">Player: IjkExoMediaPlayer</string>
-    <string name="N_A">N/A</string>
 
+    <string name="N_A">N/A</string>
     <string name="vdec">vdec</string>
     <string name="fps">fps</string>
     <string name="v_cache">v-cache</string>
@@ -226,25 +235,16 @@
     <string name="seek_cost">seek_cost</string>
     <string name="seek_load_cost">seek_load_cost</string>
     <string name="tcp_speed">tcp_speed</string>
-    <string name="bit_rate">bit_rate</string>
 
+    <string name="bit_rate">bit_rate</string>
     <string name="tips_not_wifi">您当前正在使用移动网络，继续播放将消耗流量</string>
     <string name="tips_not_wifi_confirm">继续播放</string>
     <string name="no_net">当前找不到网络</string>
     <string name="tips_not_wifi_cancel">停止播放</string>
     <string name="no_url">播放地址无效</string>
-    <string name="jump_ad">跳过</string>
 
+    <string name="jump_ad">跳过</string>
     <string name="speed">x1</string>
-    <array name="speed">
-        <!--<item>x0.125</item>-->
-        <item>x0.25</item>
-        <item>x0.5</item>
-        <item>x1</item>
-        <item>x2</item>
-        <item>x4</item>
-        <!--<item>x8</item>-->
-    </array>
 
     <!--云台-->
     <string name="video_aperture">光圈调节</string>
@@ -310,4 +310,5 @@
     <string name="carl">请输入车辆牌照</string>
     <string name="text_login_name">姓名</string>
     <string name="text_login_phone">手机号</string>
+    <string name="bt_carinfo">车辆信息</string>
 </resources>

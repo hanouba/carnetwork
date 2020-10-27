@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+   android:background="@color/grey8"
+ android:paddingBottom="@dimen/dimen_dp_1"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_dp_40">
+
+        <TextView
+            android:id="@+id/tv_driver_carno"
+            android:text="001"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/dimen_sp_12"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"></TextView>
+
+        <View
+            android:background="@color/grey8"
+            android:layout_width="0.1dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/tv_driver_carlicence"
+            android:text="鄂A123456"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/dimen_sp_12"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"></TextView>
+        <View
+            android:background="@color/grey8"
+            android:layout_width="0.1dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:text="王大方"
+            android:id="@+id/tv_driver_name"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="@dimen/dimen_sp_12"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"></TextView>
+        <View
+            android:background="@color/grey8"
+            android:layout_width="0.1dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:text="17671756072"
+            android:id="@+id/tv_driver_phone"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:textSize="@dimen/dimen_sp_12"
+            android:layout_height="match_parent"></TextView>
+
+    </LinearLayout>
+
+</LinearLayout>
