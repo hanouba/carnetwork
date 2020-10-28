@@ -62,6 +62,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
         LogUtils.d("tokentokentoken"+token);
         if (!"".equals(token)) {
+            SPUtils.getInstance().put(Constants.TOKEN,token);
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

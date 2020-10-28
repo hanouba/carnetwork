@@ -111,7 +111,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         carInfos.setOnClickListener(this);
         //工作状态设置
 
-        boolean workState = mPresenter.getWorkState();
+        boolean workState =   SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
         switchButton.setChecked(workState);
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -119,7 +119,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 SPUtils.getInstance().put(Constants.IS_ON_WORK, isChecked);
                 RxBus.getDefault().post(new CommonEvent(EventCode.WORK_STATE,isChecked));
 
-                mPresenter.setWorkState(isChecked);
+
 
             }
         });
@@ -319,6 +319,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_logout:
+
+                SPUtils.getInstance().put(Constants.IS_ON_WORK, false);
                 mPresenter.logout(carNo);
                 break;
             case R.id.bt_opencarinfo:
