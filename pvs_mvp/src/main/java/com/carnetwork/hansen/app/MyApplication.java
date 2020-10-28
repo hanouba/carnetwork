@@ -5,8 +5,11 @@ package com.carnetwork.hansen.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 
 import com.carnetwork.hansen.R;
+import com.carnetwork.hansen.component.keepalive.NoVoiceService;
+import com.carnetwork.hansen.component.notification.PlayerManager;
 import com.carnetwork.hansen.di.component.AppComponent;
 import com.carnetwork.hansen.di.component.DaggerAppComponent;
 import com.carnetwork.hansen.di.module.AppModule;
@@ -50,6 +53,8 @@ public class MyApplication extends Application {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+
+
 
     }
 

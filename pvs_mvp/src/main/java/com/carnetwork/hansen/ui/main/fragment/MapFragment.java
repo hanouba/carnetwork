@@ -4,35 +4,30 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
-import android.view.Display;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
-import com.amap.api.maps.model.Text;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.carnetwork.hansen.R;
 import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.base.BaseFragment;
+import com.carnetwork.hansen.component.keepalive.NoVoiceService;
+import com.carnetwork.hansen.component.notification.PlayerManager;
 import com.carnetwork.hansen.mvp.contract.main.MapContract;
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.presenter.main.MapPresenter;
@@ -43,9 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * @author HanN on 2020/10/23 10:06
@@ -155,6 +148,10 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
 //        显示工作状态
         showcurrentWorkState();
+
+//        启动后台服务
+        Intent intent = new Intent(getActivity(), NoVoiceService.class);
+        getActivity().startService(intent);
     }
 
     /**
@@ -218,6 +215,9 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
     }
 
+    /**
+     * 定位到当前位置
+     */
     private void showCurrentLocation() {
         MyLocationStyle myLocationStyle;
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。

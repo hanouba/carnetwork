@@ -1,25 +1,17 @@
 package com.carnetwork.hansen.ui.main.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.carnetwork.hansen.R;
 import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.base.BaseActivity;
-import com.carnetwork.hansen.base.SimpleActivity;
 import com.carnetwork.hansen.mvp.contract.main.CarInfoContract;
 import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
 import com.carnetwork.hansen.mvp.presenter.main.DriverInfoPresenter;
 import com.carnetwork.hansen.ui.main.adapter.DriverInfosAdapter;
-
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class CarInfosActivity extends BaseActivity<DriverInfoPresenter> implements CarInfoContract.View {
     private RecyclerView recyclerView;

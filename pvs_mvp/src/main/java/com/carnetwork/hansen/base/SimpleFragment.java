@@ -2,14 +2,11 @@ package com.carnetwork.hansen.base;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.carnetwork.hansen.R;
 
 
 import org.w3c.dom.Node;

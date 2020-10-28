@@ -1,16 +1,12 @@
 package com.carnetwork.hansen.ui.main.activity;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
-import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v7.app.AlertDialog;
+
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -22,7 +18,6 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.carnetwork.hansen.R;
 import com.carnetwork.hansen.app.Constants;
@@ -31,20 +26,13 @@ import com.carnetwork.hansen.base.BaseActivity;
 import com.carnetwork.hansen.component.RxBus;
 import com.carnetwork.hansen.mvp.contract.main.MainContract;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
-import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 import com.carnetwork.hansen.mvp.model.event.CommonEvent;
 import com.carnetwork.hansen.mvp.model.event.EventCode;
 import com.carnetwork.hansen.mvp.presenter.main.MainPresenter;
 import com.carnetwork.hansen.ui.main.fragment.MapFragment;
 import com.carnetwork.hansen.util.PccGo2MapUtil;
-import com.carnetwork.hansen.util.RxUtil;
 import com.carnetwork.hansen.util.StatusBarUtil;
 import com.carnetwork.hansen.widget.SwitchButton;
-import com.tbruyelle.rxpermissions2.RxPermissions;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 /**
@@ -279,7 +267,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     private void showExitDialog() {
-        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
         builder.setTitle("提示");
         builder.setMessage("确定退出吗");
         builder.setNegativeButton("取消", null);

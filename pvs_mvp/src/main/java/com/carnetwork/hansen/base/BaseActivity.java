@@ -2,13 +2,12 @@ package com.carnetwork.hansen.base;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatDelegate;
 
-import com.carnetwork.hansen.R;
 import com.carnetwork.hansen.app.MyApplication;
 import com.carnetwork.hansen.di.component.ActivityComponent;
 import com.carnetwork.hansen.di.component.DaggerActivityComponent;

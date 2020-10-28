@@ -1,14 +1,18 @@
 package com.carnetwork.hansen.component.keepalive;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.IBinder;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.carnetwork.hansen.R;
+import com.carnetwork.hansen.ui.main.activity.MainActivity;
 
 
 /**
@@ -18,7 +22,7 @@ import com.carnetwork.hansen.R;
  */
 
 
-public class NoVoiceService extends Service implements MediaPlayer.OnCompletionListener{
+public class NoVoiceService extends Service implements MediaPlayer.OnCompletionListener {
     private boolean mPausePlay = false;//控制是否播放音频
     private MediaPlayer mediaPlayer;
     private Handler mHandler = new Handler();
@@ -47,6 +51,19 @@ public class NoVoiceService extends Service implements MediaPlayer.OnCompletionL
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Notification.Builder builder = new Notification.Builder(this.getApplicationContext()); //获取一个Notification构造器
+        Intent nfIntent = new Intent(this, MainActivity.class);
+        builder.setContentIntent(PendingIntent.getActivity(this, 0, nfIntent, 0))
+                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
+                        R.mipmap.ic_launcher)) // 设置下拉列表中的图标(大图标)
+                .setContentTitle("车联APP正在运行") // 设置下拉列表里的标题
+                .setSmallIcon(R.mipmap.ic_launcher) // 设置状态栏内的小图标
+                .setContentText("正在获取定位") // 设置上下文内容
+                .setWhen(System.currentTimeMillis()); // 设置该通知发生的时间
+
+        Notification notification = builder.build(); // 获取构建好的Notification
+        notification.defaults = Notification.DEFAULT_SOUND; //设置为默认的声音
+
         if (mediaPlayer == null) {
             mediaPlayer = MediaPlayer.create(this, R.raw.no_voice);
             mediaPlayer.setVolume(0f, 0f);

@@ -1,8 +1,8 @@
 package com.carnetwork.hansen.app;
 
 import android.content.Context;
-import android.support.annotation.Keep;
-import android.support.multidex.MultiDex;
+import androidx.annotation.Keep;
+import androidx.multidex.MultiDex;
 import android.util.Log;
 
 import com.taobao.sophix.PatchStatus;
