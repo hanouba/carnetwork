@@ -45,7 +45,7 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
 
     @Override
     public List<LoginInfo> loadLoginUserInfo() {
-        return null;
+        return mDBHelper.loadLoginUserInfo();
     }
 
     @Override

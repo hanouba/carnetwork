@@ -152,6 +152,24 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
             }
         });
+
+//        显示工作状态
+        showcurrentWorkState();
+    }
+
+    /**
+     * 在地图上显示当前工作状态
+     */
+    private void showcurrentWorkState() {
+        boolean work = SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
+        if (work) {
+
+            tvWorkState.setText("工作中...");
+            tvWorkState.setBackground(ContextCompat.getDrawable(getActivity(), R.color.color_3BD134));
+        } else {
+            tvWorkState.setText("休息中...");
+            tvWorkState.setBackground(ContextCompat.getDrawable(getActivity(), R.color.grey8));
+        }
     }
 
     /**
@@ -160,14 +178,17 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     public void render(Marker marker, View view) {
         TextView tvCarNo = view.findViewById(R.id.tv_map_car_no);
         TextView tvCarL = view.findViewById(R.id.tv_car_map_licence);
+        TextView tvUserName = view.findViewById(R.id.tv_car_username);
         ImageView ivCarPhone = view.findViewById(R.id.iv_car_phone);
         tvCarNo.setText(marker.getTitle());
         String snippet = marker.getSnippet();
+        String[] split = snippet.split(",");
+
         ivCarPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showLong("打电话" + snippet);
-                callPhone(snippet);
+
+                callPhone(split[0]);
             }
         });
 
@@ -227,7 +248,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         for (int i = 0; i < carLists.size(); i++) {
             Map<String, String> map = new HashMap<>();
             map.put("title", "车辆编号" + carLists.get(i).getCarNum());
-            map.put("carLince", "手机号码" + carLists.get(i).getPhone());
+            map.put("carLince", carLists.get(i).getPhone() + "," + carLists.get(i).getName() + "," );
             map.put("latitude", carLists.get(i).getLat());
             map.put("longitude", carLists.get(i).getLon());
             list.add(map);
@@ -252,15 +273,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
     @Override
     public void changeWorkState() {
-        boolean work = SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
-        if (work) {
-
-            tvWorkState.setText("工作中...");
-            tvWorkState.setBackground(ContextCompat.getDrawable(getActivity(),R.color.color_3BD134));
-        } else {
-            tvWorkState.setText("休息中...");
-            tvWorkState.setBackground(ContextCompat.getDrawable(getActivity(),R.color.grey8));
-        }
+        showcurrentWorkState();
     }
 
     /**

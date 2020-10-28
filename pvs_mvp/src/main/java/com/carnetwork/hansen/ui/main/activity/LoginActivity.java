@@ -24,6 +24,8 @@ import com.carnetwork.hansen.mvp.presenter.main.LoginPresenter1;
 import com.carnetwork.hansen.util.SystemUtil;
 import com.carnetwork.hansen.widget.LineEditText;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -57,14 +59,25 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
     @Override
     protected void initEventAndData() {
+        List<LoginInfo> loginInfos = mPresenter.getLoginInfo();
+        if (loginInfos.size()>0) {
+            LoginInfo loginInfo = loginInfos.get(0);
+            String lastCarNo = loginInfo.getCarNo();
+            String lastCarLicence = loginInfo.getCarLicence();
+            String lastPhone = loginInfo.getPhone();
+            String lastUserName = loginInfo.getUsername();
 
+
+            etName.setText(lastUserName);
+            etCarNo.setText(lastCarNo);
+            etPhone.setText(lastPhone);
+            etCarlicence.setText(lastCarLicence);
+        }
 
     }
 
 
-    void initListener() {
 
-    }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -80,6 +93,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
     @Override
     public void gotoMainActivity() {
+
+
 
 
         Intent intent = new Intent(this, MainActivity.class);
@@ -147,6 +162,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         showProcessDialog("登录中...");
         LoginEntity postingString = new LoginEntity(carNo,carLicence,phone,name);// json传递
 
+        LoginInfo loginInfo = new LoginInfo(name,carNo,carLicence,phone,"");
+        mPresenter.inserLoginInfo(loginInfo);
         mPresenter.login(postingString);
 
     }

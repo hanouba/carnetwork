@@ -117,7 +117,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SPUtils.getInstance().put(Constants.IS_ON_WORK, isChecked);
-                RxBus.getDefault().post(new CommonEvent(EventCode.WORK_STATE));
+                RxBus.getDefault().post(new CommonEvent(EventCode.WORK_STATE,isChecked));
 
                 mPresenter.setWorkState(isChecked);
 
@@ -192,7 +192,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式  不使用GPS
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         //设置定位间隔,单位毫秒,默认为100000ms
-        mLocationOption.setInterval(30000);
+        mLocationOption.setInterval(3000);
 
         if (mLocationClient != null && mLocationOption != null) {
             mLocationClient.setLocationOption(mLocationOption);

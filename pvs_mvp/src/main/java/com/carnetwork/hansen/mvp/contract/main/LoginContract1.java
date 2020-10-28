@@ -5,6 +5,8 @@ import com.carnetwork.hansen.base.BaseView;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 
+import java.util.List;
+
 /**
  * remark:
  */
@@ -24,9 +26,9 @@ public interface LoginContract1 {
     interface Presenter extends BasePresenter<View> {
 
 //
-        LoginInfo getLoginInfo();
+        List<LoginInfo> getLoginInfo();
 
-        boolean getRemberPsdState();
+        void inserLoginInfo(LoginInfo loginInfo);
 
         void login(LoginEntity loginEntity);
 

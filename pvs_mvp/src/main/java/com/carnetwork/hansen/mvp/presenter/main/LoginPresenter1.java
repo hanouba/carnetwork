@@ -23,6 +23,7 @@ import com.carnetwork.hansen.util.RxUtil;
 import com.carnetwork.hansen.widget.CommonSubscriber;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -41,15 +42,18 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
 
 
     @Override
-    public LoginInfo getLoginInfo() {
+    public List<LoginInfo> getLoginInfo() {
 
-        return null;
+        return mDataManager.loadLoginUserInfo();
     }
 
     @Override
-    public boolean getRemberPsdState() {
-        return false;
+    public void inserLoginInfo(LoginInfo loginInfo) {
+        mDataManager.insertLoginUserInfo(loginInfo);
+
     }
+
+
 
     @Override
     public void login(LoginEntity loginEntity) {

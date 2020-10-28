@@ -51,6 +51,8 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
     //    控制上传时的顺序
     private final String sync_upload = "sync_upload";
 
+    //工作状态 是否提交定位信息
+    private boolean workState;
     @Inject
     public MainPresenter(DataManager mDataManager) {
         this.mDataManager = mDataManager;
@@ -71,8 +73,9 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
                             public void onNext(CommonEvent commonevent) {
                                 switch (commonevent.getCode()) {
 
-                                    case EventCode.ERROR_RELOGIN:
-                                        mView.relogin();
+                                    case EventCode.WORK_STATE:
+                                        workState = commonevent.isTemp_boolean();
+
                                         break;
                                     default:
 
@@ -127,6 +130,8 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
+                        mDataManager.setToken("");
+                        mView.logOutSuccess();
                     }
                 })
         );
