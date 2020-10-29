@@ -25,7 +25,8 @@
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
-            android:theme="@android:style/Theme.Translucent" /> <!-- 适配小米刘海屏 -->
+            android:theme="@android:style/Theme.Translucent" />
+        <!-- 适配小米刘海屏 -->
         <activity
             android:name=".ui.main.activity.SplashActivity"
             android:screenOrientation="portrait"
@@ -110,7 +111,7 @@
             android:exported="true"
 
             android:process=":daemon_service" />
-
+        <service android:name=".app.InitializeService"/>
 
         <receiver
             android:name=".component.notification.PlayerReceiver"

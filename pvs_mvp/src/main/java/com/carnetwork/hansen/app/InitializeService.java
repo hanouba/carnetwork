@@ -109,7 +109,7 @@ public class InitializeService extends IntentService {
 //        初始化
 //        CrashReport.initCrashReport(context, Constants.BUGLY_ID, false, strategy);
 
-        Bugly.init(getApplicationContext(), Constants.BUGLY_ID, false);
+        Bugly.init(getApplicationContext(), Constants.BUGLY_ID, true);
     }
 
     /**

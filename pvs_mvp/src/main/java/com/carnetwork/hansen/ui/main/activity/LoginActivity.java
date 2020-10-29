@@ -23,6 +23,7 @@ import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 import com.carnetwork.hansen.mvp.presenter.main.LoginPresenter1;
 import com.carnetwork.hansen.util.SystemUtil;
 import com.carnetwork.hansen.widget.LineEditText;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.List;
 
@@ -127,14 +128,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
     @OnClick(R.id.bt_login)
     public void onViewClicked() {
-
         String carNo = etCarNo.getText().toString().trim();
         String carLicence = etCarlicence.getText().toString().trim();
         String phone = etPhone.getText().toString().trim();
         String name = etName.getText().toString().trim();
         if (TextUtils.isEmpty(carNo)) {
-            ToastUtils.showLong("车辆编号不能为空");
+            ToastUtils.showLong("车辆编号不能为ddddddd空");
             return;
+
         }
         if (TextUtils.isEmpty(carLicence)) {
             ToastUtils.showLong("车牌号不能为空");

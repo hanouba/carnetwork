@@ -79,7 +79,7 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
 
         addSubscribe(mDataManager.getAllCar(carNo)
                 .compose(RxUtil.<AllCar>rxSchedulerHelper())
-
+                .replay(1000,TimeUnit.MILLISECONDS)
                 .subscribeWith(new CommonSubscriber<AllCar>(mView) {
                     @Override
                     public void onNext(AllCar allCar) {
