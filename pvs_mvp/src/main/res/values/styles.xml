@@ -545,4 +545,10 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.3</item>
     </style>
+
+    <style name="TopbarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/drawable_topbar_bg</item>
+    </style>
 </resources>

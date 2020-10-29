@@ -25,5 +25,6 @@ public interface MapContract {
 
     interface Presenter extends BasePresenter<MapContract.View> {
         void getAllCar(String token,String carNo);
+        void mapUpLoad(UploadMapEntity uploadMapEntity);
     }
 }

@@ -113,4 +113,26 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
     }
 
 
+    @Override
+    public void mapUpLoad(UploadMapEntity uploadMapEntity) {
+        addSubscribe(mDataManager.upLoadMap(uploadMapEntity)
+
+                .compose(RxUtil.<MyHttpResponse>rxSchedulerHelper())
+
+                .subscribeWith(new CommonSubscriber<MyHttpResponse>(mView) {
+                    @Override
+                    public void onNext(MyHttpResponse myHttpResponse) {
+                        Log.i("", "mapUpLoad: 提交经纬度"+myHttpResponse.isSuccess());
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        Log.i("", "onNext: 提交经纬度失败"+e.toString());
+                    }
+                })
+        );
+    }
+
 }

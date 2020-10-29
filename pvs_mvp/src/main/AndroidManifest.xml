@@ -2,7 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.carnetwork.hansen">
-    <!-- 允许程序打开网络套接字 -->
+    <!-- 允许程序设置内置sd卡的写权限 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序获取网络状态 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许程序访问WiFi网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许程序读写手机状态和身份 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 打电话 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <application
         android:name=".app.SophixStubApplication"
         android:allowBackup="true"
@@ -16,22 +28,18 @@
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="n">
+        <activity android:name=".ui.main.activity.SellectActivity"></activity>
         <activity
             android:name=".ui.main.activity.CarInfosActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
-            android:theme="@android:style/Theme.Translucent" />
-        <!-- 适配小米刘海屏 -->
+            android:theme="@android:style/Theme.Translucent" /> <!-- 适配小米刘海屏 -->
         <activity
             android:name=".ui.main.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme" />
-
         <activity
             android:name=".ui.main.activity.SplashFirstActivity"
             android:screenOrientation="portrait"
@@ -68,12 +76,11 @@
             android:value="2.4" />
         <meta-data
             android:name="notch.config"
-            android:value="portrait|landscape" />
-
-        <!--百度地图key-->
+            android:value="portrait|landscape" /> <!-- 百度地图key -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="cEqvSvVkDLwuj37qPrZeIltMeEVAfK6w" />
+
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -104,12 +111,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider> <!-- 高德 -->
-        <service android:name="com.amap.api.location.APSService" />
-        <!--        无声音频保活-->
+        <!-- 无声音频保活 -->
         <service
             android:name=".component.keepalive.NoVoiceService"
             android:exported="true"
-
             android:process=":daemon_service" />
         <service android:name=".app.InitializeService" />
 
@@ -126,20 +131,6 @@
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
             </intent-filter>
         </receiver>
-
-    </application> <!-- 允许程序设置内置sd卡的写权限 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序获取网络状态 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许程序访问WiFi网络信息 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许程序读写手机状态和身份 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 打电话 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission
-        android:name="android.permission.READ_LOGS"
-        tools:ignore="ProtectedPermissions" />
-
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-
+    </application>
 
 </manifest>

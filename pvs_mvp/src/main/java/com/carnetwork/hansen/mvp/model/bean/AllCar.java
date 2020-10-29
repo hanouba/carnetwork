@@ -34,6 +34,7 @@ public class AllCar {
         private String carNum;
         private String speed;
         private String direction;
+
         private String status;
         private String projectId;
         private String name;

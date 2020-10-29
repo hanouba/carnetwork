@@ -22,7 +22,7 @@ public interface MainContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void mapUpLoad(UploadMapEntity uploadMapEntity);
+
         void logout(String carNo);
 
         void setWorkState(boolean state);
