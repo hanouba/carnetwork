@@ -63,9 +63,6 @@ public class InitializeService extends IntentService {
 
         initBugly();
         upGreenDao();
-
-        initTbs();
-
         //关闭弹窗9.0
         closeAndroidPDialog();
     }

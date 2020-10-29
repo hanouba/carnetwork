@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 
-import com.amap.api.maps.model.LatLng;
+import com.baidu.mapapi.model.LatLng;
 import com.blankj.utilcode.util.ToastUtils;
 import com.carnetwork.hansen.R;
 

@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.provider.Settings;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -14,10 +17,11 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.carnetwork.hansen.R;
 import com.carnetwork.hansen.app.Constants;
@@ -39,23 +43,13 @@ import com.carnetwork.hansen.widget.SwitchButton;
  * Created by codeest on 16/8/9.
  */
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, AMapLocationListener, View.OnClickListener {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View,  View.OnClickListener {
+
+    public LocationClient mLocationClient = null;
+    private MyLocationListener myListener = new MyLocationListener();
+    private  LocationClientOption option = new LocationClientOption();
 
 
-    /**
-     * 高德定位
-     */
-    public AMapLocationClient mLocationClient = null;
-    public AMapLocationClientOption mLocationOption = null;
-    private LocationManager lm;
-    //定位结果
-    private String locpvs = "";
-    ;
-
-    /**
-     * 跳转至工作页 "未处理" 标识
-     */
-    private int keyCode = 0;
 
     private TextView tvCarNo, tvCarLicence, tvUserName, tvUserPhone;
     private String userName, userPhone, carNo, carLicence;
@@ -66,9 +60,70 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         return R.layout.activity_main;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+
+    }
+
+    private void initBaiDuLocation() {
+
+
+        mLocationClient = new LocationClient(getApplicationContext());
+        //声明LocationClient类
+        mLocationClient.registerLocationListener(myListener);
+
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        //可选，设置定位模式，默认高精度
+        //LocationMode.Hight_Accuracy：高精度；
+        //LocationMode. Battery_Saving：低功耗；
+        //LocationMode. Device_Sensors：仅使用设备；
+
+        option.setCoorType("bd09ll");
+        //可选，设置返回经纬度坐标类型，默认GCJ02
+        //GCJ02：国测局坐标；
+        //BD09ll：百度经纬度坐标；
+        //BD09：百度墨卡托坐标；
+        //海外地区定位，无需设置坐标类型，统一返回WGS84类型坐标
+
+        option.setScanSpan(30000);
+        //可选，设置发起定位请求的间隔，int类型，单位ms
+        //如果设置为0，则代表单次定位，即仅定位一次，默认为0
+        //如果设置非0，需设置1000ms以上才有效
+
+        option.setOpenGps(true);
+        //可选，设置是否使用gps，默认false
+        //使用高精度和仅用设备两种定位模式的，参数必须设置为true
+
+        option.setLocationNotify(true);
+        //可选，设置是否当GPS有效时按照1S/1次频率输出GPS结果，默认false
+
+        option.setIgnoreKillProcess(false);
+        //可选，定位SDK内部是一个service，并放到了独立进程。
+        //设置是否在stop的时候杀死这个进程，默认（建议）不杀死，即setIgnoreKillProcess(true)
+
+        option.SetIgnoreCacheException(false);
+        //可选，设置是否收集Crash信息，默认收集，即参数为false
+
+        option.setWifiCacheTimeOut(5*60*1000);
+        //可选，V7.2版本新增能力
+        //如果设置了该接口，首次启动定位时，会先判断当前Wi-Fi是否超出有效期，若超出有效期，会先重新扫描Wi-Fi，然后定位
+
+        option.setEnableSimulateGps(false);
+        //可选，设置是否需要过滤GPS仿真结果，默认需要，即参数为false
+
+        option.setNeedNewVersionRgc(true);
+        //可选，设置是否需要最新版本的地址信息。默认需要，即参数为true
+
+        mLocationClient.setLocOption(option);
+        //mLocationClient为第二步初始化过的LocationClient对象
+        //需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
+        //更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说明
+    }
 
     @Override
     protected void initEventAndData() {
+
         replaceFragment(new MapFragment(), R.id.fl_main_content);
         //  获取控件
         tvCarNo = findViewById(R.id.tv_car_no);
@@ -124,25 +179,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     /*开启定位*/
     private void location() {
 
-        lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager   lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         boolean providerEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
         if (providerEnabled) {
             //声明mLocationOption对象
-            mLocationClient = new AMapLocationClient(this);
-            //初始化定位参数
-            mLocationOption = new AMapLocationClientOption();
-
-            //设置定位监听
-            mLocationClient.setLocationListener(this);
-            //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式  不使用GPS
-            mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-            //设置定位间隔,单位毫秒,默认为100000ms
-            mLocationOption.setInterval(10000);
-
-            //设置定位参数
-            mLocationClient.setLocationOption(mLocationOption);
-            mLocationClient.startLocation();
+            initBaiDuLocation();
+            mLocationClient.start();
 
         } else {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -168,41 +211,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     }
 
-    @Override
-    public void resetLocation() {
 
-        mLocationClient = new AMapLocationClient(this);
-        //初始化定位参数
-        mLocationOption = new AMapLocationClientOption();
 
-        //设置定位监听
-        mLocationClient.setLocationListener(this);
-        //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式  不使用GPS
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        //设置定位间隔,单位毫秒,默认为100000ms
-        mLocationOption.setInterval(3000);
-
-        if (mLocationClient != null && mLocationOption != null) {
-            mLocationClient.setLocationOption(mLocationOption);
-            mLocationClient.startLocation();
-        } else {
-            return;
-        }
-
-    }
-
-    @Override
-    public void relogin() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setMessage("登录信息失效,请重新登录")
-                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MyApplication.getInstance().exitApp();
-                    }
-                });
-        builder.show();
-    }
 
     @Override
     public void logOutSuccess() {
@@ -216,41 +226,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
 
-    @Override
-    public void onLocationChanged(AMapLocation aMapLocation) {
-        if (aMapLocation != null) {
-            if (aMapLocation.getErrorCode() == 0) {
-                //定位成功回调信息，设置相关消息
-                String address = aMapLocation.getAddress();
-                aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                double latitude = aMapLocation.getLatitude();//获取纬度
-                double longitude = aMapLocation.getLongitude();//获取经度
-                float accuracy = aMapLocation.getAccuracy();//获取精度信息
-
-                //                转换地位为百度定位
-                double[] doubles = PccGo2MapUtil.gaoDeToBaidu(longitude, latitude);
-                boolean isWork = SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
-//                定时上传车辆信息
-                UploadMapEntity uploadMapEntity = new UploadMapEntity(carNo, Double.toString(latitude), Double.toString(longitude), userName, userPhone);
-                if (isWork) {
-                    mPresenter.mapUpLoad(uploadMapEntity);
-                }
-
-            } else {
-                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
-                Log.e("AmapError", "location Error, ErrCode:"
-                        + aMapLocation.getErrorCode() + ", errInfo:"
-                        + aMapLocation.getErrorInfo());
-            }
-        }
-    }
 
 
     @Override
     protected void onResume() {
         super.onResume();
         if (null != mLocationClient && !mLocationClient.isStarted()) {
-            mLocationClient.startLocation();
+            mLocationClient.start();
         }
     }
 
@@ -289,7 +271,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     protected void onDestroy() {
         super.onDestroy();
         if (mLocationClient != null) {
-            mLocationClient.disableBackgroundLocation(true);
+            mLocationClient.disableAssistantLocation();
         }
 
 
@@ -316,6 +298,36 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
                 break;
             default:
+        }
+    }
+
+    public class MyLocationListener extends BDAbstractLocationListener{
+
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
+            //以下只列举部分获取经纬度相关（常用）的结果信息
+            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
+
+            double latitude = bdLocation.getLatitude();    //获取纬度信息
+            double longitude = bdLocation.getLongitude();    //获取经度信息
+            float radius = bdLocation.getRadius();    //获取定位精度，默认值为0.0f
+
+            String coorType = bdLocation.getCoorType();
+            //获取经纬度坐标类型，以LocationClientOption中设置过的坐标类型为准
+
+            int errorCode = bdLocation.getLocType();
+            //获取定位类型、定位错误返回码，具体信息可参照类参考中BDLocation类中的说明
+            LogUtils.d("定位失败"+errorCode+"longitude"+longitude);
+
+            boolean isWork = SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
+            //                定时上传车辆信息
+            UploadMapEntity uploadMapEntity = new UploadMapEntity(carNo, Double.toString(latitude), Double.toString(longitude), userName, userPhone);
+            if (isWork) {
+                mPresenter.mapUpLoad(uploadMapEntity);
+            }
+
+
         }
     }
 }

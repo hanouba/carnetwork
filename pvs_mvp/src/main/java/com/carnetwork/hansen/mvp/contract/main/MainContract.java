@@ -17,8 +17,6 @@ public interface MainContract {
     interface View extends BaseView {
 
 
-        void resetLocation();
-        void relogin();
         void logOutSuccess();
     }
 

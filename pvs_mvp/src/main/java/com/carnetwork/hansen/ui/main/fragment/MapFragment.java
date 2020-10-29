@@ -15,14 +15,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.MapView;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
-import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.Marker;
-import com.amap.api.maps.model.MarkerOptions;
-import com.amap.api.maps.model.MyLocationStyle;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.model.LatLng;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.carnetwork.hansen.R;
 import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.base.BaseFragment;
@@ -58,10 +59,9 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     ImageButton mBtReset;
     @BindView(R.id.tv_work_state)
     TextView tvWorkState;
-    AMap aMap;
     private List<AllCar> carLists;
 
-    private Marker curShowWindowMarker;
+    private BaiduMap mBaiduMap ;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,12 +74,13 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
     private void initview(Bundle savedInstanceState, View view) {
         mMapView = (MapView) view.findViewById(R.id.map);
-        mMapView.onCreate(savedInstanceState);
-        if (aMap == null) {
-            aMap = mMapView.getMap();
+        if (mBaiduMap == null) {
+            mBaiduMap = mMapView.getMap();
         }
-        //隐藏缩放控件
-        aMap.getUiSettings().setZoomControlsEnabled(false);
+        MapStatus.Builder builder = new MapStatus.Builder();
+        builder.zoom(18.0f);
+        mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+        mBaiduMap.setMyLocationEnabled(true);
     }
 
 
@@ -105,49 +106,57 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
         mPresenter.getAllCar("", carNo);
 
-        aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
-            @Override
-            public View getInfoWindow(Marker marker) {
-                return null;
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-                if (infoWindow == null) {
-                    infoWindow = LayoutInflater.from(getContext()).inflate(
-                            R.layout.custom_info_window, null);
-                }
-                render(marker, infoWindow);
-                return infoWindow;
-            }
-        });
-
-        aMap.setOnMapTouchListener(new AMap.OnMapTouchListener() {
-            @Override
-            public void onTouch(MotionEvent motionEvent) {
-                if (aMap != null && curShowWindowMarker != null) {
-                    if (curShowWindowMarker.isInfoWindowShown()){
-                        curShowWindowMarker.hideInfoWindow();
-                    }
-                }
-
-            }
-        });
-
-        aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                curShowWindowMarker = marker;
-                return false;
-            }
-        });
-
-        aMap.setOnInfoWindowClickListener(new AMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-
-            }
-        });
+//        aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
+//            @Override
+//            public View getInfoWindow(Marker marker) {
+//                return null;
+//            }
+//
+//            @Override
+//            public View getInfoContents(Marker marker) {
+//                if (infoWindow == null) {
+//                    infoWindow = LayoutInflater.from(getContext()).inflate(
+//                            R.layout.custom_info_window, null);
+//                }
+//                render(marker, infoWindow);
+//                return infoWindow;
+//            }
+//        });
+//
+//        aMap.setOnMapTouchListener(new AMap.OnMapTouchListener() {
+//            @Override
+//            public void onTouch(MotionEvent motionEvent) {
+//                if (aMap != null && curShowWindowMarker != null) {
+//                    if (curShowWindowMarker.isInfoWindowShown()){
+//                        curShowWindowMarker.hideInfoWindow();
+//                    }
+//                }
+//
+//            }
+//        });
+//
+//        aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+//            @Override
+//            public boolean onMarkerClick(Marker marker) {
+//                curShowWindowMarker = marker;
+//                return false;
+//            }
+//        });
+//
+//        aMap.setOnInfoWindowClickListener(new AMap.OnInfoWindowClickListener() {
+//            @Override
+//            public void onInfoWindowClick(Marker marker) {
+//
+//            }
+//        });
+//
+//        aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng latLng) {
+//                ToastUtils.showLong("选择的经纬度"+latLng.latitude);
+//
+//            }
+//        });
 
 //        显示工作状态
         showcurrentWorkState();
@@ -175,25 +184,25 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     /**
      * 自定义infowinfow窗口
      */
-    public void render(Marker marker, View view) {
-        TextView tvCarNo = view.findViewById(R.id.tv_map_car_no);
-        TextView tvCarL = view.findViewById(R.id.tv_car_map_licence);
-        TextView tvUserName = view.findViewById(R.id.tv_car_username);
-        ImageView ivCarPhone = view.findViewById(R.id.iv_car_phone);
-        tvCarNo.setText(marker.getTitle());
-        String snippet = marker.getSnippet();
-        String[] split = snippet.split(",");
-
-        ivCarPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                callPhone(split[0]);
-            }
-        });
-
-
-    }
+//    public void render(Marker marker, View view) {
+//        TextView tvCarNo = view.findViewById(R.id.tv_map_car_no);
+//        TextView tvCarL = view.findViewById(R.id.tv_car_map_licence);
+//        TextView tvUserName = view.findViewById(R.id.tv_car_username);
+//        ImageView ivCarPhone = view.findViewById(R.id.iv_car_phone);
+//        tvCarNo.setText(marker.getTitle());
+//        String snippet = marker.getSnippet();
+//        String[] split = snippet.split(",");
+//
+//        ivCarPhone.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                callPhone(split[0]);
+//            }
+//        });
+//
+//
+//    }
 
     private List<Map<String, String>> list;
 
@@ -207,11 +216,11 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
             MarkerOptions markerOption = new MarkerOptions();
             markerOption.position(latLng);
             markerOption.title(list.get(i).get("title"));
-            markerOption.snippet(list.get(i).get("carLince"));
+//            markerOption.snippet(list.get(i).get("carLince"));
             //自定义点标记的icon图标为drawable文件下图片
             markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_car_blue)));
             markerOption.draggable(false);
-            aMap.addMarker(markerOption);
+//            aMap.addMarker(markerOption);
 
         }
 
@@ -222,14 +231,14 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
      * 定位到当前位置
      */
     private void showCurrentLocation() {
-        MyLocationStyle myLocationStyle;
-        myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);//定位一次，且将视角移动到地图中心点。
-        myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
-        aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
-        //aMap.getUiSettings().setMyLocationButtonEnabled(true);设置默认定位按钮是否显示，非必需设置。
-        aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
-
+//        MyLocationStyle myLocationStyle;
+//        myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
+//        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);//定位一次，且将视角移动到地图中心点。
+//        myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
+//        aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
+//        //aMap.getUiSettings().setMyLocationButtonEnabled(true);设置默认定位按钮是否显示，非必需设置。
+//        aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
+//
 
     }
 
@@ -288,5 +297,22 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
+        mMapView.onPause();
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
+        mMapView.onDestroy();
+    }
 }

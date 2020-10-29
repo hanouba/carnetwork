@@ -495,3 +495,8 @@
 
 #重点
 -ignorewarnings
+
+#百度
+-keep class com.baidu.** {*;}
+-keep class vi.com.** {*;}
+-keep class com.baidu.vi.** {*;}
