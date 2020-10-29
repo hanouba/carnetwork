@@ -13,6 +13,11 @@ import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
 import com.carnetwork.hansen.mvp.presenter.main.DriverInfoPresenter;
 import com.carnetwork.hansen.ui.main.adapter.DriverInfosAdapter;
 
+import java.util.List;
+
+/**
+ * 车辆信息显示
+ */
 public class CarInfosActivity extends BaseActivity<DriverInfoPresenter> implements CarInfoContract.View {
     private RecyclerView recyclerView;
     private String carNo ="";
@@ -37,8 +42,9 @@ public class CarInfosActivity extends BaseActivity<DriverInfoPresenter> implemen
         getActivityComponent().inject(this);
     }
     @Override
-    public void showAllDriver(AllDrvier allCar) {
-        driverInfosAdapter = new DriverInfosAdapter(allCar.getModel());
+    public void showAllDriver(List<AllDrvier> allCar) {
+
+        driverInfosAdapter = new DriverInfosAdapter(allCar);
         recyclerView.setAdapter(driverInfosAdapter);
     }
 

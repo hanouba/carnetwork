@@ -13,9 +13,9 @@ import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
 import java.util.List;
 
 public class DriverInfosAdapter extends RecyclerView.Adapter<DriverInfosAdapter.ViewHolder> {
-    private List<AllDrvier.ModelBean> mDriverList;
+    private List<AllDrvier> mDriverList;
 
-    public DriverInfosAdapter(List<AllDrvier.ModelBean> mDriverList) {
+    public DriverInfosAdapter(List<AllDrvier> mDriverList) {
         this.mDriverList = mDriverList;
     }
 
@@ -29,7 +29,7 @@ public class DriverInfosAdapter extends RecyclerView.Adapter<DriverInfosAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        AllDrvier.ModelBean driver = mDriverList.get(position);
+        AllDrvier driver = mDriverList.get(position);
         holder.driverNo.setText(driver.getCarNum());
         holder.driverLicence.setText(driver.getCarLicence());
         holder.driverName.setText(driver.getName());

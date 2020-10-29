@@ -5,6 +5,8 @@ import com.carnetwork.hansen.base.BaseView;
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 
+import java.util.List;
+
 /**
  * @author HanN on 2020/10/23 10:07
  * @email: 1356548475@qq.com
@@ -17,7 +19,7 @@ import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
  */
 public interface MapContract {
     interface View extends BaseView {
-        void showAllCar(AllCar allCar);
+        void showAllCar(List<AllCar> allCar);
         void changeWorkState();
     }
 

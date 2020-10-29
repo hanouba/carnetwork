@@ -66,7 +66,7 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
     }
 
     @Override
-    public Flowable<AllCar> getAllCar(String carNo) {
+    public Flowable<MyHttpResponse<List<AllCar>>> getAllCar(String carNo) {
         return mHttpHelper.getAllCar(carNo);
     }
 
@@ -76,7 +76,7 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
     }
 
     @Override
-    public Flowable<AllDrvier> getAllDriver(String carNo) {
+    public Flowable<MyHttpResponse<List<AllDrvier>>> getAllDriver(String carNo) {
         return mHttpHelper.getAllDriver(carNo);
     }
 

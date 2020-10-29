@@ -9,6 +9,7 @@ import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.carnetwork.hansen.mvp.model.http.api.MyApis;
 import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -41,7 +42,7 @@ public class RetrofitHelper implements HttpHelper {
     }
 
     @Override
-    public Flowable<AllCar> getAllCar(String carNo) {
+    public Flowable<MyHttpResponse<List<AllCar>>> getAllCar(String carNo) {
         return mMyApiService.getAllCar(carNo);
     }
 
@@ -51,7 +52,7 @@ public class RetrofitHelper implements HttpHelper {
     }
 
     @Override
-    public Flowable<AllDrvier> getAllDriver(String carNo) {
+    public Flowable<MyHttpResponse<List<AllDrvier>>> getAllDriver(String carNo) {
         return mMyApiService.getAllDriver(carNo);
     }
 }

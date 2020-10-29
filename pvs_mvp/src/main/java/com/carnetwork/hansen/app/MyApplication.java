@@ -15,6 +15,8 @@ import com.carnetwork.hansen.di.component.DaggerAppComponent;
 import com.carnetwork.hansen.di.module.AppModule;
 import com.carnetwork.hansen.di.module.HttpModule;
 import com.carnetwork.hansen.BuildConfig;
+import com.lzx.starrysky.manager.MusicManager;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,14 +50,7 @@ public class MyApplication extends Application {
         instance = this;
         InitializeService.start(this);
 
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Quicksand-Medium.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
-
-
-
+        MusicManager.initMusicManager(this);
     }
 
 

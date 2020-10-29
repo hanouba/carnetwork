@@ -59,7 +59,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     @BindView(R.id.tv_work_state)
     TextView tvWorkState;
     AMap aMap;
-    private List<AllCar.ModelBean> carLists;
+    private List<AllCar> carLists;
 
     private Marker curShowWindowMarker;
     @Nullable
@@ -100,6 +100,9 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
         showCurrentLocation();
         String carNo = SPUtils.getInstance().getString(Constants.CAR_NO);
+
+
+
         mPresenter.getAllCar("", carNo);
 
         aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
@@ -243,7 +246,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     /**
      * 模拟数据源
      */
-    private List<Map<String, String>> getLatData(List<AllCar.ModelBean> carLists) {
+    private List<Map<String, String>> getLatData(List<AllCar> carLists) {
         List<Map<String, String>> list = new ArrayList<>();
         for (int i = 0; i < carLists.size(); i++) {
             Map<String, String> map = new HashMap<>();
@@ -257,18 +260,14 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     }
 
     @Override
-    public void showAllCar(AllCar allCar) {
-        if (allCar.isSuccess()) {
+    public void showAllCar(List<AllCar> allCar) {
             if (carLists == null) {
                 carLists = new ArrayList<>();
 
             }
             carLists.clear();
-            carLists = allCar.getModel();
-
-
+            carLists = allCar;
             getData();
-        }
     }
 
     @Override

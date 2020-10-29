@@ -9,7 +9,7 @@ public class MyHttpResponse<T> {
     private boolean success;
     private String errorMessage;
     private String errorCode;
-    private String errorTips;
+
 
 
 
@@ -43,13 +43,5 @@ public class MyHttpResponse<T> {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
-    }
-
-    public String getErrorTips() {
-        return errorTips;
-    }
-
-    public void setErrorTips(String errorTips) {
-        this.errorTips = errorTips;
     }
 }

@@ -8,6 +8,8 @@ import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
 
+import java.util.List;
+
 import io.reactivex.Flowable;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -27,14 +29,12 @@ public interface MyApis {
 
     //    回去车辆
     @POST("map/allCar")
-    Flowable<AllCar> getAllCar(@Query("carNo") String carNo);
-
-
+    Flowable<MyHttpResponse<List<AllCar>>> getAllCar(@Query("carNo") String carNo);
 
     @POST("map/upload")
     Flowable<MyHttpResponse> mapUpload(@Body UploadMapEntity uploadMapEntity);
 
     //回去人员列表
     @POST("user/list")
-    Flowable<AllDrvier> getAllDriver(@Query("carNo") String carNo);
+    Flowable<MyHttpResponse<List<AllDrvier>>> getAllDriver(@Query("carNo") String carNo);
 }

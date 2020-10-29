@@ -12,58 +12,12 @@ public class AllCar {
      * model : [{"id":74917678061588480,"lat":"116.377823000000000","lon":"39.987725000000000","reportTime":1603506035000,"carNum":"001","speed":"0.00km/h","direction":"-0.0","status":"stop","projectId":"1234568","name":"string","phone":"string"},{"id":73929847138816000,"lat":"116.377823000000000","lon":"39.987725000000000","reportTime":1603270518000,"carNum":"string","speed":"84.64km/h","direction":"-152.33690096132727","status":"run","projectId":"1234568","name":"string","phone":"string"}]
      */
 
-    private boolean success;
-    private String errorCode;
-    private String errorMessage;
-    private String errorTips;
-    private List<ModelBean> model;
 
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public Object getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public Object getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public Object getErrorTips() {
-        return errorTips;
-    }
-
-    public void setErrorTips(String errorTips) {
-        this.errorTips = errorTips;
-    }
-
-    public List<ModelBean> getModel() {
-        return model;
-    }
-
-    public void setModel(List<ModelBean> model) {
-        this.model = model;
-    }
-
-    public static class ModelBean {
         /**
          * id : 74917678061588480
          * lat : 116.377823000000000
          * lon : 39.987725000000000
-         * reportTime : 1603506035000
+         * 	"reportTime": "2020-10-29 15:18:22",
          * carNum : 001
          * speed : 0.00km/h
          * direction : -0.0
@@ -76,7 +30,7 @@ public class AllCar {
         private long id;
         private String lat;
         private String lon;
-        private long reportTime;
+        private String reportTime;
         private String carNum;
         private String speed;
         private String direction;
@@ -109,11 +63,11 @@ public class AllCar {
             this.lon = lon;
         }
 
-        public long getReportTime() {
+        public String getReportTime() {
             return reportTime;
         }
 
-        public void setReportTime(long reportTime) {
+        public void setReportTime(String reportTime) {
             this.reportTime = reportTime;
         }
 
@@ -172,16 +126,5 @@ public class AllCar {
         public void setPhone(String phone) {
             this.phone = phone;
         }
-    }
 
-    @Override
-    public String toString() {
-        return "AllCar{" +
-                "success=" + success +
-                ", errorCode='" + errorCode + '\'' +
-                ", errorMessage='" + errorMessage + '\'' +
-                ", errorTips='" + errorTips + '\'' +
-                ", model=" + model +
-                '}';
-    }
 }

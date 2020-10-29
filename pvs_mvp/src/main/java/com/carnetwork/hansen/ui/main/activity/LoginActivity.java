@@ -1,6 +1,8 @@
 package com.carnetwork.hansen.ui.main.activity;
 
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,8 +25,12 @@ import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 import com.carnetwork.hansen.mvp.presenter.main.LoginPresenter1;
 import com.carnetwork.hansen.util.SystemUtil;
 import com.carnetwork.hansen.widget.LineEditText;
+import com.lzx.starrysky.manager.MusicManager;
+import com.lzx.starrysky.model.SongInfo;
 import com.tencent.bugly.crashreport.CrashReport;
 
+import java.io.FileDescriptor;
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -132,6 +138,21 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         String carLicence = etCarlicence.getText().toString().trim();
         String phone = etPhone.getText().toString().trim();
         String name = etName.getText().toString().trim();
+        AssetManager assetManager = getResources().getAssets();
+        try {
+            AssetFileDescriptor assetFileDescriptor = assetManager.openFd("");
+            FileDescriptor fileDescriptor = assetFileDescriptor.getFileDescriptor();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //简单播放一首歌曲
+        SongInfo info = new SongInfo();
+        info.setSongId("1111");
+        info.setSongUrl("http://music.163.com/song/media/outer/url?id=317151.mp3");
+//        StarrySky.with().playMusicByInfo(info);
+        MusicManager.getInstance().playMusicByInfo(info);
+
+
         if (TextUtils.isEmpty(carNo)) {
             ToastUtils.showLong("车辆编号不能为ddddddd空");
             return;

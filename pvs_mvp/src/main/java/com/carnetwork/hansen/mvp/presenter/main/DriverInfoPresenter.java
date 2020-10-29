@@ -11,8 +11,11 @@ import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
 import com.carnetwork.hansen.mvp.model.event.CommonEvent;
 import com.carnetwork.hansen.mvp.model.event.EventCode;
+import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
 import com.carnetwork.hansen.util.RxUtil;
 import com.carnetwork.hansen.widget.CommonSubscriber;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -70,11 +73,11 @@ public class DriverInfoPresenter extends RxPresenter<CarInfoContract.View> imple
 
 
         addSubscribe(mDataManager.getAllDriver(carNo)
-                .compose(RxUtil.<AllDrvier>rxSchedulerHelper())
-
-                .subscribeWith(new CommonSubscriber<AllDrvier>(mView) {
+                .compose(RxUtil.<MyHttpResponse<List<AllDrvier>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<AllDrvier>>handleMyResult())
+                .subscribeWith(new CommonSubscriber<List<AllDrvier>>(mView) {
                     @Override
-                    public void onNext(AllDrvier allCar) {
+                    public void onNext(List<AllDrvier> allCar) {
                         Log.i("", "onNext: 获取到AllDrvier"+allCar.toString());
                         mView.showAllDriver(allCar);
                     }
