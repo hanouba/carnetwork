@@ -167,6 +167,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
                 if (marker.getTitle().contains("car")) {
                     showCarInfosBottom(marker);
                 }else {
+
                     showExitDialog(marker.getTitle().split(",")[0]);
 
                 }
@@ -204,11 +205,16 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                     mPresenter.deleateSate(carNo,id);
+
             }
         });
         builder.show();
     }
 
+    /**
+     * 显示底部车辆信息
+     * @param marker
+     */
     private void showCarInfosBottom(Marker marker) {
         int halfWidth = 0;
         Window window = getActivity().getWindow();
@@ -377,6 +383,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         if (sateBeans.size() < 1) {
             return;
         }
+        mBaiduMap.clear();
 
         View view = View.inflate(getActivity(), R.layout.item_sate_mark_view, null);
         LinearLayout popView = view.findViewById(R.id.cl_root);
