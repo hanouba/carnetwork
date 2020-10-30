@@ -27,6 +27,7 @@ public interface HttpHelper {
     Flowable<MyHttpResponse> sateSave(SateSaveEntity sateSaveEntity);
     Flowable<MyHttpResponse<List<AllCar>>> getAllCar(String carNo);
     Flowable<MyHttpResponse> logout(String carNo);
+    Flowable<MyHttpResponse> deleteSate(String id);
     Flowable<MyHttpResponse<List<AllDrvier>>> getAllDriver(String carNo);
 
 }

@@ -54,5 +54,7 @@ public interface MyApis {
     //获取起点终点
     @POST("sate/list")
     Flowable<MyHttpResponse<List<SateBean>>> getSateList(@Query("carNo") String carNo);
-
+    //删除某个站点
+    @POST("sate/delete")
+    Flowable<MyHttpResponse> deleteSate(@Query("id") String id);
 }

@@ -23,6 +23,7 @@ public interface MapContract {
         void showAllCar(List<AllCar> allCar);
         void showAllSate(List<SateBean> sateBeans);
         void changeWorkState();
+
     }
 
     interface Presenter extends BasePresenter<MapContract.View> {
@@ -30,6 +31,8 @@ public interface MapContract {
         void mapUpLoad(UploadMapEntity uploadMapEntity);
 
         void getSateList(String carNo);
+        //删除某个站点
+        void deleateSate(String carNo,String id);
 
 
 

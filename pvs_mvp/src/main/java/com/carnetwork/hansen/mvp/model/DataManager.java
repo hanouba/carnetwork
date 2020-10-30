@@ -88,6 +88,11 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
     }
 
     @Override
+    public Flowable<MyHttpResponse> deleteSate(String id) {
+        return mHttpHelper.deleteSate(id);
+    }
+
+    @Override
     public Flowable<MyHttpResponse<List<AllDrvier>>> getAllDriver(String carNo) {
         return mHttpHelper.getAllDriver(carNo);
     }

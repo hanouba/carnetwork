@@ -64,6 +64,11 @@ public class RetrofitHelper implements HttpHelper {
     }
 
     @Override
+    public Flowable<MyHttpResponse> deleteSate(String id) {
+        return mMyApiService.deleteSate(id);
+    }
+
+    @Override
     public Flowable<MyHttpResponse<List<AllDrvier>>> getAllDriver(String carNo) {
         return mMyApiService.getAllDriver(carNo);
     }

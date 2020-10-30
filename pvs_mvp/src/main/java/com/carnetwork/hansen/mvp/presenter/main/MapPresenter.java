@@ -5,6 +5,7 @@ import android.util.Log;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.base.RxPresenter;
 import com.carnetwork.hansen.component.RxBus;
@@ -24,6 +25,7 @@ import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
 import com.carnetwork.hansen.ui.main.fragment.MapFragment;
 import com.carnetwork.hansen.util.RxUtil;
 import com.carnetwork.hansen.widget.CommonSubscriber;
+import com.google.android.exoplayer2.extractor.mp3.Mp3Extractor;
 
 import org.reactivestreams.Publisher;
 
@@ -196,6 +198,27 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
                     public void onError(Throwable e) {
                         super.onError(e);
                         Log.i("", "onNext: 获取到获取到起点终点onError"+e.toString());
+                    }
+                })
+        );
+    }
+
+    @Override
+    public void deleateSate(String carNo,String id) {
+        addSubscribe(mDataManager.deleteSate(id)
+                .compose(RxUtil.<MyHttpResponse>rxSchedulerHelper())
+                .subscribeWith(new CommonSubscriber<MyHttpResponse>(mView) {
+                    @Override
+                    public void onNext(MyHttpResponse sateBeans) {
+                        if (sateBeans.isSuccess()) {
+                        getSateList(carNo);
+                        }else {
+                            ToastUtils.showShort("删除失败");
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
                     }
                 })
         );
