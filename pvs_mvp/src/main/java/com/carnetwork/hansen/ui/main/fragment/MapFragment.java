@@ -1,17 +1,23 @@
 package com.carnetwork.hansen.ui.main.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,6 +55,7 @@ import com.carnetwork.hansen.mvp.model.bean.SateBean;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.carnetwork.hansen.mvp.presenter.main.MapPresenter;
 import com.carnetwork.hansen.ui.main.activity.SellectActivity;
+import com.carnetwork.hansen.widget.CustomPopupWindow;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,7 +103,6 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     private MyLocationListener myListener = new MyLocationListener();
     private LocationClientOption option = new LocationClientOption();
     private String userName, userPhone, carNo, carLicence;
-    private InfoWindow mInfoWindow;
 
     @Nullable
     @Override
@@ -157,43 +163,52 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                View view = View.inflate(getActivity(), R.layout.custom_info_window, null);
-                LinearLayout popView = view.findViewById(R.id.cl_root);
-                TextView carno = view.findViewById(R.id.tv_map_car_no);
-                TextView licence = view.findViewById(R.id.tv_car_map_licence);
-                ImageView phone = view.findViewById(R.id.iv_car_phone);
-                mInfoWindow = new InfoWindow(view, marker.getPosition(), -47);
+                int halfWidth = 0;
+                Window window = getActivity().getWindow();
+                if (window != null) {
+                    Display d = window.getWindowManager().getDefaultDisplay();  //为获取屏幕宽、高
+                    halfWidth = (int) (d.getWidth() * 0.95);//屏幕宽度的0.9
+                }
+
+                CustomPopupWindow  bottomCarInfo = new CustomPopupWindow.Builder().
+                        setContext(getContext())
+                        .setContentView(R.layout.car_info_bottom_window)
+                        .setwidth(halfWidth)
+                        .setheight(LinearLayout.LayoutParams.WRAP_CONTENT)
+                        .setFouse(true)
+                        .setOutSideCancel(true)
+                        .setAnimationStyle(R.style.mypopwindow_anim_style)
+                        .setBackGroudAlpha(getActivity(), 0)
+                        .builder()
+                        .showAtLocation(mMapView, Gravity.BOTTOM, 0, -200);
+
+                TextView tvCarLicence = (TextView) bottomCarInfo.getItemView(R.id.tv_bottom_car_licence);
+                TextView tvCarState = (TextView) bottomCarInfo.getItemView(R.id.tv_bottom_car_state);
+                TextView tvCarTime = (TextView) bottomCarInfo.getItemView(R.id.tv_reprot_time);
+                TextView tvCarSpeed = (TextView) bottomCarInfo.getItemView(R.id.tv_speed);
+                ImageView ivCarPhone = (ImageView) bottomCarInfo.getItemView(R.id.iv_car_phone);
+                // 1车辆编号  2车辆 车牌号 3 电话号码  4 speed  5状态 6 time stop等信息
                 String title = marker.getTitle();
                 String[] split = title.split(",");
 
-                if (split.length == 1) {
-                    carno.setText(split[0]);
-                    phone.setVisibility(View.GONE);
-                }else if (split.length > 1){
-                    carno.setText(split[0]);
-                    licence.setText(split[1]);
-
-                    if ("stop".equals(split[4])) {
-                        popView.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.border_red));
-                    }else {
-                        popView.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.border_green));
-                    }
+                tvCarLicence.setText(split[1]);
+                tvCarSpeed.setText(split[3]);
+                if ("stop".equals(split[4])) {
+                    tvCarState.setText("停止");
+                    tvCarState.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.state_car_red));
+                }else {
+                    tvCarState.setText("行驶");
+                    tvCarState.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.state_car_green));
                 }
-
-
-                mBaiduMap.showInfoWindow(mInfoWindow);
-
-                phone.setOnClickListener(new View.OnClickListener() {
+                tvCarTime.setText(split[5]);
+                ivCarPhone.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //关闭InfoWindow
-
-                        // car no  phone  name
-                        callPhone(split[1]);
-
+                        callPhone(split[2]);
                     }
                 });
-                return true;
+
+                return false;
             }
         });
 
@@ -209,15 +224,15 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                ToastUtils.showLong(latLng.latitude + "");
+
             }
 
             @Override
             public void onMapPoiClick(MapPoi mapPoi) {
-                ToastUtils.showLong(mapPoi.getName());
             }
         });
     }
+
 
     /**
      * 在地图上显示当前工作状态
@@ -270,41 +285,64 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
     /**
      * 显示所有的的车辆 和基本信息
-     * @param allCar
+     * @param allCars
      */
+    @SuppressLint("SetTextI18n")
     @Override
-    public void showAllCar(List<AllCar> allCar) {
+    public void showAllCar(List<AllCar> allCars) {
 
+        if (carLists == null) {
+            carLists = new ArrayList<>();
+        }
+        carLists.clear();
 
-        if (allCar.size() < 1) {
+        carLists = new ArrayList<>(allCars);
+        if (carLists.size() < 1) {
             return;
         }
 
+        View view = View.inflate(getActivity(), R.layout.custom_info_window, null);
+        LinearLayout popView = view.findViewById(R.id.cl_root);
+        TextView tvCarno = view.findViewById(R.id.tv_map_car_no);
+        TextView tvLicence = view.findViewById(R.id.tv_car_map_licence);
+
         //循坏在地图上添加自定义marker
-        for (int i = 0; i < allCar.size(); i++) {
-            // 1车辆编号  2车辆 车牌号 3 电话号码  4 状态 stop等信息
-            String  title = ","+","+",";
-            if (!TextUtils.isEmpty(allCar.get(i).getCarNum()) && !TextUtils.isEmpty(allCar.get(i).getCarLicence()) && !TextUtils.isEmpty(allCar.get(i).getPhone())) {
-                  title = allCar.get(i).getCarNum()+","+allCar.get(i).getCarLicence()+","+allCar.get(i).getPhone()+","+ allCar.get(i).getStatus();
+        for (int i = 0; i < carLists.size(); i++) {
+            AllCar currentCar = carLists.get(i);
+            // 1车辆编号  2车辆 车牌号 3 电话号码  4 speed  5状态 6 timestop等信息
+            String title = currentCar.getCarNum()+","+currentCar.getCarLicence()+","+currentCar.getPhone()+","+currentCar.getSpeed()+","+currentCar.getStatus() +","+currentCar.getReportTime();
+            if ("stop".equals(currentCar.getStatus())) {
+                popView.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.border_red));
+            }else {
+                popView.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.border_green));
             }
+            tvCarno.setText("车辆编号:  "+currentCar.getCarNum());
+            tvLicence.setText("车辆牌照:  "+currentCar.getCarLicence());
 
             //定义Maker坐标点
-            LatLng point = new LatLng(Double.parseDouble(allCar.get(i).getLat()), Double.parseDouble(allCar.get(i).getLon()));
-            //构建Marker图标
-            BitmapDescriptor bitmap = BitmapDescriptorFactory
-                    .fromResource(R.mipmap.icon_truck);
-            //构建MarkerOption，用于在地图上添加Marker
-            OverlayOptions option = new MarkerOptions()
-                    .position(point)
-                    .title(title)
-                    .icon(bitmap);
+            LatLng point = new LatLng(Double.parseDouble(currentCar.getLat()), Double.parseDouble(currentCar.getLon()));
+            BitmapDescriptor bd1 = BitmapDescriptorFactory.fromBitmap(getBitmapFromView(view));
+            MarkerOptions ooA = new MarkerOptions().position(point).icon(bd1).zIndex(9).draggable(true).title(title);
             //在地图上添加Marker，并显示
-            mBaiduMap.addOverlay(option);
+            mBaiduMap.addOverlay(ooA);
 
 
         }
     }
 
+    /**
+     * 将view布局转换成 bitmap
+     * @param view
+     * @return
+     */
+    private Bitmap getBitmapFromView(View view) {
+        view.destroyDrawingCache();
+        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.UNSPECIFIED);
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        view.setDrawingCacheEnabled(true);
+        Bitmap bitmap = view.getDrawingCache();
+        return bitmap;
+    }
     /**
      * 显示所以的 起点终点
      * @param sateBeans

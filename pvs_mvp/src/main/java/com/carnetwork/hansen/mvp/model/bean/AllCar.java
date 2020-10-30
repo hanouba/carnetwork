@@ -18,7 +18,7 @@ public class AllCar {
      * lat : 116.377823000000000
      * lon : 39.987725000000000
      * "reportTime": "2020-10-29 15:18:22",
-     * carNum : 001
+     * carNo : 001
      * speed : 0.00km/h
      * direction : -0.0
      * status : stop
@@ -31,7 +31,7 @@ public class AllCar {
     private String lat;
     private String lon;
     private String reportTime;
-    private String carNum;
+    private String carNo;
     private String speed;
     private String direction;
     private String carLicence;
@@ -74,11 +74,11 @@ public class AllCar {
     }
 
     public String getCarNum() {
-        return carNum;
+        return carNo;
     }
 
     public void setCarNum(String carNum) {
-        this.carNum = carNum;
+        this.carNo = carNum;
     }
 
     public String getSpeed() {
