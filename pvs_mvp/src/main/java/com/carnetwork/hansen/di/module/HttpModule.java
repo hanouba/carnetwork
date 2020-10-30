@@ -127,13 +127,11 @@ public class HttpModule {
                 }
 
                 if (SystemUtil.isNetworkConnected()) {
-                    String token = SPUtils.getInstance().getString(Constants.TOKEN);
-                    LogUtils.d("token值"+token);
+
                     int maxAge = 0;
                     // 有网络时, 不缓存, 最大保存时长为0
                     response.newBuilder()
                             .header("Cache-Control", "public, max-age=" + maxAge)
-                            .addHeader("X-APP-TOKEN",token)
                             .removeHeader("Pragma")
                             .build();
                 } else {
@@ -149,21 +147,21 @@ public class HttpModule {
                         .build();
             }
         };
+        String token = SPUtils.getInstance().getString(Constants.TOKEN);
 
-//        final String sidToken = SPUtils.getInstance().getString(Constants.SESSION_KEY);
-//        Interceptor apikey = new Interceptor() {
-//            @Override
-//            public Response intercept(Chain chain) throws IOException {
-//                Request request = chain.request();
-//                request = request.newBuilder()
-//                        .addHeader("authentication",sidToken)
-//                        .build();
-//                return chain.proceed(request);
-//            }
-//        };
+        Interceptor apikey = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                request = request.newBuilder()
+                        .header("X-APP-TOKEN",token)
+                        .build();
+                return chain.proceed(request);
+            }
+        };
 
         //设置统一的请求头部参数
-//        builder.addInterceptor(apikey);
+        builder.addInterceptor(apikey);
 
 //         添加公共参数拦截器
 

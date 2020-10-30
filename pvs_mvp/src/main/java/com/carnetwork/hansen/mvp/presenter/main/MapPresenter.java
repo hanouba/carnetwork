@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
+import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.base.RxPresenter;
 import com.carnetwork.hansen.component.RxBus;
 import com.carnetwork.hansen.mvp.contract.main.MainContract;
@@ -17,6 +19,7 @@ import com.carnetwork.hansen.mvp.model.bean.SateSaveEntity;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.carnetwork.hansen.mvp.model.event.CommonEvent;
 import com.carnetwork.hansen.mvp.model.event.EventCode;
+import com.carnetwork.hansen.mvp.model.http.api.MyApis;
 import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
 import com.carnetwork.hansen.ui.main.fragment.MapFragment;
 import com.carnetwork.hansen.util.RxUtil;
@@ -33,7 +36,15 @@ import javax.inject.Inject;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author HanN on 2020/10/23 10:07
@@ -46,7 +57,7 @@ import io.reactivex.functions.Function;
  * @version: 2.1.67
  */
 public class MapPresenter  extends RxPresenter<MapContract.View> implements MapContract.Presenter {
-
+    private static final String TAG = "MapPresenter_tag";
     private DataManager mDataManager;
     @Inject
     public MapPresenter(DataManager mDataManager) {
@@ -96,33 +107,52 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
     @Override
     public void getAllCar(String token, String carNo) {
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(MyApis.HOST)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
 
+        MyApis request = retrofit.create(MyApis.class);
 
-        addSubscribe(mDataManager.getAllCar(carNo)
+         Observable<MyHttpResponse<List<AllCar>>> observable = request.getAllCarV(carNo,token);
 
-                .compose(RxUtil.<MyHttpResponse<List<AllCar>>>rxSchedulerHelper())
-                .compose(RxUtil.<List<AllCar>>handleMyResult())
-                .repeatWhen(new Function<Flowable<Object>, Publisher<?>>() {
+        observable.repeatWhen(new Function<Observable<Object>, ObservableSource<?>>() {
+            @Override
+            public ObservableSource<?> apply(Observable<Object> objectObservable) throws Exception {
+                return objectObservable.flatMap(new Function<Object, ObservableSource<?>>() {
                     @Override
-                    public Publisher<?> apply(Flowable<Object> objectFlowable) throws Exception {
-                        Log.i("", "onNext: 延迟一秒轮询");
-                        return Flowable.timer(1000, TimeUnit.MILLISECONDS);
-                    }
-                })
-                .subscribeWith(new CommonSubscriber<List<AllCar>>(mView) {
-                    @Override
-                    public void onNext(List<AllCar> allCar) {
-                        Log.i("", "onNext: 获取到allCar"+allCar.toString());
-                        mView.showAllCar(allCar);
-                    }
+                    public ObservableSource<?> apply(Object o) throws Exception {
 
+                        return Observable.just(1).delay(30000, TimeUnit.MILLISECONDS);
+                    }
+                });
+            }
+        }).subscribeOn(Schedulers.io())   // 切换到IO线程进行网络请求
+                .observeOn(AndroidSchedulers.mainThread())  //切换到主线程 处理请求结果
+                .subscribe(new Observer<MyHttpResponse<List<AllCar>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        LogUtils.d(TAG, "button2_onSubscribe");
+                    }
+                    @Override
+                    public void onNext(MyHttpResponse<List<AllCar>> AllCar) {
+                        LogUtils.d(TAG, "button2_onNext"+AllCar.isSuccess());
+                        if (AllCar.isSuccess()) {
+                            mView.showAllCar(AllCar.getModel());
+                        }
+                    }
                     @Override
                     public void onError(Throwable e) {
-                        super.onError(e);
-                        Log.i("", "onNext: 获取到onError"+e.toString());
+                        LogUtils.d(TAG, "button2_onError");
                     }
-                })
-        );
+
+                    @Override
+                    public void onComplete() {
+                        LogUtils.d(TAG, "button2_onComplete  ");
+                    }
+                });
+
     }
 
 
@@ -153,6 +183,7 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
 
         addSubscribe(mDataManager.getSateList(carNo)
                 .compose(RxUtil.<MyHttpResponse<List<SateBean>>>rxSchedulerHelper())
+
                 .compose(RxUtil.<List<SateBean>>handleMyResult())
                 .subscribeWith(new CommonSubscriber<List<SateBean>>(mView) {
                     @Override

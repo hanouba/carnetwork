@@ -7,12 +7,14 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -137,8 +139,9 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
         userName = SPUtils.getInstance().getString(Constants.CAR_NAME);
         userPhone = SPUtils.getInstance().getString(Constants.CAR_PHONE);
+        String token = SPUtils.getInstance().getString(Constants.TOKEN);
         //获取所以车联信息
-        mPresenter.getAllCar("", carNo);
+        mPresenter.getAllCar(token, carNo);
         //获取所有的起点终点
         mPresenter.getSateList(carNo);
 
@@ -155,19 +158,26 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
             @Override
             public boolean onMarkerClick(Marker marker) {
                 View view = View.inflate(getActivity(), R.layout.custom_info_window, null);
+                LinearLayout popView = view.findViewById(R.id.cl_root);
                 TextView carno = view.findViewById(R.id.tv_map_car_no);
                 TextView licence = view.findViewById(R.id.tv_car_map_licence);
-                TextView name = view.findViewById(R.id.tv_car_username);
                 ImageView phone = view.findViewById(R.id.iv_car_phone);
                 mInfoWindow = new InfoWindow(view, marker.getPosition(), -47);
                 String title = marker.getTitle();
                 String[] split = title.split(",");
+
                 if (split.length == 1) {
                     carno.setText(split[0]);
                     phone.setVisibility(View.GONE);
                 }else if (split.length > 1){
                     carno.setText(split[0]);
-                    name.setText(split[2]);
+                    licence.setText(split[1]);
+
+                    if ("stop".equals(split[4])) {
+                        popView.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.border_red));
+                    }else {
+                        popView.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.border_green));
+                    }
                 }
 
 
@@ -226,36 +236,8 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
 
 
-    private List<Map<String, String>> list;
-
-    private void getData() {
-        //模拟数据源
-        if (list == null) {
-            list = new ArrayList<>();
-        }
-        list.clear();
-        list = getLatData(carLists);
-
-        //循坏在地图上添加自定义marker
-        for (int i = 0; i < list.size(); i++) {
-            //定义Maker坐标点
-            LatLng point = new LatLng(Double.parseDouble(list.get(i).get("latitude")), Double.parseDouble(list.get(i).get("longitude")));
-            //构建Marker图标
-            BitmapDescriptor bitmap = BitmapDescriptorFactory
-                    .fromResource(R.mipmap.icon_car_blue);
-            //构建MarkerOption，用于在地图上添加Marker
-            OverlayOptions option = new MarkerOptions()
-                    .position(point)
-                    .title(list.get(i).get("title"))
-                    .icon(bitmap);
-            //在地图上添加Marker，并显示
-            mBaiduMap.addOverlay(option);
 
 
-        }
-
-
-    }
 
     /**
      * 定位到当前位置
@@ -285,30 +267,42 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         isFirstLocation = true;
     }
 
-    /**
-     * 模拟数据源
-     */
-    private List<Map<String, String>> getLatData(List<AllCar> carLists) {
-        List<Map<String, String>> list = new ArrayList<>();
-        for (int i = 0; i < carLists.size(); i++) {
-            Map<String, String> map = new HashMap<>();
-            map.put("title", carLists.get(i).getCarNum() + "," + carLists.get(i).getPhone() + "," + carLists.get(i).getName());
-            map.put("latitude", carLists.get(i).getLat());
-            map.put("longitude", carLists.get(i).getLon());
-            list.add(map);
-        }
-        return list;
-    }
 
+    /**
+     * 显示所有的的车辆 和基本信息
+     * @param allCar
+     */
     @Override
     public void showAllCar(List<AllCar> allCar) {
-        if (carLists == null) {
-            carLists = new ArrayList<>();
+
+
+        if (allCar.size() < 1) {
+            return;
+        }
+
+        //循坏在地图上添加自定义marker
+        for (int i = 0; i < allCar.size(); i++) {
+            // 1车辆编号  2车辆 车牌号 3 电话号码  4 状态 stop等信息
+            String  title = ","+","+",";
+            if (!TextUtils.isEmpty(allCar.get(i).getCarNum()) && !TextUtils.isEmpty(allCar.get(i).getCarLicence()) && !TextUtils.isEmpty(allCar.get(i).getPhone())) {
+                  title = allCar.get(i).getCarNum()+","+allCar.get(i).getCarLicence()+","+allCar.get(i).getPhone()+","+ allCar.get(i).getStatus();
+            }
+
+            //定义Maker坐标点
+            LatLng point = new LatLng(Double.parseDouble(allCar.get(i).getLat()), Double.parseDouble(allCar.get(i).getLon()));
+            //构建Marker图标
+            BitmapDescriptor bitmap = BitmapDescriptorFactory
+                    .fromResource(R.mipmap.icon_truck);
+            //构建MarkerOption，用于在地图上添加Marker
+            OverlayOptions option = new MarkerOptions()
+                    .position(point)
+                    .title(title)
+                    .icon(bitmap);
+            //在地图上添加Marker，并显示
+            mBaiduMap.addOverlay(option);
+
 
         }
-        carLists.clear();
-        carLists = allCar;
-        getData();
     }
 
     /**
@@ -444,7 +438,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
             boolean isWork = SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
             //                定时上传车辆信息
-            UploadMapEntity uploadMapEntity = new UploadMapEntity(carNo, Double.toString(latitude), Double.toString(longitude), userName, userPhone);
+            UploadMapEntity uploadMapEntity = new UploadMapEntity(carNo, Double.toString(latitude), Double.toString(longitude), "");
             if (isWork) {
                 mPresenter.mapUpLoad(uploadMapEntity);
             }
@@ -508,7 +502,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         //BD09：百度墨卡托坐标；
         //海外地区定位，无需设置坐标类型，统一返回WGS84类型坐标
 
-        option.setScanSpan(1000);
+        option.setScanSpan(30000);
         //可选，设置发起定位请求的间隔，int类型，单位ms
         //如果设置为0，则代表单次定位，即仅定位一次，默认为0
         //如果设置非0，需设置1000ms以上才有效
