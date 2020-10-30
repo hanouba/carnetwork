@@ -43,6 +43,7 @@ import com.carnetwork.hansen.base.BaseFragment;
 import com.carnetwork.hansen.component.keepalive.NoVoiceService;
 import com.carnetwork.hansen.mvp.contract.main.MapContract;
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
+import com.carnetwork.hansen.mvp.model.bean.SateBean;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.carnetwork.hansen.mvp.presenter.main.MapPresenter;
 import com.carnetwork.hansen.ui.main.activity.SellectActivity;
@@ -86,6 +87,8 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     private BaiduMap mBaiduMap;
 
     private boolean isFirstLocation = true;
+
+    public static String sateType = "1";
 
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
@@ -136,6 +139,8 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         userPhone = SPUtils.getInstance().getString(Constants.CAR_PHONE);
         //获取所以车联信息
         mPresenter.getAllCar("", carNo);
+        //获取所有的起点终点
+        mPresenter.getSateList(carNo);
 
 
         //        显示工作状态
@@ -157,8 +162,15 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
                 mInfoWindow = new InfoWindow(view, marker.getPosition(), -47);
                 String title = marker.getTitle();
                 String[] split = title.split(",");
-                carno.setText(split[0]);
-                name.setText(split[2]);
+                if (split.length == 1) {
+                    carno.setText(split[0]);
+                    phone.setVisibility(View.GONE);
+                }else if (split.length > 1){
+                    carno.setText(split[0]);
+                    name.setText(split[2]);
+                }
+
+
                 mBaiduMap.showInfoWindow(mInfoWindow);
 
                 phone.setOnClickListener(new View.OnClickListener() {
@@ -299,6 +311,44 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         getData();
     }
 
+    /**
+     * 显示所以的 起点终点
+     * @param sateBeans
+     */
+    @Override
+    public void showAllSate(List<SateBean> sateBeans) {
+        //循坏在地图上添加自定义marker
+        if (sateBeans.size() < 1) {
+            return;
+        }
+        for (int i = 0; i < sateBeans.size(); i++) {
+            //定义Maker坐标点
+            double lat = Double.parseDouble(sateBeans.get(i).getLat());
+            double lon = Double.parseDouble(sateBeans.get(i).getLon());
+            LatLng point = new LatLng(lat, lon);
+            int sateresource = R.drawable.icon_loc;
+            if (sateBeans.get(i).getSateType() == 1) {
+                 sateresource = R.drawable.icon_loc;
+            }else if (sateBeans.get(i).getSateType() == 2) {
+                sateresource = R.drawable.gps_grey;
+            }else {
+                sateresource = R.drawable.gps_orange;
+            }
+            //构建Marker图标
+            BitmapDescriptor bitmap = BitmapDescriptorFactory
+                    .fromResource(sateresource);
+            //构建MarkerOption，用于在地图上添加Marker
+            OverlayOptions option = new MarkerOptions()
+                    .position(point)
+                    .title(sateBeans.get(i).getSateName()+",")
+                    .icon(bitmap);
+            //在地图上添加Marker，并显示
+            mBaiduMap.addOverlay(option);
+
+
+        }
+    }
+
     @Override
     public void changeWorkState() {
         showcurrentWorkState();
@@ -341,14 +391,20 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
     }
 
-    @OnClick({R.id.bt_newAddEnd, R.id.bt_newAddStart})
+    @OnClick({R.id.bt_newAddEnd, R.id.bt_newAddStart,R.id.bt_newAddWharf})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_newAddEnd:
-
+                sateType = "3";
+                startActivity(new Intent(getActivity(), SellectActivity.class));
+                break;
+            case R.id.bt_newAddWharf:
+                sateType = "2";
+                startActivity(new Intent(getActivity(), SellectActivity.class));
                 break;
             case R.id.bt_newAddStart:
-                startActivityForResult(new Intent(getActivity(), SellectActivity.class),99);
+                sateType = "1";
+                startActivity(new Intent(getActivity(), SellectActivity.class));
                 break;
         }
     }

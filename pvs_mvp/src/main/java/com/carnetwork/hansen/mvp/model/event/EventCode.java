@@ -15,4 +15,6 @@ public class EventCode {
     public static final int ERROR_RELOGIN = 3001;
 
     public static final int WORK_STATE = 4001;
+    //定位信息
+    public static final int POIINFO = 5001;
 }

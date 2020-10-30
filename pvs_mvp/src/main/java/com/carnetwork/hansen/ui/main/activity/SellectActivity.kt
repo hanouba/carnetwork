@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
 import com.baidu.mapapi.map.*
@@ -23,6 +23,10 @@ import com.baidu.mapapi.search.sug.SuggestionResult
 import com.baidu.mapapi.search.sug.SuggestionSearch
 import com.baidu.mapapi.search.sug.SuggestionSearchOption
 import com.carnetwork.hansen.R
+import com.carnetwork.hansen.component.RxBus
+import com.carnetwork.hansen.mvp.model.event.CommonEvent
+import com.carnetwork.hansen.mvp.model.event.EventCode
+import com.carnetwork.hansen.ui.main.fragment.SelectAddInter
 import kotlinx.android.synthetic.main.activity_sellect.*
 
 class SellectActivity : AppCompatActivity() {
@@ -44,6 +48,7 @@ class SellectActivity : AppCompatActivity() {
     private var mPoiInfoList: MutableList<PoiInfo> = ArrayList() //存放地图中心点附近的POI信息
     private lateinit var mPoiAdapter: PoiAdapter
 
+    private lateinit var selectAddin: SelectAddInter;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -119,9 +124,8 @@ class SellectActivity : AppCompatActivity() {
         mLvResult.adapter = mPoiAdapter
         mLvResult.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val poiInfo = mPoiInfoList[position]
-            val intent = Intent()
-            intent.putExtra("address", poiInfo.name)
-            setResult(RESULT_OK, intent)
+            System.out.println("定位选择数据"+poiInfo.name)
+            RxBus.getDefault().post(CommonEvent(EventCode.POIINFO,poiInfo))
             finish()
         }
 
@@ -184,12 +188,15 @@ class SellectActivity : AppCompatActivity() {
         mLvSearch.adapter = sugAdapter
         mLvSearch.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
             val info = mSuggestionInfos[i]
-            val intent = Intent()
-            intent.putExtra("address", info.district + info.key)
-            setResult(RESULT_OK, intent)
+
+
+
+            System.out.println("搜到的定位选择数据"+info.district)
+//            RxBus.getDefault().post(CommonEvent(EventCode.POIINFO,poiInfo))
+
             finish()
         }
-
+        mSelectCity ="测试"
         mEtJiedaoName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(arg0: Editable) {}
 
@@ -310,4 +317,6 @@ class SellectActivity : AppCompatActivity() {
 
         }
     }
+
+
 }

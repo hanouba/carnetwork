@@ -2,6 +2,8 @@ package com.carnetwork.hansen.mvp.presenter.main;
 
 import android.util.Log;
 
+import com.baidu.mapapi.search.core.PoiInfo;
+import com.blankj.utilcode.util.LogUtils;
 import com.carnetwork.hansen.base.RxPresenter;
 import com.carnetwork.hansen.component.RxBus;
 import com.carnetwork.hansen.mvp.contract.main.MainContract;
@@ -10,10 +12,13 @@ import com.carnetwork.hansen.mvp.model.DataManager;
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
 import com.carnetwork.hansen.mvp.model.bean.LoginBean;
+import com.carnetwork.hansen.mvp.model.bean.SateBean;
+import com.carnetwork.hansen.mvp.model.bean.SateSaveEntity;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.carnetwork.hansen.mvp.model.event.CommonEvent;
 import com.carnetwork.hansen.mvp.model.event.EventCode;
 import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
+import com.carnetwork.hansen.ui.main.fragment.MapFragment;
 import com.carnetwork.hansen.util.RxUtil;
 import com.carnetwork.hansen.widget.CommonSubscriber;
 
@@ -64,6 +69,14 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
                         switch (commonevent.getCode()) {
                             case EventCode.WORK_STATE:
                             mView.changeWorkState();
+                                break;
+                            case EventCode.POIINFO:
+                                PoiInfo poiInfo = commonevent.getPoiInfo();
+                                LogUtils.d("sateType" + poiInfo.name+"statetype--"+MapFragment. sateType);
+                                String latitude = String.valueOf(poiInfo.location.latitude);
+                                String longitude = String.valueOf(poiInfo.location.longitude);
+                                SateSaveEntity sateSaveEntity = new SateSaveEntity(latitude,longitude,poiInfo.name,  MapFragment. sateType);
+                                sateSave(sateSaveEntity);
                                 break;
 
                             default:
@@ -130,6 +143,49 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
                     public void onError(Throwable e) {
                         super.onError(e);
                         Log.i("", "onNext: 提交经纬度失败"+e.toString());
+                    }
+                })
+        );
+    }
+
+    @Override
+    public void getSateList(String carNo) {
+
+        addSubscribe(mDataManager.getSateList(carNo)
+                .compose(RxUtil.<MyHttpResponse<List<SateBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<SateBean>>handleMyResult())
+                .subscribeWith(new CommonSubscriber<List<SateBean>>(mView) {
+                    @Override
+                    public void onNext(List<SateBean> sateBeans) {
+                        Log.i("", "onNext: 获取到起点终点"+sateBeans.toString());
+                        mView.showAllSate(sateBeans);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        Log.i("", "onNext: 获取到获取到起点终点onError"+e.toString());
+                    }
+                })
+        );
+    }
+
+    public void sateSave(SateSaveEntity sateSaveEntity) {
+        addSubscribe(mDataManager.sateSave(sateSaveEntity)
+
+                .compose(RxUtil.<MyHttpResponse>rxSchedulerHelper())
+
+                .subscribeWith(new CommonSubscriber<MyHttpResponse>(mView) {
+                    @Override
+                    public void onNext(MyHttpResponse myHttpResponse) {
+                        LogUtils.i("", "mapUpLoad: 起点终点"+myHttpResponse.isSuccess());
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        LogUtils.i("", "onNext: 起点终点失败"+e.toString());
                     }
                 })
         );

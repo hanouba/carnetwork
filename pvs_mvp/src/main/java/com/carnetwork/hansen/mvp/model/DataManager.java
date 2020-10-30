@@ -7,6 +7,8 @@ import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
 import com.carnetwork.hansen.mvp.model.bean.LoginBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
+import com.carnetwork.hansen.mvp.model.bean.SateBean;
+import com.carnetwork.hansen.mvp.model.bean.SateSaveEntity;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.carnetwork.hansen.mvp.model.db.DBHelper;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
@@ -61,8 +63,18 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
     }
 
     @Override
+    public Flowable<MyHttpResponse<List<SateBean>>> getSateList(String carNo) {
+        return mHttpHelper.getSateList(carNo);
+    }
+
+    @Override
     public Flowable<MyHttpResponse> upLoadMap(UploadMapEntity uploadMapEntity) {
         return mHttpHelper.upLoadMap(uploadMapEntity);
+    }
+
+    @Override
+    public Flowable<MyHttpResponse> sateSave(SateSaveEntity sateSaveEntity) {
+        return mHttpHelper.sateSave(sateSaveEntity);
     }
 
     @Override

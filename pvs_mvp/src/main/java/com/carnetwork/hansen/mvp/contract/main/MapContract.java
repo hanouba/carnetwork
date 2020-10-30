@@ -3,6 +3,7 @@ package com.carnetwork.hansen.mvp.contract.main;
 import com.carnetwork.hansen.base.BasePresenter;
 import com.carnetwork.hansen.base.BaseView;
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
+import com.carnetwork.hansen.mvp.model.bean.SateBean;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 
 import java.util.List;
@@ -20,11 +21,18 @@ import java.util.List;
 public interface MapContract {
     interface View extends BaseView {
         void showAllCar(List<AllCar> allCar);
+        void showAllSate(List<SateBean> sateBeans);
         void changeWorkState();
     }
 
     interface Presenter extends BasePresenter<MapContract.View> {
         void getAllCar(String token,String carNo);
         void mapUpLoad(UploadMapEntity uploadMapEntity);
+
+        void getSateList(String carNo);
+
+
+
+
     }
 }

@@ -5,6 +5,8 @@ import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
 import com.carnetwork.hansen.mvp.model.bean.LoginBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
+import com.carnetwork.hansen.mvp.model.bean.SateBean;
+import com.carnetwork.hansen.mvp.model.bean.SateSaveEntity;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
 
@@ -21,7 +23,6 @@ public interface MyApis {
     String HOST = "http://121.36.3.165:6006/";
     //    登录
     @POST("sys/login")
-
     Flowable<LoginBean> login(@Body LoginEntity loginEntity);
 
     @POST("sys/logout")
@@ -37,4 +38,11 @@ public interface MyApis {
     //回去人员列表
     @POST("user/list")
     Flowable<MyHttpResponse<List<AllDrvier>>> getAllDriver(@Query("carNo") String carNo);
+    //提交起点终点
+    @POST("sate/save")
+    Flowable<MyHttpResponse> sateSave(@Body SateSaveEntity sateSaveEntity);
+
+    //获取起点终点
+    @POST("sate/list")
+    Flowable<MyHttpResponse<List<SateBean>>> getSateList(@Query("carNo") String carNo);
 }

@@ -40,7 +40,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:text="新增终点"
+        android:text="终点公司"
         android:id="@+id/bt_newAddEnd"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -54,6 +54,18 @@
     <androidx.appcompat.widget.AppCompatButton
         android:text="新增起点"
         android:id="@+id/bt_newAddStart"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimen_dp_10"
+        android:layout_marginBottom="@dimen/dimen_dp_150"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:text="终点码头"
+        android:id="@+id/bt_newAddWharf"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/dimen_dp_10"

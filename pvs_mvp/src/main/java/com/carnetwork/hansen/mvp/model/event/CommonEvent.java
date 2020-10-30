@@ -1,6 +1,7 @@
 package com.carnetwork.hansen.mvp.model.event;
 
 
+import com.baidu.mapapi.search.core.PoiInfo;
 
 /**
 
@@ -8,6 +9,7 @@ package com.carnetwork.hansen.mvp.model.event;
 public class CommonEvent {
     private int code;
     private String temp_str;
+    private PoiInfo poiInfo;
     private int temp_value;
     private boolean temp_boolean;
 
@@ -20,6 +22,10 @@ public class CommonEvent {
         this.temp_str = temp_str;
     }
 
+    public CommonEvent(int code, PoiInfo poiInfo) {
+        this.code = code;
+        this.poiInfo = poiInfo;
+    }
     public CommonEvent(int code) {
         this.code = code;
     }
@@ -101,6 +107,11 @@ public class CommonEvent {
         this.temp_boolean = temp_boolean;
     }
 
+    public PoiInfo getPoiInfo() {
+        return poiInfo;
+    }
 
-
+    public void setPoiInfo(PoiInfo poiInfo) {
+        this.poiInfo = poiInfo;
+    }
 }
