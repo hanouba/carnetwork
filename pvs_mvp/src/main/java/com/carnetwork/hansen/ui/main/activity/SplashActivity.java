@@ -59,7 +59,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 //        }
 
         String token = mPresenter.getToken();
-
+        SPUtils.getInstance().put(Constants.TOKEN,"");
         LogUtils.d("tokentokentoken"+token);
         if (!"".equals(token)) {
             SPUtils.getInstance().put(Constants.TOKEN,token);

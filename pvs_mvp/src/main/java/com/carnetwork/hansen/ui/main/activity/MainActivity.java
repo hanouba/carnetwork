@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         Button logOut = findViewById(R.id.bt_logout);
         SwitchButton switchButton = findViewById(R.id.switch_button);
          carInfos = findViewById(R.id.bt_opencarinfo);
-
+        String token = SPUtils.getInstance().getString(Constants.TOKEN);
 
 
         //获取用户信息
@@ -97,17 +97,23 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         logOut.setOnClickListener(this::onClick);
         carInfos.setOnClickListener(this);
         //工作状态设置
-
         boolean workState =   SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
         switchButton.setChecked(workState);
+        if (workState) {
+            mPresenter.logOn(carNo,token);
+        }else {
+
+        }
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SPUtils.getInstance().put(Constants.IS_ON_WORK, isChecked);
                 RxBus.getDefault().post(new CommonEvent(EventCode.WORK_STATE,isChecked));
-
-
-
+                if (isChecked) {
+                    mPresenter.logOn(carNo,token);
+                }else {
+                    mPresenter.logOff(carNo,token);
+                }
             }
         });
 
@@ -181,7 +187,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         super.onDestroy();
 
 
-
     }
 
 
@@ -197,7 +202,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         switch (v.getId()) {
             case R.id.bt_logout:
 
-                SPUtils.getInstance().put(Constants.IS_ON_WORK, false);
                 mPresenter.logout(carNo);
                 break;
             case R.id.bt_opencarinfo:

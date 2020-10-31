@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
+import com.carnetwork.hansen.mvp.model.http.api.MyApis;
 import com.google.gson.Gson;
 import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.base.RxPresenter;
@@ -27,6 +28,16 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -103,7 +114,8 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
                     @Override
                     public void onNext(MyHttpResponse httpResponse) {
                         mDataManager.setToken("");
-
+                        SPUtils.getInstance().put(Constants.TOKEN,"");
+                        SPUtils.getInstance().put(Constants.IS_ON_WORK, false);
                         mView.logOutSuccess();
                     }
 
@@ -125,6 +137,80 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
     @Override
     public boolean getWorkState() {
         return mDataManager.getWorkState();
+    }
+
+    @Override
+    public void logOff(String carNo,String token) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(MyApis.HOST)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        MyApis request = retrofit.create(MyApis.class);
+
+
+        Observable<MyHttpResponse> observable = request.logoff(carNo,token);
+
+        observable.subscribeOn(Schedulers.io())   // 切换到IO线程进行网络请求
+                .observeOn(AndroidSchedulers.mainThread())  //切换到主线程 处理请求结果
+                .subscribe(new Observer<MyHttpResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        LogUtils.d(TAG, "logOff  onSubscribe");
+                    }
+                    @Override
+                    public void onNext(MyHttpResponse myHttpResponse) {
+                        if (myHttpResponse.isSuccess()) {
+                            LogUtils.d(TAG, "logOff  onNext");
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtils.d(TAG, "logOff  onError");
+                    }
+                    @Override
+                    public void onComplete() {
+                        LogUtils.d(TAG, "logOff  onComplete");
+                    }
+                });
+    }
+
+    @Override
+    public void logOn(String carNo,String token) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(MyApis.HOST)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        MyApis request = retrofit.create(MyApis.class);
+
+
+        Observable<MyHttpResponse> observable = request.logon(carNo,token);
+
+        observable.subscribeOn(Schedulers.io())   // 切换到IO线程进行网络请求
+                .observeOn(AndroidSchedulers.mainThread())  //切换到主线程 处理请求结果
+                .subscribe(new Observer<MyHttpResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        LogUtils.d(TAG, "logOn  onSubscribe");
+                    }
+                    @Override
+                    public void onNext(MyHttpResponse myHttpResponse) {
+                        if (myHttpResponse.isSuccess()) {
+                            LogUtils.d(TAG, "logOn  onNext");
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtils.d(TAG, "logOn  onError");
+                    }
+                    @Override
+                    public void onComplete() {
+                        LogUtils.d(TAG, "logOn  onComplete");
+                    }
+                });
     }
 
 

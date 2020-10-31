@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
@@ -120,7 +121,7 @@ class SellectActivity : AppCompatActivity() {
                 }
             }
         })
-        mPoiAdapter = PoiAdapter(mContext, mPoiInfoList) //地图下方POI列表适配器
+        mPoiAdapter = PoiAdapter(mContext, mPoiInfoList) //地图下方POI列表适配器‘
         mLvResult.adapter = mPoiAdapter
         mLvResult.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val poiInfo = mPoiInfoList[position]

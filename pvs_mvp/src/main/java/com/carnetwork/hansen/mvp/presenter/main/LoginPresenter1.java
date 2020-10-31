@@ -65,7 +65,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                     @Override
                     public void onNext(LoginBean loginBean) {
                         if (loginBean.isSuccess().equals("true")) {
-
+                            SPUtils.getInstance().put(Constants.TOKEN,loginBean.getModel());
                             mDataManager.setToken(loginBean.getModel());
 
                             mView.gotoMainActivity();

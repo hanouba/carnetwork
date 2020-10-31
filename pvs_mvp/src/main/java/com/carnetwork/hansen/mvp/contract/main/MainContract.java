@@ -27,6 +27,9 @@ public interface MainContract {
 
         void setWorkState(boolean state);
         boolean getWorkState();
+        //下班
+        void logOff(String carNo,String token);
+        void logOn(String carNo,String token);
 
     }
 }

@@ -30,6 +30,11 @@ public interface MyApis {
 
     @POST("sys/logout")
     Flowable<MyHttpResponse> logout(@Query("carNo") String carNo);
+    ///sys/logoff 下班不显示其他车辆
+    @POST("sys/logoff")
+    Observable<MyHttpResponse> logoff(@Query("carNo") String carNo,@Header("X-APP-TOKEN") String token);
+    @POST("sys/logon")
+    Observable<MyHttpResponse> logon(@Query("carNo") String carNo,@Header("X-APP-TOKEN") String token);
 
     //    所有的车辆
     @POST("map/allCar")

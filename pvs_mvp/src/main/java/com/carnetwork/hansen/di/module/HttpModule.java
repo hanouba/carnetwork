@@ -74,11 +74,7 @@ public class HttpModule {
     @Singleton
     @Provides
     OkHttpClient provideClient(OkHttpClient.Builder builder) {
-//        if (BuildConfig.DEBUG) {
-//            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-//            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-//            builder.addInterceptor(loggingInterceptor);
-//        }
+
 
         if(BuildConfig.DEBUG){
             //显示日志
@@ -90,16 +86,19 @@ public class HttpModule {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
             builder.addInterceptor(loggingInterceptor);
         }
-
+        LogUtils.d("请求拦截器-provideClient"+SystemUtil.isNetworkConnected());
         File cacheFile = new File(Constants.PATH_CACHE);
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
         Interceptor cacheInterceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
+                LogUtils.d("请求拦截器-cacheInterceptor"+SystemUtil.isNetworkConnected());
                 Request request = chain.request();
                 if (!SystemUtil.isNetworkConnected()) {
+                    String token = SPUtils.getInstance().getString(Constants.TOKEN);
                     request = request.newBuilder()
                             .cacheControl(CacheControl.FORCE_CACHE)
+                            .header("X-APP-TOKEN",token)
                             .build();
                 }
                 Response response = chain.proceed(request);
@@ -108,7 +107,7 @@ public class HttpModule {
                 String content= response.body().string();
                 try {
                     JSONObject object = new JSONObject(content);
-                    LogUtils.d("请求拦截器"+object.toString());
+
                     String msg = object.optString("msg");
                     if ("未匹配到项目".equals(msg)) {
 
@@ -127,11 +126,13 @@ public class HttpModule {
                 }
 
                 if (SystemUtil.isNetworkConnected()) {
-
+                    String token = SPUtils.getInstance().getString(Constants.TOKEN);
+                    LogUtils.d("请求头参数+token"+token);
                     int maxAge = 0;
                     // 有网络时, 不缓存, 最大保存时长为0
                     response.newBuilder()
                             .header("Cache-Control", "public, max-age=" + maxAge)
+                            .header("X-APP-TOKEN",token)
                             .removeHeader("Pragma")
                             .build();
                 } else {
@@ -147,11 +148,12 @@ public class HttpModule {
                         .build();
             }
         };
-        String token = SPUtils.getInstance().getString(Constants.TOKEN);
 
         Interceptor apikey = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
+                String token = SPUtils.getInstance().getString(Constants.TOKEN);
+                LogUtils.d("请求头参数222+token"+token);
                 Request request = chain.request();
                 request = request.newBuilder()
                         .header("X-APP-TOKEN",token)
@@ -161,16 +163,10 @@ public class HttpModule {
         };
 
         //设置统一的请求头部参数
-        builder.addInterceptor(apikey);
+        builder.addNetworkInterceptor(apikey);
 
 //         添加公共参数拦截器
 
-
-        //设置cookie管理
-        ClearableCookieJar cookieJar =
-                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(MyApplication.getInstance().getApplicationContext()));
-
-        builder.cookieJar(cookieJar);
 
         //设置缓存
         builder.addNetworkInterceptor(cacheInterceptor);

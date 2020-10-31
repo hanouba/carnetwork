@@ -139,7 +139,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
     @Override
     protected void initEventAndData() {
-        //定位显示
+        //定位显示showAllCar
         location();
 
         carNo = SPUtils.getInstance().getString(Constants.CAR_NO);
