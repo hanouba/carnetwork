@@ -7,3 +7,4 @@ smartview/build/
 pvs_mvp/release/
 *.iml
 bannerlib/build/
+local.properties
