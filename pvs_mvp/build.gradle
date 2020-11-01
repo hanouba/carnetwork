@@ -207,7 +207,7 @@ dependencies {
     implementation 'com.kunminx.player:player:1.1.6'
 
     implementation 'com.lzx:StarrySkyJava:2.1.9'
-//    implementation 'com.lzx:StarrySkyKt:1.3.3'
+//    implementation 'com.lzx:StarrySky:1.3.3'
 
 //    百度地
     implementation files('libs/BaiduLBS_Android.jar')

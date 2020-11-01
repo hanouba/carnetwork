@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -23,6 +26,9 @@ import com.carnetwork.hansen.mvp.contract.main.LoginContract1;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 import com.carnetwork.hansen.mvp.presenter.main.LoginPresenter1;
+import com.carnetwork.hansen.util.Music;
+import com.carnetwork.hansen.util.MusicAdapter;
+import com.carnetwork.hansen.util.MusicList;
 import com.carnetwork.hansen.util.SystemUtil;
 import com.carnetwork.hansen.widget.LineEditText;
 import com.lzx.starrysky.manager.MusicManager;
@@ -31,6 +37,7 @@ import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -106,6 +113,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         startActivity(intent);
     }
 
@@ -130,7 +138,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         return super.onKeyDown(keyCode, event);
     }
 
-
+    private ArrayList<Music> arrayList;
+    private MusicAdapter mMusicAdapter;
+    private ListView mListView;
 
     @OnClick(R.id.bt_login)
     public void onViewClicked() {
@@ -145,12 +155,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //简单播放一首歌曲
-        SongInfo info = new SongInfo();
-        info.setSongId("1111");
-        info.setSongUrl("http://music.163.com/song/media/outer/url?id=317151.mp3");
-//        StarrySky.with().playMusicByInfo(info);
-        MusicManager.getInstance().playMusicByInfo(info);
+
 
 
         if (TextUtils.isEmpty(carNo)) {

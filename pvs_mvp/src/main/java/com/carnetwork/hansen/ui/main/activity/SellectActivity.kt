@@ -108,27 +108,7 @@ class SellectActivity : AppCompatActivity() {
         mBaiduMap.setMyLocationConfigeration(MyLocationConfiguration(mCurrentMode, true, null))
         mLocClient = LocationClient(this)
 
-        // 创建GeoCoder实例对象
-        geoCoder = GeoCoder.newInstance()
-        geoCoder.setOnGetGeoCodeResultListener(object : OnGetGeoCoderResultListener {
-            override fun onGetGeoCodeResult(p0: GeoCodeResult?) {}
 
-            override fun onGetReverseGeoCodeResult(p0: ReverseGeoCodeResult?) {
-                p0?.poiList?.let {
-                    mPoiInfoList.clear()
-                    mPoiInfoList.addAll(it) //只读
-                    mPoiAdapter.notifyDataSetChanged()
-                }
-            }
-        })
-        mPoiAdapter = PoiAdapter(mContext, mPoiInfoList) //地图下方POI列表适配器‘
-        mLvResult.adapter = mPoiAdapter
-        mLvResult.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            val poiInfo = mPoiInfoList[position]
-            System.out.println("定位选择数据"+poiInfo.name)
-            RxBus.getDefault().post(CommonEvent(EventCode.POIINFO,poiInfo))
-            finish()
-        }
 
         // 初始化搜索模块，注册搜索事件监听
         mSuggestionSearch = SuggestionSearch.newInstance()
@@ -142,6 +122,29 @@ class SellectActivity : AppCompatActivity() {
                 }
             }
             sugAdapter.notifyDataSetChanged()
+        }
+
+        // 创建GeoCoder实例对象
+        geoCoder = GeoCoder.newInstance()
+        geoCoder.setOnGetGeoCodeResultListener(object : OnGetGeoCoderResultListener {
+            override fun onGetGeoCodeResult(p0: GeoCodeResult?) {}
+
+            override fun onGetReverseGeoCodeResult(p0: ReverseGeoCodeResult?) {
+                p0?.poiList?.let {
+                    mPoiInfoList.clear()
+                    mPoiInfoList.addAll(it) //只读
+                    mPoiAdapter.notifyDataSetChanged()
+                }
+            }
+        })
+//        geoCoder.reverseGeoCode(ReverseGeoCodeOption().location(mapStatus.target));
+        mPoiAdapter = PoiAdapter(mContext, mPoiInfoList) //地图下方POI列表适配器‘
+        mLvResult.adapter = mPoiAdapter
+        mLvResult.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+            val poiInfo = mPoiInfoList[position]
+            System.out.println("定位选择数据"+poiInfo.name)
+            RxBus.getDefault().post(CommonEvent(EventCode.POIINFO,poiInfo))
+            finish()
         }
         // 注册定位监听
         mLocClient.registerLocationListener { bdLocation ->
@@ -163,14 +166,15 @@ class SellectActivity : AppCompatActivity() {
                 val msu = MapStatusUpdateFactory.newLatLngZoom(ll, 18f)
                 mBaiduMap.animateMapStatus(msu)
                 locationLatLng = LatLng(bdLocation.latitude, bdLocation.longitude)
-                // 获取城市，待会用于POISearch
-                mSelectCity = bdLocation.city
-                mTvSelectedCity.text = mSelectCity
-                // 发起反地理编码请求(经纬度->地址信息)
                 val reverseGeoCodeOption = ReverseGeoCodeOption()
                 // 设置反地理编码位置坐标
                 reverseGeoCodeOption.location(locationLatLng)
                 geoCoder.reverseGeoCode(reverseGeoCodeOption)
+                // 获取城市，待会用于POISearch
+//                mSelectCity = bdLocation.city
+//                mTvSelectedCity.text = mSelectCity
+                // 发起反地理编码请求(经纬度->地址信息)
+
             }
         }
         // 定位选项

@@ -1,11 +1,18 @@
 package com.carnetwork.hansen.ui.main.activity;
 
+import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
 import android.os.PersistableBundle;
+import android.os.PowerManager;
 import android.provider.Settings;
 
 import androidx.annotation.Nullable;
@@ -34,6 +41,7 @@ import com.carnetwork.hansen.mvp.model.event.CommonEvent;
 import com.carnetwork.hansen.mvp.model.event.EventCode;
 import com.carnetwork.hansen.mvp.presenter.main.MainPresenter;
 import com.carnetwork.hansen.ui.main.fragment.MapFragment;
+import com.carnetwork.hansen.util.MusicService;
 import com.carnetwork.hansen.util.PccGo2MapUtil;
 import com.carnetwork.hansen.util.StatusBarUtil;
 import com.carnetwork.hansen.widget.SwitchButton;
@@ -45,26 +53,50 @@ import com.carnetwork.hansen.widget.SwitchButton;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View,  View.OnClickListener {
 
-
+    private MusicService musicService;
 
 
 
     private TextView tvCarNo, tvCarLicence, tvUserName, tvUserPhone;
     private String userName, userPhone, carNo, carLicence;
     private Button carInfos;
-
+    private PowerManager.WakeLock mwl;
     @Override
     protected int getLayout() {
         return R.layout.activity_main;
     }
 
+    @SuppressLint("InvalidWakeLockTag")
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        mwl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyTag");
+        mwl.acquire();//屏幕关闭后保持活动
     }
 
 
+
+
+    ServiceConnection conn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            musicService = ((MusicService.MusicBinder) service).getService();
+            handler.sendEmptyMessage(0x01);
+        }
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0x01 ) {
+                handler.sendEmptyMessage(0x01);
+            }
+        }
+    };
 
     @Override
     protected void initEventAndData() {
@@ -117,8 +149,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             }
         });
 
-
-
+        Intent intent = new Intent(this, MusicService.class);
+//        //获取MainActivity传过来的数据
+//        Bundle bundle = getIntent().getExtras();
+//        //再把这些包装好的数据重新装入Intent，发送给Service
+//        intent.putExtras(bundle);
+        startService(intent);
+        bindService(intent, conn, BIND_AUTO_CREATE);
     }
 
     @Override
@@ -185,7 +222,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        unbindService(conn);
+        handler.removeCallbacksAndMessages(null);
 
     }
 

@@ -3,6 +3,7 @@ package com.carnetwork.hansen.ui.main.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.ImageView;
 
 
@@ -18,11 +19,11 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import butterknife.BindView;
 
 /**
-
+ *
  */
 public class SplashActivity extends BaseActivity<SplashPresenter> implements SplashContract.View {
 
-    AlertDialog.Builder  alertDialog;
+    AlertDialog.Builder alertDialog;
     @BindView(R.id.iv_welcome_bg)
     ImageView iv_welcome_bg;
 
@@ -59,19 +60,20 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 //        }
 
         String token = mPresenter.getToken();
-        SPUtils.getInstance().put(Constants.TOKEN,"");
-        LogUtils.d("tokentokentoken"+token);
+        SPUtils.getInstance().put(Constants.TOKEN, "");
+        LogUtils.d("tokentokentoken" + token);
         if (!"".equals(token)) {
-            SPUtils.getInstance().put(Constants.TOKEN,token);
+            SPUtils.getInstance().put(Constants.TOKEN, token);
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+
             startActivity(intent);
-        }else {
-            mPresenter.checkPermissions(new RxPermissions(this),this , false);
+        } else {
+            mPresenter.checkPermissions(new RxPermissions(this), this, false);
         }
 
     }
-
 
 
     @Override
@@ -81,13 +83,13 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                       mPresenter.checkPermissions(new RxPermissions(SplashActivity.this),SplashActivity.this,agetAutoLoginState);
+                        mPresenter.checkPermissions(new RxPermissions(SplashActivity.this), SplashActivity.this, agetAutoLoginState);
                     }
                 })
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getApplication(),LoginActivity.class);
+                        Intent intent = new Intent(getApplication(), LoginActivity.class);
                         getActivityComponent().getActivity().startActivity(intent);
                         finish();
                     }

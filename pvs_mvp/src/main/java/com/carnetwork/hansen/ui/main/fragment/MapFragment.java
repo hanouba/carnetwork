@@ -166,6 +166,9 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
                 if (marker.getTitle().contains("car")) {
                     showCarInfosBottom(marker);
+//                    String title = marker.getTitle();
+//                    String[] split = title.split(",");
+//                    callPhone(split[2]);
                 }else {
 
                     showExitDialog(marker.getTitle().split(",")[0]);
@@ -320,13 +323,13 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     @Override
     public void showAllCar(List<AllCar> allCars) {
 
-        if (carLists == null) {
-            carLists = new ArrayList<>();
-        }
-        carLists.clear();
-
-        carLists = new ArrayList<>(allCars);
-        if (carLists.size() < 1) {
+//        if (carLists == null) {
+//            carLists = new ArrayList<>();
+//        }
+//        carLists.clear();
+//
+//        carLists = new ArrayList<>(allCars);
+        if (allCars.size() < 1) {
             return;
         }
 
@@ -336,8 +339,8 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         TextView tvLicence = view.findViewById(R.id.tv_car_map_licence);
 
         //循坏在地图上添加自定义marker
-        for (int i = 0; i < carLists.size(); i++) {
-            AllCar currentCar = carLists.get(i);
+        for (int i = 0; i < allCars.size(); i++) {
+            AllCar currentCar = allCars.get(i);
             // 1车辆编号  2车辆 车牌号 3 电话号码  4 speed  5状态 6 timestop等信息
             String title = currentCar.getCarNum()+","+currentCar.getCarLicence()+","+currentCar.getPhone()+
                     ","+currentCar.getSpeed()+","+currentCar.getStatus() +","+currentCar.getReportTime()+"car";
@@ -445,6 +448,8 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     public void onResume() {
         mMapView.onResume();
         super.onResume();
+        //获取所有的起点终点
+        mPresenter.getSateList(carNo);
     }
 
     @Override
