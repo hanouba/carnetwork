@@ -90,10 +90,8 @@ public class MusicService extends Service {
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                mPosition += 1;
-                mPosition = (mMusicList.size() + mPosition) % mMusicList.size();
+
                 playMusic(mPosition);
-                Toast.makeText(getApplicationContext(), "自动为您切换下一首：" + mMusicList.get(mPosition).getName(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -135,7 +135,8 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".util.MusicService"/>
+        <service android:name=".util.MusicService">
+        </service>
     </application>
 
 </manifest>
