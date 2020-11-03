@@ -90,6 +90,7 @@ public class NoVoiceService extends Service implements MediaPlayer.OnCompletionL
         sendBroadcast(intent);
         LogUtils.i("playmediaPlayer");
         if (mediaPlayer != null && !mediaPlayer.isPlaying() && !mPausePlay) {
+            LogUtils.i("playmediaPlayer==mediaPlayer");
             mediaPlayer.start();
         }
     }

@@ -155,9 +155,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         //        显示工作状态
         showcurrentWorkState();
 
-        //        启动后台服务
-        Intent intent = new Intent(getActivity(), NoVoiceService.class);
-        getActivity().startService(intent);
+
 
         //自定义marker弹窗
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {

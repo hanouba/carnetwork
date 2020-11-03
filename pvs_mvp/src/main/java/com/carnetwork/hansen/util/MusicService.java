@@ -81,7 +81,7 @@ public class MusicService extends Service {
         try {
             mMediaPlayer.reset();
             mMediaPlayer.setDataSource("http://music.163.com/song/media/outer/url?id=447925558.mp3");
-            LogUtils.d("无声音乐地址"+mMusicList.get(position).getUrl());
+//            LogUtils.d("无声音乐地址"+mMusicList.get(position).getUrl());
             mMediaPlayer.prepare();
             mMediaPlayer.start();
         } catch (IOException e) {

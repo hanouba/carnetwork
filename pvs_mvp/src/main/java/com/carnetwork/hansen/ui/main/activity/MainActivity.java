@@ -6,43 +6,34 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.PersistableBundle;
 import android.os.PowerManager;
-import android.provider.Settings;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import android.util.Log;
+
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.baidu.location.BDAbstractLocationListener;
-import com.baidu.location.BDLocation;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.carnetwork.hansen.R;
 import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.app.MyApplication;
 import com.carnetwork.hansen.base.BaseActivity;
 import com.carnetwork.hansen.component.RxBus;
+import com.carnetwork.hansen.component.keepalive.NoVoiceService;
 import com.carnetwork.hansen.mvp.contract.main.MainContract;
-import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
 import com.carnetwork.hansen.mvp.model.event.CommonEvent;
 import com.carnetwork.hansen.mvp.model.event.EventCode;
 import com.carnetwork.hansen.mvp.presenter.main.MainPresenter;
 import com.carnetwork.hansen.ui.main.fragment.MapFragment;
 import com.carnetwork.hansen.util.MusicService;
-import com.carnetwork.hansen.util.PccGo2MapUtil;
 import com.carnetwork.hansen.util.StatusBarUtil;
 import com.carnetwork.hansen.widget.SwitchButton;
 
@@ -148,7 +139,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 }
             }
         });
-
+        //        启动后台服务
+      startService(new Intent(this, NoVoiceService.class));
         Intent intent = new Intent(this, MusicService.class);
 //        //获取MainActivity传过来的数据
 //        Bundle bundle = getIntent().getExtras();

@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 <!--    屏幕黑屏后保活-->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission
         android:name="android.permission.READ_LOGS"
         tools:ignore="ProtectedPermissions" />
@@ -31,9 +32,11 @@
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="n">
-        <activity android:name=".ui.main.activity.SellectActivity"></activity>
+        <activity android:name=".ui.main.activity.SellectActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
         <activity
             android:name=".ui.main.activity.CarInfosActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
@@ -42,10 +45,12 @@
         <activity
             android:name=".ui.main.activity.SplashActivity"
             android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/SplashTheme" />
         <activity
             android:name=".ui.main.activity.SplashFirstActivity"
             android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,11 +61,13 @@
         <activity
             android:name=".ui.main.activity.LoginActivity"
             android:launchMode="singleTask"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme" />
         <activity
             android:name=".ui.main.activity.MainActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -136,7 +143,10 @@
         </receiver>
 
         <service android:name=".util.MusicService">
+
         </service>
+<!--        保活设置-->
+
     </application>
 
 </manifest>

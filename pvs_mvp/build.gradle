@@ -20,7 +20,7 @@ android {
     buildToolsVersion "28.0.3"
     defaultConfig {
         applicationId "com.carnetwork.hansen"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
 
         versionCode 101
@@ -211,4 +211,5 @@ dependencies {
 
 //    百度地
     implementation files('libs/BaiduLBS_Android.jar')
+
 }
