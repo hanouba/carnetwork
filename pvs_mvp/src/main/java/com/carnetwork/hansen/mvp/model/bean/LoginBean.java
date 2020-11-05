@@ -12,7 +12,10 @@ public class LoginBean {
 
 
     private String model;
-    private String success;
+    private boolean success;
+    private String errorMessage;
+    private String errorCode;
+    private String errorTips;
 
 
     public String getModel() {
@@ -23,14 +26,39 @@ public class LoginBean {
         this.model = model;
     }
 
-    public String isSuccess() {
+
+    public static class ModelBean {
+    }
+
+    public boolean isSuccess() {
         return success;
     }
 
-    public void setSuccess(String success) {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 
-    public static class ModelBean {
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorTips() {
+        return errorTips;
+    }
+
+    public void setErrorTips(String errorTips) {
+        this.errorTips = errorTips;
     }
 }

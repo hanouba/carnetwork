@@ -104,52 +104,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivi
 
     }
 
-    /**
-     * 切换fragment
-     *
-     * @param fragment
-     */
-    public void switchFragment(BaseFragment fragment, int containerViewId) {
-        if (fragment == null) return;
-        supportFragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = supportFragmentManager.beginTransaction();
-        //ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
-        if (!fragment.isAdded()) {
-            if (mCurrentFragment == null)
-                ft.add(containerViewId, fragment).show(fragment);
-            else
-                ft.add(containerViewId, fragment).hide(mCurrentFragment).show(fragment);
-        } else {
-            ft.hide(mCurrentFragment).show(fragment);
-        }
-        mCurrentFragment = fragment;
-        ft.commit();
-    }
 
-    /**
-     * 切换fragment 携带数据
-     *
-     * @param fragment
-     * @param containerViewId
-     * @param bundle
-     */
-    public void switchFragment(BaseFragment fragment, int containerViewId, Bundle bundle) {
-        if (fragment == null) return;
-        supportFragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = supportFragmentManager.beginTransaction();
-        //ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
-        fragment.setArguments(bundle);
-        if (!fragment.isAdded()) {
-            if (mCurrentFragment == null)
-                ft.add(containerViewId, fragment).show(fragment);
-            else
-                ft.add(containerViewId, fragment).hide(mCurrentFragment).show(fragment);
-        } else {
-            ft.hide(mCurrentFragment).show(fragment);
-        }
-        mCurrentFragment = fragment;
-        ft.commit();
-    }
 
     /**
      * 替换fragment
@@ -169,25 +124,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivi
         mCurrentFragment = fragment;
         ft.commit();
     }
-    /**
-     * 替换fragment
-     *
-     * @param fragment
-     */
-    protected void replaceFragment(BaseFragment fragment, int containerViewId, Bundle bundle) {
-        if (fragment == null) return;
-        supportFragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = supportFragmentManager.beginTransaction();
-        fragment.setArguments(bundle);
-        if (mCurrentFragment == null) {
-            ft.add(containerViewId, fragment);
-        } else {
-            ft.remove(mCurrentFragment);
-            ft.add(containerViewId, fragment);
-        }
-        mCurrentFragment = fragment;
-        ft.commit();
-    }
+
 
     /**
      * 在异常情况下导致app重启或者内存不足回收时判断是否存在缓存的Fragment

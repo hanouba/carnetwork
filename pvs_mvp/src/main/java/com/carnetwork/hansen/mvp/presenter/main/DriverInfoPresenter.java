@@ -78,14 +78,14 @@ public class DriverInfoPresenter extends RxPresenter<CarInfoContract.View> imple
                 .subscribeWith(new CommonSubscriber<List<AllDrvier>>(mView) {
                     @Override
                     public void onNext(List<AllDrvier> allCar) {
-                        Log.i("", "onNext: 获取到AllDrvier"+allCar.toString());
+
                         mView.showAllDriver(allCar);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-                        Log.i("", "onNext: 获取到AllDrvieronError"+e.toString());
+
                     }
                 })
         );

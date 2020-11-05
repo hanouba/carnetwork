@@ -130,23 +130,22 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
                 .subscribe(new Observer<MyHttpResponse<List<AllCar>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        LogUtils.d(TAG, "button2_onSubscribe");
                     }
                     @Override
                     public void onNext(MyHttpResponse<List<AllCar>> AllCar) {
-                        LogUtils.d(TAG, "button2_onNext"+AllCar.isSuccess());
                         if (AllCar.isSuccess()) {
                             mView.showAllCar(AllCar.getModel());
+                        }else {
+                            mView.showError(AllCar.getErrorMessage());
                         }
                     }
                     @Override
                     public void onError(Throwable e) {
-                        LogUtils.d(TAG, "button2_onError");
+
                     }
 
                     @Override
                     public void onComplete() {
-                        LogUtils.d(TAG, "button2_onComplete  ");
                     }
                 });
 
@@ -162,14 +161,16 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
                 .subscribeWith(new CommonSubscriber<MyHttpResponse>(mView) {
                     @Override
                     public void onNext(MyHttpResponse myHttpResponse) {
-                        Log.i("", "mapUpLoad: 提交经纬度"+myHttpResponse.isSuccess());
 
+                        if (!myHttpResponse.isSuccess()) {
+                            mView.showError(myHttpResponse.getErrorMessage());
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-                        Log.i("", "onNext: 提交经纬度失败"+e.toString());
+
                     }
                 })
         );

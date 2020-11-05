@@ -163,6 +163,8 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
                     public void onNext(MyHttpResponse myHttpResponse) {
                         if (myHttpResponse.isSuccess()) {
                             LogUtils.d(TAG, "logOff  onNext");
+                        }else {
+                            mView.showWrong(myHttpResponse.getErrorMessage());
                         }
                     }
                     @Override
@@ -200,6 +202,8 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
                     public void onNext(MyHttpResponse myHttpResponse) {
                         if (myHttpResponse.isSuccess()) {
                             LogUtils.d(TAG, "logOn  onNext");
+                        }else {
+                            mView.showWrong(myHttpResponse.getErrorMessage());
                         }
                     }
                     @Override

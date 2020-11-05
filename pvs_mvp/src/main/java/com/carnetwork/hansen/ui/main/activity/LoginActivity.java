@@ -8,9 +8,11 @@ import android.text.TextUtils;
 
 import android.view.KeyEvent;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -37,7 +39,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity<LoginPresenter1>
-        implements LoginContract1.View, CompoundButton.OnCheckedChangeListener {
+        implements LoginContract1.View, CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
 
     @BindView(R.id.et_car_no)
@@ -48,6 +50,23 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     MaterialEditText etPhone;
     @BindView(R.id.et_name)
     MaterialEditText etName;
+    /**
+     * 获取验证码
+     */
+    @BindView(R.id.tv_get_ver)
+    TextView tvGetVer;
+    /**
+     * 车队名称
+     */
+    @BindView(R.id.et_project_name)
+    MaterialEditText etProjectName;
+
+    /**
+     * 验证码
+     */
+    @BindView(R.id.et_verification)
+    MaterialEditText etVerification;
+
     @BindView(R.id.bt_login)
     Button btLogin;
     private String YHXY = "<<隐私授权协议>>";
@@ -72,14 +91,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
             String lastCarLicence = loginInfo.getCarLicence();
             String lastPhone = loginInfo.getPhone();
             String lastUserName = loginInfo.getUsername();
+            String lastProject = loginInfo.getProjectName();
+
 
 
             etName.setText(lastUserName);
             etCarNo.setText(lastCarNo);
             etPhone.setText(lastPhone);
             etCarlicence.setText(lastCarLicence);
+            etProjectName.setText(lastProject);
         }
 
+        tvGetVer.setOnClickListener(this);
     }
 
 
@@ -187,5 +210,16 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         mPresenter.inserLoginInfo(loginInfo);
         mPresenter.login(postingString);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_get_ver:
+//            获取验证码
+
+            break;
+            default:
+        }
     }
 }

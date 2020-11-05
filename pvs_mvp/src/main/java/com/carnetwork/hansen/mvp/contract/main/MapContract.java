@@ -23,6 +23,7 @@ public interface MapContract {
         void showAllCar(List<AllCar> allCar);
         void showAllSate(List<SateBean> sateBeans);
         void changeWorkState();
+        void showError(String msg);
 
     }
 

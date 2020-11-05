@@ -18,6 +18,7 @@ public interface MainContract {
 
 
         void logOutSuccess();
+        void showWrong(String msg);
     }
 
     interface Presenter extends BasePresenter<View> {

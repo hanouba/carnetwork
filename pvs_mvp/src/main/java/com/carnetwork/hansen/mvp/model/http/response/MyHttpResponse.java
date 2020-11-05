@@ -9,9 +9,15 @@ public class MyHttpResponse<T> {
     private boolean success;
     private String errorMessage;
     private String errorCode;
+    private String errorTips;
 
+    public String getErrorTips() {
+        return errorTips;
+    }
 
-
+    public void setErrorTips(String errorTips) {
+        this.errorTips = errorTips;
+    }
 
     public String getErrorCode() {
         return errorCode;

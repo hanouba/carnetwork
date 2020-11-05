@@ -8,9 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/white">
-
+        android:background="@color/white"
+        android:orientation="vertical">
 
 
         <TextView
@@ -98,8 +97,7 @@
             app:met_primaryColor="#2196F3"
             app:met_textColor="@color/color_343434"
             app:met_textColorHint="@color/color_a5a5a5"
-            app:met_underlineColor="@color/color_a5a5a5"
-         />
+            app:met_underlineColor="@color/color_a5a5a5" />
 
         <TextView
             android:id="@+id/tv_phone"
@@ -107,7 +105,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_carlicence"
             android:layout_marginStart="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_15"
             android:text="@string/text_login_phone"
             android:textColor="@color/colorTextGrey"
             android:textSize="@dimen/dimen_sp_12"
@@ -135,7 +132,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_phone"
             android:layout_marginStart="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_15"
             android:text="@string/text_login_name"
             android:textColor="@color/colorTextGrey"
             android:textSize="@dimen/dimen_sp_12"
@@ -153,9 +149,39 @@
             app:met_primaryColor="#2196F3"
             app:met_textColor="@color/color_343434"
             app:met_textColorHint="@color/color_a5a5a5"
-            app:met_underlineColor="@color/color_a5a5a5"
-         />
+            app:met_underlineColor="@color/color_a5a5a5" />
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <com.hansen.edittextlib.materialedittext.MaterialEditText
+                android:id="@+id/et_verification"
+                style="@style/style_materedit_login"
+                android:layout_weight="1"
+               android:layout_width="0dp"
+                android:hint="请输入验证码"
+                app:met_baseColor="@color/color_a5a5a5"
+                app:met_helperText=""
+                app:met_maxCharacters="4"
+                app:met_primaryColor="#2196F3"
+                app:met_textColor="@color/color_343434"
+                app:met_textColorHint="@color/color_a5a5a5"
+                app:met_underlineColor="@color/color_a5a5a5" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_get_ver"
+                android:layout_width="100dp"
+                android:background="@drawable/border_blue_v"
+                android:layout_height="@dimen/dimen_dp_30"
+                android:layout_marginLeft="8dp"
+                android:gravity="center"
+                android:textColor="@color/smssdk_verify_textcolor_selector"
+                android:layout_marginRight="@dimen/dimen_dp_20"
+                android:text="获取验证码" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/bt_login"

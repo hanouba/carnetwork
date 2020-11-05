@@ -62,4 +62,7 @@ public interface MyApis {
     //删除某个站点
     @POST("sate/delete")
     Flowable<MyHttpResponse> deleteSate(@Query("id") String id);
+    //获取验证码
+    @POST("message/send")
+    Observable<MyHttpResponse> getMessageCode(@Query("phone") String phone);
 }
