@@ -1,49 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:background="@color/white">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_dp_200"
-            android:layout_centerHorizontal="true"
-            android:background="@color/color_blue">
-
-            <ImageView
-
-                android:id="@+id/iv_title"
-                android:layout_width="@dimen/dimen_dp_90"
-                android:layout_height="@dimen/dimen_dp_90"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dimen_dp_70"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/iv_title"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dimen_dp_10"
-                android:text="@string/login_app_name"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
 
 
         <TextView
             android:id="@+id/tv_system_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/relativeLayout"
             android:layout_marginStart="@dimen/dimen_dp_20"
             android:layout_marginTop="@dimen/dimen_dp_30"
             android:text="系统登录"
@@ -51,35 +24,55 @@
             android:textSize="@dimen/dimen_sp_16"
             android:textStyle="bold" />
 
-
         <TextView
-            android:id="@+id/tv_car_no"
+            android:id="@+id/tv_project"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_system_login"
             android:layout_marginStart="@dimen/dimen_dp_20"
             android:layout_marginTop="@dimen/dimen_dp_20"
-            android:textStyle="bold"
+            android:text="车队名称"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/dimen_sp_12"
+            android:textStyle="bold" />
+
+        <com.hansen.edittextlib.materialedittext.MaterialEditText
+            android:id="@+id/et_project_name"
+            style="@style/style_materedit_login"
+            android:layout_below="@+id/tv_project"
+            android:hint="请输入车队名称"
+            app:met_baseColor="@color/color_a5a5a5"
+            app:met_helperText=""
+            app:met_maxCharacters="10"
+            app:met_primaryColor="#2196F3"
+            app:met_textColor="@color/color_343434"
+            app:met_textColorHint="@color/color_a5a5a5"
+            app:met_underlineColor="@color/color_a5a5a5" />
+
+        <TextView
+            android:id="@+id/tv_car_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_project_name"
+            android:layout_marginStart="@dimen/dimen_dp_20"
             android:text="车辆编号"
             android:textColor="@color/colorTextGrey"
-            android:textSize="@dimen/dimen_sp_12" />
+            android:textSize="@dimen/dimen_sp_12"
+            android:textStyle="bold" />
 
-        <com.carnetwork.hansen.widget.LineEditText
+
+        <com.hansen.edittextlib.materialedittext.MaterialEditText
             android:id="@+id/et_car_no"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/style_materedit_login"
             android:layout_below="@+id/tv_car_no"
-            android:layout_marginEnd="@dimen/dimen_dp_20"
-            android:layout_marginStart="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_10"
-            android:background="@null"
             android:hint="请输入车辆编号"
-            android:maxLength="40"
-            android:maxLines="1"
-            android:text=""
-            android:textColor="@color/color_343434"
-            android:textColorHint="@color/color_a5a5a5"
-            android:textSize="@dimen/dimen_sp_12" />
+            app:met_baseColor="@color/color_a5a5a5"
+            app:met_helperText=""
+            app:met_maxCharacters="10"
+            app:met_primaryColor="#2196F3"
+            app:met_textColor="@color/color_343434"
+            app:met_textColorHint="@color/color_a5a5a5"
+            app:met_underlineColor="@color/color_a5a5a5" />
 
 
         <TextView
@@ -88,28 +81,25 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_car_no"
             android:layout_marginStart="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_15"
-            android:text="车辆牌照"
-            android:textStyle="bold"
-            android:textColor="@color/colorTextGrey"
-            android:textSize="@dimen/dimen_sp_12" />
 
-        <com.carnetwork.hansen.widget.LineEditText
+            android:text="车辆牌照"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/dimen_sp_12"
+            android:textStyle="bold" />
+
+        <com.hansen.edittextlib.materialedittext.MaterialEditText
             android:id="@+id/et_carlicence"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/style_materedit_login"
             android:layout_below="@+id/tv_carlicence"
-            android:layout_marginEnd="@dimen/dimen_dp_20"
-            android:layout_marginStart="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_10"
-            android:background="@null"
             android:hint="@string/carl"
-            android:maxLength="25"
-            android:text=""
-            android:maxLines="1"
-            android:textColor="@color/color_343434"
-            android:textColorHint="@color/color_a5a5a5"
-            android:textSize="@dimen/dimen_sp_12" />
+            app:met_baseColor="@color/color_a5a5a5"
+            app:met_helperText=""
+            app:met_maxCharacters="10"
+            app:met_primaryColor="#2196F3"
+            app:met_textColor="@color/color_343434"
+            app:met_textColorHint="@color/color_a5a5a5"
+            app:met_underlineColor="@color/color_a5a5a5"
+         />
 
         <TextView
             android:id="@+id/tv_phone"
@@ -119,27 +109,24 @@
             android:layout_marginStart="@dimen/dimen_dp_20"
             android:layout_marginTop="@dimen/dimen_dp_15"
             android:text="@string/text_login_phone"
-            android:textStyle="bold"
             android:textColor="@color/colorTextGrey"
-            android:textSize="@dimen/dimen_sp_12" />
+            android:textSize="@dimen/dimen_sp_12"
+            android:textStyle="bold" />
 
 
-        <com.carnetwork.hansen.widget.LineEditText
+        <com.hansen.edittextlib.materialedittext.MaterialEditText
             android:id="@+id/et_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/style_materedit_login"
             android:layout_below="@+id/tv_phone"
-            android:layout_marginEnd="@dimen/dimen_dp_20"
-            android:layout_marginStart="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_10"
-            android:background="@null"
             android:hint="请输入手机号"
-            android:maxLength="25"
-            android:text=""
-            android:maxLines="1"
-            android:textColor="@color/color_343434"
-            android:textColorHint="@color/color_a5a5a5"
-            android:textSize="@dimen/dimen_sp_12" />
+            android:inputType="phone"
+            app:met_baseColor="@color/color_a5a5a5"
+            app:met_helperText=""
+            app:met_maxCharacters="11"
+            app:met_primaryColor="#2196F3"
+            app:met_textColor="@color/color_343434"
+            app:met_textColorHint="@color/color_a5a5a5"
+            app:met_underlineColor="@color/color_a5a5a5" />
 
 
         <TextView
@@ -150,26 +137,24 @@
             android:layout_marginStart="@dimen/dimen_dp_20"
             android:layout_marginTop="@dimen/dimen_dp_15"
             android:text="@string/text_login_name"
-            android:textStyle="bold"
             android:textColor="@color/colorTextGrey"
-            android:textSize="@dimen/dimen_sp_12" />
+            android:textSize="@dimen/dimen_sp_12"
+            android:textStyle="bold" />
 
-        <com.carnetwork.hansen.widget.LineEditText
+        <com.hansen.edittextlib.materialedittext.MaterialEditText
             android:id="@+id/et_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/style_materedit_login"
             android:layout_below="@+id/tv_name"
-            android:layout_marginEnd="@dimen/dimen_dp_20"
-            android:layout_marginStart="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_10"
-            android:background="@null"
             android:hint="请输入姓名"
-            android:maxLength="25"
-            android:maxLines="1"
-            android:text=""
-            android:textColor="@color/color_343434"
-            android:textColorHint="@color/color_a5a5a5"
-            android:textSize="@dimen/dimen_sp_12" />
+
+            app:met_baseColor="@color/color_a5a5a5"
+            app:met_helperText=""
+            app:met_maxCharacters="10"
+            app:met_primaryColor="#2196F3"
+            app:met_textColor="@color/color_343434"
+            app:met_textColorHint="@color/color_a5a5a5"
+            app:met_underlineColor="@color/color_a5a5a5"
+         />
 
 
         <Button
@@ -177,13 +162,13 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_dp_45"
             android:layout_below="@+id/et_name"
-            android:layout_marginEnd="@dimen/dimen_dp_20"
             android:layout_marginStart="@dimen/dimen_dp_20"
             android:layout_marginTop="@dimen/dimen_dp_30"
+            android:layout_marginEnd="@dimen/dimen_dp_20"
             android:background="@drawable/login_background"
             android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_sp_14" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </ScrollView>

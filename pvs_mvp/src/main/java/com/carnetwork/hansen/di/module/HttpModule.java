@@ -2,19 +2,13 @@ package com.carnetwork.hansen.di.module;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.franmontiel.persistentcookiejar.ClearableCookieJar;
-import com.franmontiel.persistentcookiejar.PersistentCookieJar;
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+
+import com.carnetwork.hansen.app.Constants;
+import com.carnetwork.hansen.di.qualifier.MyUrl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.carnetwork.hansen.BuildConfig;
-import com.carnetwork.hansen.app.Constants;
-import com.carnetwork.hansen.app.MyApplication;
-import com.carnetwork.hansen.component.RxBus;
-import com.carnetwork.hansen.di.qualifier.MyUrl;
-import com.carnetwork.hansen.mvp.model.event.CommonEvent;
-import com.carnetwork.hansen.mvp.model.event.EventCode;
+
 import com.carnetwork.hansen.mvp.model.http.api.MyApis;
 import com.carnetwork.hansen.mvp.model.http.manege.RetrofitUrlManager;
 import com.carnetwork.hansen.util.SystemUtil;

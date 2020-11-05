@@ -17,7 +17,6 @@ import com.carnetwork.hansen.BuildConfig;
 import java.util.HashSet;
 import java.util.Set;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
 
@@ -63,7 +62,7 @@ public class MyApplication extends Application {
      */
     @Override
     protected void attachBaseContext(Context base) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
+        super.attachBaseContext(base);
 
     }
 

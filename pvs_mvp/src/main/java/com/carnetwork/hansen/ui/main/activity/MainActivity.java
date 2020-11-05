@@ -142,10 +142,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         //        启动后台服务
       startService(new Intent(this, NoVoiceService.class));
         Intent intent = new Intent(this, MusicService.class);
-//        //获取MainActivity传过来的数据
-//        Bundle bundle = getIntent().getExtras();
-//        //再把这些包装好的数据重新装入Intent，发送给Service
-//        intent.putExtras(bundle);
         startService(intent);
         bindService(intent, conn, BIND_AUTO_CREATE);
     }

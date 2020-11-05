@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.Display;
+import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -40,6 +41,7 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.blankj.utilcode.util.LogUtils;
@@ -121,8 +123,15 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         }
         MapStatus.Builder builder = new MapStatus.Builder();
         builder.zoom(18.0f);
-        mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
         mBaiduMap.setMyLocationEnabled(true);
+        mMapView.setOnDragListener(new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                return true;
+            }
+        });
+
+
     }
 
 
@@ -172,10 +181,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
                     showExitDialog(marker.getTitle().split(",")[0]);
 
                 }
-
-
-
-                return false;
+                return true;
             }
         });
 
@@ -185,16 +191,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         //不显示缩放按钮
         mMapView.showZoomControls(false);
 
-        mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
 
-            }
-
-            @Override
-            public void onMapPoiClick(MapPoi mapPoi) {
-            }
-        });
     }
 
     private void showExitDialog(String id) {
@@ -353,8 +350,9 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
             //定义Maker坐标点
             LatLng point = new LatLng(Double.parseDouble(currentCar.getLat()), Double.parseDouble(currentCar.getLon()));
             BitmapDescriptor bd1 = BitmapDescriptorFactory.fromBitmap(getBitmapFromView(view));
-            MarkerOptions ooA = new MarkerOptions().position(point).icon(bd1).zIndex(9).draggable(true).title(title);
+            MarkerOptions ooA = new MarkerOptions().position(point).icon(bd1).zIndex(9).draggable(false).title(title);
             //在地图上添加Marker，并显示
+
             mBaiduMap.addOverlay(ooA);
 
 
@@ -415,7 +413,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
 
             BitmapDescriptor bd1 = BitmapDescriptorFactory.fromBitmap(getBitmapFromView(view));
-            MarkerOptions ooA = new MarkerOptions().position(point).icon(bd1).zIndex(9).draggable(true).title(sateBeans.get(i).getId()+","+"sate");
+            MarkerOptions ooA = new MarkerOptions().position(point).icon(bd1).zIndex(9).draggable(false).title(sateBeans.get(i).getId()+","+"sate");
             //在地图上添加Marker，并显示
             mBaiduMap.addOverlay(ooA);
 

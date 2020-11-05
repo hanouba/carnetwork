@@ -18,13 +18,16 @@ public class LoginInfo {
     //用户名
     @Unique
     private String username;
-    //密码
+    //车辆编号
     private String carNo;
-
+    //车牌号
     private String carLicence;
+    //手机号
     private String phone;
-    private String token;
+    //项目名称
+    private String projectName;
 
+    private String token;
 
     public LoginInfo(String username, String carNo ,String carLicence,String phone,String token) {
         this.username = username;
@@ -34,11 +37,8 @@ public class LoginInfo {
         this.token = token;
     }
 
-
-    @Generated(hash = 712700232)
-    public LoginInfo(Long id, String username, String carNo, String carLicence, String phone,
-            String token) {
-        this.id = id;
+    public LoginInfo(String projectName,String username, String carNo ,String carLicence,String phone,String token) {
+        this.projectName = projectName;
         this.username = username;
         this.carNo = carNo;
         this.carLicence = carLicence;
@@ -46,6 +46,18 @@ public class LoginInfo {
         this.token = token;
     }
 
+
+    @Generated(hash = 682191453)
+    public LoginInfo(Long id, String username, String carNo, String carLicence, String phone, String projectName,
+            String token) {
+        this.id = id;
+        this.username = username;
+        this.carNo = carNo;
+        this.carLicence = carLicence;
+        this.phone = phone;
+        this.projectName = projectName;
+        this.token = token;
+    }
 
     @Generated(hash = 1911824992)
     public LoginInfo() {
@@ -109,6 +121,14 @@ public class LoginInfo {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getProjectName() {
+        return this.projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
 

@@ -551,4 +551,14 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:background">@drawable/drawable_topbar_bg</item>
     </style>
+
+    <style name="style_materedit_login">
+        <item name="android:layout_marginEnd">@dimen/dimen_dp_20</item>
+        <item name="android:layout_marginStart">@dimen/dimen_dp_20</item>
+        <item name="android:layout_marginTop">@dimen/dimen_dp_10</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textCursorDrawable">@drawable/text_cursor_cyan</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

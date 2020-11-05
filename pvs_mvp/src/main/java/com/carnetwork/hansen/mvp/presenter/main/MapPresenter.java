@@ -25,18 +25,13 @@ import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
 import com.carnetwork.hansen.ui.main.fragment.MapFragment;
 import com.carnetwork.hansen.util.RxUtil;
 import com.carnetwork.hansen.widget.CommonSubscriber;
-import com.google.android.exoplayer2.extractor.mp3.Mp3Extractor;
 
-import org.reactivestreams.Publisher;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;

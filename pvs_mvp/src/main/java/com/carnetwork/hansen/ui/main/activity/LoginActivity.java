@@ -3,19 +3,15 @@ package com.carnetwork.hansen.ui.main.activity;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
-import android.nfc.tech.NfcA;
-import android.os.Bundle;
+
 import android.text.TextUtils;
-import android.util.Log;
+
 import android.view.KeyEvent;
-import android.view.View;
-import android.widget.AdapterView;
+
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.carnetwork.hansen.R;
@@ -28,12 +24,9 @@ import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 import com.carnetwork.hansen.mvp.presenter.main.LoginPresenter1;
 import com.carnetwork.hansen.util.Music;
 import com.carnetwork.hansen.util.MusicAdapter;
-import com.carnetwork.hansen.util.MusicList;
 import com.carnetwork.hansen.util.SystemUtil;
 import com.carnetwork.hansen.widget.LineEditText;
-import com.lzx.starrysky.manager.MusicManager;
-import com.lzx.starrysky.model.SongInfo;
-import com.tencent.bugly.crashreport.CrashReport;
+import com.hansen.edittextlib.materialedittext.MaterialEditText;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -41,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity<LoginPresenter1>
@@ -49,13 +41,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
 
     @BindView(R.id.et_car_no)
-    LineEditText etCarNo;
+    MaterialEditText etCarNo;
     @BindView(R.id.et_carlicence)
-    LineEditText etCarlicence;
+    MaterialEditText etCarlicence;
     @BindView(R.id.et_phone)
-    LineEditText etPhone;
+    MaterialEditText etPhone;
     @BindView(R.id.et_name)
-    LineEditText etName;
+    MaterialEditText etName;
     @BindView(R.id.bt_login)
     Button btLogin;
     private String YHXY = "<<隐私授权协议>>";
@@ -144,6 +136,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
     @OnClick(R.id.bt_login)
     public void onViewClicked() {
+        Intent intent = new Intent(this, TestActivity.class);
+        startActivity(intent);
         String carNo = etCarNo.getText().toString().trim();
         String carLicence = etCarlicence.getText().toString().trim();
         String phone = etPhone.getText().toString().trim();
