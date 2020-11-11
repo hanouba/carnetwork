@@ -112,7 +112,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
         tvGetVer.setOnClickListener(this);
 
-        tvGetVer.setEnabled(false);
+        tvGetVer.setEnabled(true);
     }
 
 
@@ -167,8 +167,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
     @OnClick(R.id.bt_login)
     public void onViewClicked() {
-        Intent intent = new Intent(this, TestActivity.class);
-        startActivity(intent);
+
         phone = etPhone.getText().toString().trim();
         String name = etName.getText().toString().trim();
         String projectName = etProjectName.getText().toString().trim();
@@ -180,16 +179,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
             e.printStackTrace();
         }
 
-        if (TextUtils.isEmpty(phone)) {
-            ToastUtils.showLong("手机号不能为空");
 
-            return;
-        }else {
-            if (!SystemUtil.isChinaPhoneLegal(phone)){
-                ToastUtils.showLong("手机号格式不对");
-                return;
-            }
-        }
         if (TextUtils.isEmpty(name)) {
             ToastUtils.showLong("姓名不能为空");
             return;
@@ -213,6 +203,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         switch (v.getId()) {
             case R.id.tv_get_ver:
 //            获取验证码
+                phone = etPhone.getText().toString().trim();
+
+                if (TextUtils.isEmpty(phone)) {
+                    ToastUtils.showLong("手机号不能为空");
+                    return;
+                }else {
+                    if (!SystemUtil.isChinaPhoneLegal(phone)){
+                        ToastUtils.showLong("手机号格式不对");
+                        return;
+                    }
+                }
                 float startTime = SPUtils.getInstance().getFloat(KEY_START_TIME);
 
                 long currentTime = System.currentTimeMillis();

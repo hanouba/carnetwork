@@ -118,6 +118,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                         }else {
                             //获取成功
                             //读取短信验证码自动填写
+                            ToastUtils.showShort("验证码获取成功");
                         }
                     }
                     @Override
