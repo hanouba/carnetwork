@@ -204,7 +204,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
             case R.id.tv_get_ver:
 //            获取验证码
                 phone = etPhone.getText().toString().trim();
-
                 if (TextUtils.isEmpty(phone)) {
                     ToastUtils.showLong("手机号不能为空");
                     return;
@@ -214,12 +213,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
                         return;
                     }
                 }
-                float startTime = SPUtils.getInstance().getFloat(KEY_START_TIME);
+                long startTime = SPUtils.getInstance().getLong(KEY_START_TIME);
 
                 long currentTime = System.currentTimeMillis();
-                if (phone == null) {
-                    return;
-                }
+
+
                 if (currentTime - startTime < COUNTDOWN * 1000) {
                     ToastUtils.showShort(R.string.smssdk_busy_hint);
                    return;
