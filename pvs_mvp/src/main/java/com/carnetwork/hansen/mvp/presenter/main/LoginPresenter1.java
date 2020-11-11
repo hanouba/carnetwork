@@ -32,6 +32,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.carnetwork.hansen.app.Constants.KEY_START_TIME;
+
 
 public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements LoginContract1.Presenter {
     private String TAG = "LoginPresenter1";
@@ -98,7 +100,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
 
         MyApis request = retrofit.create(MyApis.class);
 
-
+        SPUtils.getInstance().put(KEY_START_TIME,System.currentTimeMillis());
         Observable<MyHttpResponse> observable = request.getMessageCode(phone);
 
         observable.subscribeOn(Schedulers.io())   // 切换到IO线程进行网络请求
@@ -114,7 +116,8 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                          //获取验证码成功
                             ToastUtils.showShort("验证码获取失败");
                         }else {
-                            mView.loginFail(myHttpResponse.getErrorMessage());
+                            //获取成功
+                            //读取短信验证码自动填写
                         }
                     }
                     @Override

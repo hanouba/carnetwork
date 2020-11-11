@@ -48,56 +48,6 @@
             app:met_textColorHint="@color/color_a5a5a5"
             app:met_underlineColor="@color/color_a5a5a5" />
 
-        <TextView
-            android:id="@+id/tv_car_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/et_project_name"
-            android:layout_marginStart="@dimen/dimen_dp_20"
-            android:text="车辆编号"
-            android:textColor="@color/colorTextGrey"
-            android:textSize="@dimen/dimen_sp_12"
-            android:textStyle="bold" />
-
-
-        <com.hansen.edittextlib.materialedittext.MaterialEditText
-            android:id="@+id/et_car_no"
-            style="@style/style_materedit_login"
-            android:layout_below="@+id/tv_car_no"
-            android:hint="请输入车辆编号"
-            app:met_baseColor="@color/color_a5a5a5"
-            app:met_helperText=""
-            app:met_maxCharacters="10"
-            app:met_primaryColor="#2196F3"
-            app:met_textColor="@color/color_343434"
-            app:met_textColorHint="@color/color_a5a5a5"
-            app:met_underlineColor="@color/color_a5a5a5" />
-
-
-        <TextView
-            android:id="@+id/tv_carlicence"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/et_car_no"
-            android:layout_marginStart="@dimen/dimen_dp_20"
-
-            android:text="车辆牌照"
-            android:textColor="@color/colorTextGrey"
-            android:textSize="@dimen/dimen_sp_12"
-            android:textStyle="bold" />
-
-        <com.hansen.edittextlib.materialedittext.MaterialEditText
-            android:id="@+id/et_carlicence"
-            style="@style/style_materedit_login"
-            android:layout_below="@+id/tv_carlicence"
-            android:hint="@string/carl"
-            app:met_baseColor="@color/color_a5a5a5"
-            app:met_helperText=""
-            app:met_maxCharacters="10"
-            app:met_primaryColor="#2196F3"
-            app:met_textColor="@color/color_343434"
-            app:met_textColorHint="@color/color_a5a5a5"
-            app:met_underlineColor="@color/color_a5a5a5" />
 
         <TextView
             android:id="@+id/tv_phone"

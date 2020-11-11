@@ -427,6 +427,11 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         showcurrentWorkState();
     }
 
+    @Override
+    public void showError(String msg) {
+
+    }
+
     /**
      * 拨打电话（跳转到拨号界面，用户手动点击拨打）
      *

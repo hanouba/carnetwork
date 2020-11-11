@@ -37,6 +37,17 @@ public class LoginInfo {
         this.token = token;
     }
 
+    /**
+     *
+     * @param username
+     * @param phone
+     * @param projectName
+     */
+    public LoginInfo(String username,String phone,String projectName) {
+        this.username = username;
+        this.phone = phone;
+        this.projectName = projectName;
+    }
     public LoginInfo(String projectName,String username, String carNo ,String carLicence,String phone,String token) {
         this.projectName = projectName;
         this.username = username;

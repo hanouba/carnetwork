@@ -209,7 +209,7 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
                         if (sateBeans.isSuccess()) {
                         getSateList(carNo);
                         }else {
-                            ToastUtils.showShort("删除失败");
+                            ToastUtils.showShort(sateBeans.getErrorMessage());
                         }
                     }
                     @Override
@@ -228,8 +228,11 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
                 .subscribeWith(new CommonSubscriber<MyHttpResponse>(mView) {
                     @Override
                     public void onNext(MyHttpResponse myHttpResponse) {
-                        LogUtils.i("", "mapUpLoad: 起点终点"+myHttpResponse.isSuccess());
+                        if (!myHttpResponse.isSuccess()) {
+                            ToastUtils.showShort(myHttpResponse.getErrorMessage());
+                        }else {
 
+                        }
                     }
 
                     @Override
