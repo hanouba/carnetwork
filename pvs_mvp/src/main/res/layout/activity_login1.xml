@@ -92,7 +92,7 @@
             style="@style/style_materedit_login"
             android:layout_below="@+id/tv_name"
             android:hint="请输入姓名"
-
+            android:visibility="visible"
             app:met_baseColor="@color/color_a5a5a5"
             app:met_helperText=""
             app:met_maxCharacters="10"

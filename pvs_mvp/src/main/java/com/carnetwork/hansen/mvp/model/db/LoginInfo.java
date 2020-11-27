@@ -29,6 +29,7 @@ public class LoginInfo {
 
     private String token;
 
+
     public LoginInfo(String username, String carNo ,String carLicence,String phone,String token) {
         this.username = username;
         this.carNo = carNo;

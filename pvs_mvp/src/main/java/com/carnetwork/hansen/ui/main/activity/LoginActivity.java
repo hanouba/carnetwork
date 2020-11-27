@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 
+import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -26,6 +27,7 @@ import com.carnetwork.hansen.app.MyApplication;
 import com.carnetwork.hansen.base.BaseActivity;
 import com.carnetwork.hansen.mvp.contract.main.LoginContract1;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
+import com.carnetwork.hansen.mvp.model.bean.ProjectEntity;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 import com.carnetwork.hansen.mvp.presenter.main.LoginPresenter1;
 import com.carnetwork.hansen.util.Music;
@@ -47,11 +49,17 @@ import static com.carnetwork.hansen.app.Constants.KEY_START_TIME;
 public class LoginActivity extends BaseActivity<LoginPresenter1>
         implements LoginContract1.View, CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
-
+    /**
+     * 手机号
+     */
     @BindView(R.id.et_phone)
     MaterialEditText etPhone;
+    /**
+     * 用户名
+     *
+     */
     @BindView(R.id.et_name)
-    MaterialEditText etName;
+    MaterialEditText etUserName;
     /**
      * 获取验证码
      */
@@ -68,7 +76,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
      */
     @BindView(R.id.et_verification)
     MaterialEditText etVerification;
-
+    /**
+     * 登录
+     */
     @BindView(R.id.bt_login)
     Button btLogin;
     private String YHXY = "<<隐私授权协议>>";
@@ -97,22 +107,15 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         List<LoginInfo> loginInfos = mPresenter.getLoginInfo();
         if (loginInfos.size()>0) {
             LoginInfo loginInfo = loginInfos.get(0);
-            String lastCarNo = loginInfo.getCarNo();
-            String lastCarLicence = loginInfo.getCarLicence();
             String lastPhone = loginInfo.getPhone();
-            String lastUserName = loginInfo.getUsername();
             String lastProject = loginInfo.getProjectName();
-
-
-
-            etName.setText(lastUserName);
             etPhone.setText(lastPhone);
             etProjectName.setText(lastProject);
         }
 
         tvGetVer.setOnClickListener(this);
 
-        tvGetVer.setEnabled(false);
+        tvGetVer.setEnabled(true);
     }
 
 
@@ -167,11 +170,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
     @OnClick(R.id.bt_login)
     public void onViewClicked() {
-        Intent intent = new Intent(this, TestActivity.class);
-        startActivity(intent);
+
         phone = etPhone.getText().toString().trim();
-        String name = etName.getText().toString().trim();
+        String userName = etUserName.getText().toString().trim();
+        //车队名称
         String projectName = etProjectName.getText().toString().trim();
+        //验证码
+        String verification = etVerification.getText().toString().trim();
+
         AssetManager assetManager = getResources().getAssets();
         try {
             AssetFileDescriptor assetFileDescriptor = assetManager.openFd("");
@@ -190,21 +196,23 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
                 return;
             }
         }
-        if (TextUtils.isEmpty(name)) {
-            ToastUtils.showLong("姓名不能为空");
+        if (TextUtils.isEmpty(verification)) {
+            ToastUtils.showLong("验证码不能为空");
             return;
         }
 
-        SPUtils.getInstance().put(Constants.CAR_NAME, name);
+
         SPUtils.getInstance().put(Constants.CAR_PHONE, phone);
         showProcessDialog("登录中...");
-        LoginEntity postingString = new LoginEntity(phone,name,projectName);// json传递
+        LoginEntity postingString = new LoginEntity(phone,verification,projectName);// json传递
+        ProjectEntity projectEntity = new ProjectEntity(verification,phone,projectName,userName);
         /**
          * 存储登录信息
+         * 手机号 车队名称
          */
-        LoginInfo loginInfo = new LoginInfo(name, phone,projectName);
+        LoginInfo loginInfo = new LoginInfo(userName, phone,projectName);
         mPresenter.inserLoginInfo(loginInfo);
-        mPresenter.login(postingString);
+        mPresenter.login(postingString,projectEntity);
 
     }
 
@@ -213,8 +221,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         switch (v.getId()) {
             case R.id.tv_get_ver:
 //            获取验证码
-                float startTime = SPUtils.getInstance().getFloat(KEY_START_TIME);
-
+                long startTime = SPUtils.getInstance().getLong(KEY_START_TIME,0);
+                phone = etPhone.getText().toString().trim();
                 long currentTime = System.currentTimeMillis();
                 if (phone == null) {
                     return;

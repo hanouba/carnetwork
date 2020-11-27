@@ -20,7 +20,7 @@ public interface SplashContract {
     }
 
     interface  Presenter extends BasePresenter<View> {
-        void checkPermissions(RxPermissions rxPermissions,Activity activity ,boolean auto);
+        void checkPermissions(RxPermissions rxPermissions,Activity activity);
         void getAutoLoginInfo(Activity  activity);
         String getToken();
     }

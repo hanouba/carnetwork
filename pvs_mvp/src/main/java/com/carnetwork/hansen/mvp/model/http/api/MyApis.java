@@ -5,6 +5,7 @@ import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
 import com.carnetwork.hansen.mvp.model.bean.LoginBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
+import com.carnetwork.hansen.mvp.model.bean.ProjectEntity;
 import com.carnetwork.hansen.mvp.model.bean.SateBean;
 import com.carnetwork.hansen.mvp.model.bean.SateSaveEntity;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
@@ -28,6 +29,10 @@ public interface MyApis {
     @POST("sys/login")
     Flowable<LoginBean> login(@Body LoginEntity loginEntity);
 
+    @POST("sys/login/v2")
+    Flowable<LoginBean> loginV2(@Body LoginEntity loginEntity);
+    @POST("sys/login/v2")
+    Observable<MyHttpResponse> loginV3(@Body LoginEntity loginEntity);
     @POST("sys/logout")
     Flowable<MyHttpResponse> logout(@Query("carNo") String carNo);
     ///sys/logoff 下班不显示其他车辆
@@ -65,4 +70,11 @@ public interface MyApis {
     //获取验证码
     @POST("message/send")
     Observable<MyHttpResponse> getMessageCode(@Query("phone") String phone);
+
+    //创建车队
+    @POST("project/create")
+    Flowable<MyHttpResponse> createProject(@Body ProjectEntity projectEntity);
+    //创建车队2
+    @POST("project/create")
+    Observable<MyHttpResponse> createProject2(@Body ProjectEntity projectEntity);
 }

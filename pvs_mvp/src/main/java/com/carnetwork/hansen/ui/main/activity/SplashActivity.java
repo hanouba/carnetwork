@@ -42,22 +42,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     @Override
     protected void initEventAndData() {
 
-        //设置状态栏颜色
-//        StatusBarUtil.setTranslucent(SplashActivity.this, 0);
-//        agetAutoLoginState = mPresenter.getAgetAutoLoginState();
-//        if (agetAutoLoginState) {
-//            Constants.NEW_UID = SPUtils.getInstance().getString(Constants.NEW_UID_KEY);
-//            if (Constants.NEW_UID.equals("") || Constants.NEW_UID.isEmpty()) {
-//                Intent intent = new Intent(this,LoginActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }else {
-//                mPresenter.checkPermissions(new RxPermissions(this),this , true);
-//            }
-//
-//        }else {
-//            mPresenter.checkPermissions(new RxPermissions(this),this , false);
-//        }
+
 
         String token = mPresenter.getToken();
         SPUtils.getInstance().put(Constants.TOKEN, "");
@@ -70,7 +55,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
             startActivity(intent);
         } else {
-            mPresenter.checkPermissions(new RxPermissions(this), this, false);
+            mPresenter.checkPermissions(new RxPermissions(this), this);
         }
 
     }
@@ -83,7 +68,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.checkPermissions(new RxPermissions(SplashActivity.this), SplashActivity.this, agetAutoLoginState);
+                        mPresenter.checkPermissions(new RxPermissions(SplashActivity.this), SplashActivity.this);
                     }
                 })
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {

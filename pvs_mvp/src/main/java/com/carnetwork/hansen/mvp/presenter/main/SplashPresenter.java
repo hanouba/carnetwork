@@ -56,15 +56,14 @@ public class SplashPresenter extends RxPresenter<SplashContract.View> implements
      *
      * @param rxPermissions 申请的权限集合
      * @param activity      上上下文
-     * @param isAuto        是否自动登录
      */
     @Override
-    public void checkPermissions(final RxPermissions rxPermissions, final Activity activity, final boolean isAuto) {
+    public void checkPermissions(final RxPermissions rxPermissions, final Activity activity) {
         addSubscribe(rxPermissions
                 .request(PERMISSIONS)
                 .subscribe(granted -> {
                     LogUtils.d("获取权限");
-                    jumpToLogin(activity, isAuto);
+                    jumpToLogin(activity);
                 })
         );
     }
@@ -73,23 +72,16 @@ public class SplashPresenter extends RxPresenter<SplashContract.View> implements
      * 延时操作
      *
      * @param activity
-     * @param isAuto   是否需要自动登录
      */
-    private void jumpToLogin(final Activity activity, final boolean isAuto) {
+    private void jumpToLogin(final Activity activity) {
         addSubscribe(Flowable.timer(1000, TimeUnit.MILLISECONDS)
-                        .compose(RxUtil.<Long>rxSchedulerHelper())
-                        .subscribe(new Consumer<Long>() {
-                            @Override
-                            public void accept(Long aLong) {
-                                if (isAuto) {
-//                            自动（后台）登录
-                                    getAutoLoginInfo(activity);
-                                } else {
-//                            跳转至登录界面
-                                    gotoLoginActivity(activity);
-                                }
-                            }
-                        })
+                .compose(RxUtil.<Long>rxSchedulerHelper())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) {
+                        gotoLoginActivity(activity);
+                    }
+                })
         );
     }
 
@@ -101,7 +93,7 @@ public class SplashPresenter extends RxPresenter<SplashContract.View> implements
     @Override
     public void getAutoLoginInfo(Activity context) {
 
-            gotoLoginActivity(context);
+        gotoLoginActivity(context);
 
     }
 
@@ -110,39 +102,6 @@ public class SplashPresenter extends RxPresenter<SplashContract.View> implements
         return mDataManager.getToken();
     }
 
-
-
-    /**
-     * 自动登录（后台登录）
-     *
-     * @param username 用户名
-     * @param password 密码
-     * @param activity 上下文
-     * @param ip       服务器IP
-     * @param port     服务器端口
-     */
-    private void autoLogin(final String username, final String password, final Activity activity, final String ip, final String port) {
-        Map<String, String> map = new HashMap();
-        map.put("cmd", "CLIENT_USER_LOGIN");
-        map.put("userid", username);
-        map.put("lang", "cn");
-        map.put("pwd", password);
-        map.put("deviceType", "mobile");
-
-
-    }
-
-    /**
-     * 跳转到主界面
-     *
-     * @param activity 上下文
-     */
-    private void gotoMainActivity(Activity activity) {
-        Intent intent = new Intent(activity, MainActivity.class);
-        activity.startActivity(intent);
-        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        activity.finish();
-    }
 
     /**
      * 跳转到登录界面
@@ -156,17 +115,5 @@ public class SplashPresenter extends RxPresenter<SplashContract.View> implements
         activity.finish();
     }
 
-    /**
-     * 更改Retrofit中BaseUrl
-     *
-     * @param newUrl
-     */
-    public void changeBaseUrl(String newUrl) {
-        //当你项目中只有一个 BaseUrl ,但需要动态改变,全局 BaseUrl 显得非常方便
-        RetrofitUrlManager.getInstance().setGlobalDomain(newUrl);
-        HttpUrl httpUrl = RetrofitUrlManager.getInstance().getGlobalDomain();
-        if (null == httpUrl || !httpUrl.toString().equals(newUrl)) {
-            RetrofitUrlManager.getInstance().setGlobalDomain(newUrl);
-        }
-    }
+
 }
