@@ -16,6 +16,7 @@ import com.carnetwork.hansen.mvp.model.DataManager;
 import com.carnetwork.hansen.mvp.model.bean.LoginBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
 import com.carnetwork.hansen.mvp.model.bean.ProjectEntity;
+import com.carnetwork.hansen.mvp.model.bean.SateBean;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 import com.carnetwork.hansen.mvp.model.http.api.MyApis;
 import com.carnetwork.hansen.mvp.model.http.exception.ApiException;
@@ -72,38 +73,64 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
     @Override
     public void login(LoginEntity loginEntity, ProjectEntity projectEntity) {
 
-
-
         addSubscribe(mDataManager.getLoginV2(loginEntity)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .flatMap((Function<LoginBean, Flowable<MyHttpResponse>>) eventStatusResultBean -> {
-                    if (eventStatusResultBean.isSuccess()){
-                        //登录到主页
-                        ToastUtils.showShort("登录主要");
-                        return null;
-                    }else {
-                        //创建车队
-                        ToastUtils.showShort("创建车队");
-                        return mDataManager.createProject(projectEntity);
+                .compose(RxUtil.<LoginBean>rxSchedulerHelper())
+
+                .subscribeWith(new CommonSubscriber<LoginBean>(mView) {
+                    @Override
+                    public void onNext(LoginBean sateBeans) {
+
+                        if (sateBeans.isSuccess()){
+                            //登录到主页
+
+                            mView.gotoMainActivity();
+
+                        }else {
+                            //创建车队
+                            createProject(loginEntity,projectEntity);
+                        }
                     }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
 
-                })
-                .compose(RxUtil.rxSchedulerHelper())
-                .subscribe(myHttpResponse -> {
-                    if (myHttpResponse.isSuccess()) {
-                        //创建成功
-                        ToastUtils.showShort("创建车队创建成功");
-                    }else {
-                        //创建失败
-                        ToastUtils.showShort("创建车队创建失败");
+                        mView.showErrorDialog("");
                     }
-                }, e -> {
-                    ToastUtils.showShort("创建车队getMessage创建失败");
-                    LogUtils.d(e.getMessage());
                 })
         );
+//
+//        addSubscribe(mDataManager.getLoginV2(loginEntity)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(Schedulers.io())
+//                .flatMap((Function<LoginBean, Flowable<MyHttpResponse>>) eventStatusResultBean -> {
+//                    if (eventStatusResultBean.isSuccess()){
+//                        //登录到主页
+//                        LogUtils.d("登录主要创建成功");
+//                        return null;
+//                    }else {
+//                        //创建车队
+//                        LogUtils.d("创建车队");
+//                        return mDataManager.createProject(projectEntity);
+//                    }
+//
+//
+//                })
+//                .compose(RxUtil.rxSchedulerHelper())
+//                .subscribe(myHttpResponse -> {
+//                    if (myHttpResponse.isSuccess()) {
+//                        //创建成功
+//                        LogUtils.d("创建车队创建成功");
+//
+//                    }else {
+//                        //创建失败
+//                        LogUtils.d("创建车队创建失败"+myHttpResponse.getErrorMessage());
+//                    }
+//                }, e -> {
+//                    LogUtils.d("创建车队创建失败getMessage");
+//                    LogUtils.d(e.getMessage());
+//                })
+//        );
 
 
 //        Retrofit retrofit = new Retrofit.Builder()
@@ -155,6 +182,34 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
 //                });
 
 
+    }
+
+    private void createProject(LoginEntity loginEntity,ProjectEntity projectEntity) {
+        addSubscribe(mDataManager.createProject(projectEntity)
+                .compose(RxUtil.<MyHttpResponse>rxSchedulerHelper())
+
+                .subscribeWith(new CommonSubscriber<MyHttpResponse>(mView) {
+                    @Override
+                    public void onNext(MyHttpResponse sateBeans) {
+
+                        if (sateBeans.isSuccess()){
+                            //登录到主页
+                            ToastUtils.showLong("车队创建成功");
+                        login(loginEntity,projectEntity);
+                        }else {
+                            //创建车队
+                            mView.showErrorDialog(sateBeans.getErrorMessage());
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        Log.i("", "onNext: 获取到获取到起点终点onError"+e.toString());
+                    }
+                })
+        );
     }
 
     @Override

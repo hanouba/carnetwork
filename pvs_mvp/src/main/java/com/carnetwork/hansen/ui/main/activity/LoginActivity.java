@@ -135,14 +135,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
     @Override
     public void gotoMainActivity() {
-
-
-
-
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
         startActivity(intent);
+        finish();
+
     }
 
     @Override

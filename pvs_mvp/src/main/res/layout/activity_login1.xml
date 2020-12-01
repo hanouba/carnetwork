@@ -145,6 +145,19 @@
             android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_sp_14" />
+
+
+        <TextView
+            android:id="@+id/tv_createProejct"
+            android:padding="@dimen/dimen_dp_5"
+            android:layout_marginTop="@dimen/dimen_dp_10"
+            android:layout_marginRight="@dimen/dimen_dp_20"
+            android:layout_gravity="end"
+            android:textSize="@dimen/dimen_sp_18"
+            android:textColor="@color/color_blue"
+            android:text="新建项目"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 </ScrollView>

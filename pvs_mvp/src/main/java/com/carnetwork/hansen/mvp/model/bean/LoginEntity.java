@@ -7,7 +7,7 @@ public class LoginEntity {
     /**
      * 验证码
      */
-    private String verification;
+    private String code;
 
     /**
      * 手机号
@@ -15,23 +15,23 @@ public class LoginEntity {
     private String phone;
 
     //    车队名称
-    private String motorcade;
+    private String projectName;
 
 
 
-    public LoginEntity(String phone, String verification, String motorcade) {
+    public LoginEntity(String phone, String code, String projectName) {
 
         this.phone = phone;
-        this.verification = verification;
-        this.motorcade = motorcade;
+        this.code = code;
+        this.projectName = projectName;
     }
 
-    public String getVerification() {
-        return verification;
+    public String getCode() {
+        return code;
     }
 
-    public void setVerification(String verification) {
-        this.verification = verification;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getPhone() {
@@ -42,11 +42,11 @@ public class LoginEntity {
         this.phone = phone;
     }
 
-    public String getMotorcade() {
-        return motorcade;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setMotorcade(String motorcade) {
-        this.motorcade = motorcade;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 }

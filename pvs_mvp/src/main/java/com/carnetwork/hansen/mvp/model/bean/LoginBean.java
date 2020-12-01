@@ -11,20 +11,13 @@ public class LoginBean {
      */
 
 
-    private String model;
+
     private boolean success;
     private String errorMessage;
     private String errorCode;
     private String errorTips;
 
 
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
 
 
     public static class ModelBean {
