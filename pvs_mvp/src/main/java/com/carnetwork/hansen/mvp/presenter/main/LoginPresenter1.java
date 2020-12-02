@@ -71,7 +71,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
 
 
     @Override
-    public void login(LoginEntity loginEntity, ProjectEntity projectEntity) {
+    public void login(LoginEntity loginEntity) {
 
         addSubscribe(mDataManager.getLoginV2(loginEntity)
                 .compose(RxUtil.<LoginBean>rxSchedulerHelper())
@@ -86,8 +86,8 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                             mView.gotoMainActivity();
 
                         }else {
-                            //创建车队
-                            createProject(loginEntity,projectEntity);
+                            //跳转到创建车队界面
+                            mView.gotoCreateProject();
                         }
                     }
 
@@ -195,7 +195,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                         if (sateBeans.isSuccess()){
                             //登录到主页
                             ToastUtils.showLong("车队创建成功");
-                        login(loginEntity,projectEntity);
+                        login(loginEntity);
                         }else {
                             //创建车队
                             mView.showErrorDialog(sateBeans.getErrorMessage());

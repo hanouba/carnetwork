@@ -7,9 +7,41 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_dp_200"
+            android:layout_centerHorizontal="true"
+            android:background="@color/color_blue">
+
+            <ImageView
+
+                android:id="@+id/iv_title"
+                android:layout_width="@dimen/dimen_dp_90"
+                android:layout_height="@dimen/dimen_dp_90"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimen_dp_70"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimen_dp_10"
+                android:text="@string/login_app_name"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
 
 
         <TextView
@@ -92,7 +124,7 @@
             style="@style/style_materedit_login"
             android:layout_below="@+id/tv_name"
             android:hint="请输入姓名"
-            android:visibility="visible"
+            android:visibility="gone"
             app:met_baseColor="@color/color_a5a5a5"
             app:met_helperText=""
             app:met_maxCharacters="10"
@@ -153,7 +185,7 @@
             android:layout_marginTop="@dimen/dimen_dp_10"
             android:layout_marginRight="@dimen/dimen_dp_20"
             android:layout_gravity="end"
-            android:textSize="@dimen/dimen_sp_18"
+            android:textSize="@dimen/dimen_sp_16"
             android:textColor="@color/color_blue"
             android:text="新建项目"
             android:layout_width="wrap_content"

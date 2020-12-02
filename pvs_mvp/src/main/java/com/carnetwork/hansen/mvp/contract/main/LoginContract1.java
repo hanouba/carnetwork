@@ -19,6 +19,7 @@ public interface LoginContract1 {
 
 //
         void gotoMainActivity();
+        void gotoCreateProject();
         void loginFail(String msg);
 
 
@@ -31,7 +32,7 @@ public interface LoginContract1 {
 
         void inserLoginInfo(LoginInfo loginInfo);
 
-        void login(LoginEntity loginEntity,ProjectEntity projectEntity);
+        void login(LoginEntity loginEntity);
         //获取验证码
         void getMessageCode(String phone);
     }

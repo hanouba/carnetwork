@@ -54,12 +54,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
      */
     @BindView(R.id.et_phone)
     MaterialEditText etPhone;
-    /**
-     * 用户名
-     *
-     */
-    @BindView(R.id.et_name)
-    MaterialEditText etUserName;
+
     /**
      * 获取验证码
      */
@@ -143,6 +138,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     }
 
     @Override
+    public void gotoCreateProject() {
+
+    }
+
+    @Override
     public void loginFail(String msg) {
 
         dismissProcessDialog();
@@ -169,7 +169,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     public void onViewClicked() {
 
         phone = etPhone.getText().toString().trim();
-        String userName = etUserName.getText().toString().trim();
+
         //车队名称
         String projectName = etProjectName.getText().toString().trim();
         //验证码
@@ -202,14 +202,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         SPUtils.getInstance().put(Constants.CAR_PHONE, phone);
         showProcessDialog("登录中...");
         LoginEntity postingString = new LoginEntity(phone,verification,projectName);// json传递
-        ProjectEntity projectEntity = new ProjectEntity(verification,phone,projectName,userName);
+
         /**
          * 存储登录信息
          * 手机号 车队名称
          */
-        LoginInfo loginInfo = new LoginInfo(userName, phone,projectName);
+        LoginInfo loginInfo = new LoginInfo("", phone,projectName);
         mPresenter.inserLoginInfo(loginInfo);
-        mPresenter.login(postingString,projectEntity);
+        mPresenter.login(postingString);
 
     }
 
