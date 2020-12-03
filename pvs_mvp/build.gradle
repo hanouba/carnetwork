@@ -202,8 +202,8 @@ dependencies {
 
 //    百度地
     implementation files('libs/BaiduLBS_Android.jar')
-
-
+// BaseRecyclerViewAdapterHelper
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
 
 
 

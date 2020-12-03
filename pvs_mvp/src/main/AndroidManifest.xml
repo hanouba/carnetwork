@@ -31,7 +31,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="n">
-        <activity android:name=".ui.main.activity.TestActivity"></activity>
+        <activity android:name=".ui.main.activity.CarListActivity"></activity>
+        <activity android:name=".ui.main.activity.TestActivity" />
         <activity
             android:name=".ui.main.activity.SellectActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
@@ -143,7 +144,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".util.MusicService"></service>
+        <service android:name=".util.MusicService" />
     </application>
 
 </manifest>
