@@ -76,15 +76,13 @@ android {
 //greendao配置
 greendao {
     //版本号，升级时可配置
-    schemaVersion 3
+    schemaVersion 4
 
 }
 
 
-//configurations.all {
-//    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-//        def requested = details.requested
-//        if (requested.group == 'com.android.support') {
+//(
+//        requested.group == 'com.android.support') {
 //            if (!requested.name.startsWith("multidex")) {
 //                details.useVersion '28.0.0'
 //            }

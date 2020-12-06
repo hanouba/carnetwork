@@ -1,9 +1,6 @@
 package com.carnetwork.hansen.mvp.presenter.main;
 
 
-
-
-
 import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -69,7 +66,6 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
     }
 
 
-
     @Override
     public void login(LoginEntity loginEntity) {
 
@@ -80,14 +76,14 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                     @Override
                     public void onNext(LoginBean sateBeans) {
 
-                        if (sateBeans.isSuccess()){
+                        if (sateBeans.isSuccess()) {
                             //登录到主页
 
                             mView.gotoMainActivity();
 
-                        }else {
-                            //跳转到创建车队界面
-                            mView.gotoCreateProject();
+                        } else {
+                            //切换到创建项目界面
+                            mView.changeToCreateProject(sateBeans.getErrorMessage());
                         }
                     }
 
@@ -184,7 +180,39 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
 
     }
 
-    private void createProject(LoginEntity loginEntity,ProjectEntity projectEntity) {
+    @Override
+    public void login2(LoginEntity loginEntity) {
+        addSubscribe(mDataManager.getLoginV2(loginEntity)
+                .compose(RxUtil.<LoginBean>rxSchedulerHelper())
+
+                .subscribeWith(new CommonSubscriber<LoginBean>(mView) {
+                    @Override
+                    public void onNext(LoginBean sateBeans) {
+
+                        if (sateBeans.isSuccess()) {
+                            //登录到主页
+
+                            mView.gotoMainActivity();
+
+                        } else {
+                            //再次失败 提示错误信息
+                            mView.loginFail(sateBeans.getErrorMessage());
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+
+                        mView.showErrorDialog("" + e.getMessage());
+                    }
+                })
+        );
+    }
+
+    @Override
+    public void createProject(ProjectEntity projectEntity) {
         addSubscribe(mDataManager.createProject(projectEntity)
                 .compose(RxUtil.<MyHttpResponse>rxSchedulerHelper())
 
@@ -192,12 +220,12 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                     @Override
                     public void onNext(MyHttpResponse sateBeans) {
 
-                        if (sateBeans.isSuccess()){
-                            //登录到主页
-                            ToastUtils.showLong("车队创建成功");
-                        login(loginEntity);
-                        }else {
-                            //创建车队
+                        if (sateBeans.isSuccess()) {
+                            //登录到主页 提示创建成功 正在登录
+                            //登录成功后隐藏弹出
+                            mView.showToLogin();
+                        } else {
+                            //创建车队失败提示信息
                             mView.showErrorDialog(sateBeans.getErrorMessage());
 
                         }
@@ -206,7 +234,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-                        Log.i("", "onNext: 获取到获取到起点终点onError"+e.toString());
+                        Log.i("", "onNext: 获取到获取到起点终点onError" + e.toString());
                     }
                 })
         );
@@ -222,7 +250,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
 
         MyApis request = retrofit.create(MyApis.class);
 
-        SPUtils.getInstance().put(KEY_START_TIME,System.currentTimeMillis());
+        SPUtils.getInstance().put(KEY_START_TIME, System.currentTimeMillis());
         Observable<MyHttpResponse> observable = request.getMessageCode(phone);
 
         observable.subscribeOn(Schedulers.io())   // 切换到IO线程进行网络请求
@@ -232,20 +260,23 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                     public void onSubscribe(Disposable d) {
                         LogUtils.d(TAG, "logOn  onSubscribe");
                     }
+
                     @Override
                     public void onNext(MyHttpResponse myHttpResponse) {
                         if (!myHttpResponse.isSuccess()) {
-                         //获取验证码成功
+                            //获取验证码成功
                             ToastUtils.showShort("验证码获取失败");
-                        }else {
+                        } else {
                             //获取成功
                             //读取短信验证码自动填写
                         }
                     }
+
                     @Override
                     public void onError(Throwable e) {
                         LogUtils.d(TAG, "logOn  onError");
                     }
+
                     @Override
                     public void onComplete() {
                         LogUtils.d(TAG, "logOn  onComplete");

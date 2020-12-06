@@ -20,6 +20,8 @@ public interface LoginContract1 {
 //
         void gotoMainActivity();
         void gotoCreateProject();
+        void changeToCreateProject(String errorMsg);
+        void showToLogin();
         void loginFail(String msg);
 
 
@@ -33,6 +35,8 @@ public interface LoginContract1 {
         void inserLoginInfo(LoginInfo loginInfo);
 
         void login(LoginEntity loginEntity);
+        void login2(LoginEntity loginEntity);
+        void createProject(ProjectEntity projectEntity);
         //获取验证码
         void getMessageCode(String phone);
     }

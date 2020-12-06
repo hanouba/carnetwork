@@ -140,10 +140,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             }
         });
         //        启动后台服务
-      startService(new Intent(this, NoVoiceService.class));
-        Intent intent = new Intent(this, MusicService.class);
-        startService(intent);
-        bindService(intent, conn, BIND_AUTO_CREATE);
+//      startService(new Intent(this, NoVoiceService.class));
+//        Intent intent = new Intent(this, MusicService.class);
+//        startService(intent);
+//        bindService(intent, conn, BIND_AUTO_CREATE);
     }
 
     @Override

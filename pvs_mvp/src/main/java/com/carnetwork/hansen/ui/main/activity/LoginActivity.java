@@ -1,5 +1,7 @@
 package com.carnetwork.hansen.ui.main.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
@@ -36,6 +38,8 @@ import com.carnetwork.hansen.util.SystemUtil;
 import com.carnetwork.hansen.widget.LineEditText;
 import com.hansen.edittextlib.materialedittext.MaterialEditText;
 
+import org.w3c.dom.Text;
+
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,7 +58,16 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
      */
     @BindView(R.id.et_phone)
     MaterialEditText etPhone;
-
+    /**
+     * 名称
+     */
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    /**
+     * 姓名
+     */
+    @BindView(R.id.et_name)
+    MaterialEditText etName;
     /**
      * 获取验证码
      */
@@ -65,7 +78,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
      */
     @BindView(R.id.et_project_name)
     MaterialEditText etProjectName;
-
+    /**
+     * 创建项目
+     */
+    @BindView(R.id.tv_createProejct)
+    TextView tvCreateProject;
     /**
      * 验证码
      */
@@ -85,6 +102,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     //总时间60秒
     private static final int COUNTDOWN = 60;
     private String phone;
+
+
+    private boolean isCreatProject = false;
+    private LoginEntity postingString;
 
     @Override
     protected int getLayout() {
@@ -125,6 +146,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     @Override
     public void showErrorDialog(String msg) {
         ToastUtils.showShort(msg);
+        dismissProcessDialog();
     }
 
 
@@ -140,6 +162,46 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     @Override
     public void gotoCreateProject() {
 
+    }
+
+    @Override
+    public void changeToCreateProject(String errorMsg) {
+        dismissProcessDialog();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setMessage(errorMsg)
+                .setTitle("请先创建车队")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //显示姓名
+                        tvName.setVisibility(View.VISIBLE);
+                        etName.setVisibility(View.VISIBLE);
+                        //登录按钮变成创建车队
+                        btLogin.setText("创建车队");
+                        isCreatProject = true;
+                        etVerification.setText("");
+                    }
+                });
+        builder.show();
+    }
+
+    /**
+     * 显示loading 登录中
+     */
+    @Override
+    public void showToLogin() {
+        showProcessDialog("创建成功，登录中...");
+        if (postingString == null) {
+            dismissProcessDialog();
+            return;
+        }
+        mPresenter.login2(postingString);
     }
 
     @Override
@@ -201,15 +263,33 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
         SPUtils.getInstance().put(Constants.CAR_PHONE, phone);
         showProcessDialog("登录中...");
-        LoginEntity postingString = new LoginEntity(phone,verification,projectName);// json传递
+        // json传递
+        postingString = new LoginEntity(phone,verification,projectName);
 
-        /**
-         * 存储登录信息
-         * 手机号 车队名称
-         */
-        LoginInfo loginInfo = new LoginInfo("", phone,projectName);
-        mPresenter.inserLoginInfo(loginInfo);
-        mPresenter.login(postingString);
+
+
+        if (isCreatProject) {
+            //姓名
+
+            String userName = etName.getText().toString().trim();
+            if (TextUtils.isEmpty(userName)) {
+                ToastUtils.showLong("姓名不能为空");
+                return;
+            }
+            ProjectEntity projectEntity = new ProjectEntity(verification, phone, projectName, userName);
+            mPresenter.createProject(projectEntity);
+        }else {
+            /**
+             * 存储登录信息
+             * 手机号 车队名称
+             */
+            LoginInfo loginInfo = new LoginInfo("", phone,projectName);
+            mPresenter.inserLoginInfo(loginInfo);
+            mPresenter.login(postingString);
+        }
+
+
+
 
     }
 
@@ -238,6 +318,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
 
             break;
+            case R.id.tv_createProejct:
+
+                break;
             default:
         }
     }
