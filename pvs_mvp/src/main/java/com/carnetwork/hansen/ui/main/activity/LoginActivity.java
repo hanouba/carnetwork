@@ -28,6 +28,7 @@ import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.app.MyApplication;
 import com.carnetwork.hansen.base.BaseActivity;
 import com.carnetwork.hansen.mvp.contract.main.LoginContract1;
+import com.carnetwork.hansen.mvp.model.bean.LoginBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
 import com.carnetwork.hansen.mvp.model.bean.ProjectEntity;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
@@ -149,15 +150,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         dismissProcessDialog();
     }
 
-
     @Override
-    public void gotoMainActivity() {
+    public void gotoMainActivity(LoginBean loginBean) {
+        String token = loginBean.getModel().getToken();
+       mPresenter.setToken(token);
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
-
     }
+
+
+
 
     @Override
     public void gotoCreateProject() {

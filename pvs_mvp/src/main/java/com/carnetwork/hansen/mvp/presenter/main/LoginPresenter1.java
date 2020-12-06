@@ -79,7 +79,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                         if (sateBeans.isSuccess()) {
                             //登录到主页
 
-                            mView.gotoMainActivity();
+                            mView.gotoMainActivity(sateBeans);
 
                         } else {
                             //切换到创建项目界面
@@ -192,7 +192,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                         if (sateBeans.isSuccess()) {
                             //登录到主页
 
-                            mView.gotoMainActivity();
+                            mView.gotoMainActivity(sateBeans);
 
                         } else {
                             //再次失败 提示错误信息
@@ -282,6 +282,11 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                         LogUtils.d(TAG, "logOn  onComplete");
                     }
                 });
+    }
+
+    @Override
+    public void setToken(String token) {
+        mDataManager.setToken(token);
     }
 
 

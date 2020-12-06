@@ -2,6 +2,7 @@ package com.carnetwork.hansen.mvp.contract.main;
 
 import com.carnetwork.hansen.base.BasePresenter;
 import com.carnetwork.hansen.base.BaseView;
+import com.carnetwork.hansen.mvp.model.bean.LoginBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
 import com.carnetwork.hansen.mvp.model.bean.ProjectEntity;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
@@ -18,7 +19,7 @@ public interface LoginContract1 {
         void showErrorDialog(String msg);
 
 //
-        void gotoMainActivity();
+        void gotoMainActivity(LoginBean loginBean);
         void gotoCreateProject();
         void changeToCreateProject(String errorMsg);
         void showToLogin();
@@ -39,5 +40,7 @@ public interface LoginContract1 {
         void createProject(ProjectEntity projectEntity);
         //获取验证码
         void getMessageCode(String phone);
+
+        void setToken(String token);
     }
 }
