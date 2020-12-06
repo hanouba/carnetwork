@@ -3,6 +3,7 @@ package com.carnetwork.hansen.mvp.model.http.api;
 
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
+import com.carnetwork.hansen.mvp.model.bean.CarListBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
 import com.carnetwork.hansen.mvp.model.bean.ProjectEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -77,4 +79,8 @@ public interface MyApis {
     //创建车队2
     @POST("project/create")
     Observable<MyHttpResponse> createProject2(@Body ProjectEntity projectEntity);
+
+    //獲取車隊列表
+    @GET("car/can-use")
+    Flowable<MyHttpResponse<List<CarListBean>>> getCarCanUse();
 }

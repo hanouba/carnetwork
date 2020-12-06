@@ -6,6 +6,7 @@ import android.app.Activity;
 import com.carnetwork.hansen.di.module.ActivityModule;
 import com.carnetwork.hansen.di.scope.ActivityScope;
 import com.carnetwork.hansen.ui.main.activity.CarInfosActivity;
+import com.carnetwork.hansen.ui.main.activity.CarListActivity;
 import com.carnetwork.hansen.ui.main.activity.LoginActivity;
 import com.carnetwork.hansen.ui.main.activity.MainActivity;
 import com.carnetwork.hansen.ui.main.activity.SplashActivity;
@@ -27,4 +28,5 @@ public interface ActivityComponent {
     void inject(LoginActivity loginActivity1);
 
     void inject(CarInfosActivity carInfosActivity);
+    void inject(CarListActivity carListActivity);
 }
