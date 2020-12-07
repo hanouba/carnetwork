@@ -153,9 +153,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     @Override
     public void gotoMainActivity(LoginBean loginBean) {
         String token = loginBean.getModel().getToken();
-       mPresenter.setToken(token);
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        long projectId = loginBean.getModel().getProjectId();
+        SPUtils.getInstance().put(Constants.PROJECT_PROJECTID,projectId);
+        mPresenter.setToken(token);
+        Intent intent = new Intent(this, CarListActivity.class);
         startActivity(intent);
         finish();
     }

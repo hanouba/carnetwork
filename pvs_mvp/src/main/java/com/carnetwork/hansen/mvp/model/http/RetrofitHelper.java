@@ -19,6 +19,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
+import retrofit2.http.Header;
 
 
 /**
@@ -86,7 +87,7 @@ public class RetrofitHelper implements HttpHelper {
     }
 
     @Override
-    public Flowable<MyHttpResponse<List<CarListBean>>> getCarCanUse() {
-        return mMyApiService.getCarCanUse();
+    public Flowable<MyHttpResponse<List<CarListBean>>> getCarCanUse(String token) {
+        return mMyApiService.getCarCanUse(token);
     }
 }

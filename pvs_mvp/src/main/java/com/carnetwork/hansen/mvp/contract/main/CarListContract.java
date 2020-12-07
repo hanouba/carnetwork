@@ -3,6 +3,7 @@ package com.carnetwork.hansen.mvp.contract.main;
 import com.carnetwork.hansen.base.BasePresenter;
 import com.carnetwork.hansen.base.BaseView;
 import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
+import com.carnetwork.hansen.mvp.model.bean.CarCreateEnity;
 import com.carnetwork.hansen.mvp.model.bean.CarListBean;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public interface CarListContract {
 
     interface Presenter extends BasePresenter<CarListContract.View> {
         void getCarList(String token);
+        void createCar(CarCreateEnity carCreateEnity);
 
 
     }

@@ -1,25 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/materialCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
     android:layout_marginTop="16dp"
-    app:cardElevation="8dp"
-    app:rippleColor="@color/blue"
-    app:state_dragged="true"
-    app:checkedIcon="@drawable/ic_temp"
+    android:layout_marginRight="16dp"
     android:clickable="true"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
+    app:cardElevation="8dp"
+    app:rippleColor="@color/color_blue"
+    app:state_dragged="true">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:text="HomePage"
-        android:layout_margin="16dp"/>
-</com.google.android.material.card.MaterialCardView>
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/text_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="车辆编号："
+            android:textColor="@color/color_313131"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_1"
+            android:layout_margin="10dp"
+            android:text="车  牌  号："
+            android:textColor="@color/color_313131"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text_car_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@id/text_1"
+            android:text="002"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text_car_licence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_car_no"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@id/text_2"
+            android:text="鄂A12345"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

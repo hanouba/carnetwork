@@ -83,7 +83,12 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
 
                         } else {
                             //切换到创建项目界面
-                            mView.changeToCreateProject(sateBeans.getErrorMessage());
+                            if ("CAR100004".equals(sateBeans.getErrorCode())) {
+                                ToastUtils.showShort(sateBeans.getErrorMessage());
+                            }else {
+                                mView.changeToCreateProject(sateBeans.getErrorMessage());
+                            }
+
                         }
                     }
 
@@ -287,6 +292,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
     @Override
     public void setToken(String token) {
         mDataManager.setToken(token);
+        SPUtils.getInstance().put(Constants.TOKEN,token);
     }
 
 

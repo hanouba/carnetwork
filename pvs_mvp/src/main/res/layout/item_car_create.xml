@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dimen_dp_1">
+
+    <TextView
+        android:id="@+id/tv_project"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_system_login"
+        android:layout_marginStart="@dimen/dimen_dp_20"
+        android:layout_marginTop="@dimen/dimen_dp_20"
+        android:text="车辆编号"
+        android:textColor="@color/colorTextGrey"
+        android:textSize="@dimen/dimen_sp_12"
+        android:textStyle="bold" />
+
+    <com.hansen.edittextlib.materialedittext.MaterialEditText
+        android:id="@+id/et_car_no"
+        style="@style/style_materedit_login"
+        android:layout_below="@+id/tv_project"
+        android:hint="请输入车辆编号"
+        app:met_baseColor="@color/color_a5a5a5"
+        app:met_helperText=""
+        app:met_maxCharacters="10"
+        app:met_primaryColor="#2196F3"
+        app:met_textColor="@color/color_343434"
+        app:met_textColorHint="@color/color_a5a5a5"
+        app:met_underlineColor="@color/color_a5a5a5" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_phone"
+        android:layout_marginStart="@dimen/dimen_dp_20"
+        android:text="车牌号"
+        android:textColor="@color/colorTextGrey"
+        android:textSize="@dimen/dimen_sp_12"
+        android:visibility="visible"
+        android:textStyle="bold" />
+
+    <com.hansen.edittextlib.materialedittext.MaterialEditText
+        android:id="@+id/et_car_licence"
+        style="@style/style_materedit_login"
+        android:layout_below="@+id/tv_name"
+        android:hint="请输入车牌号"
+        android:visibility="visible"
+        app:met_baseColor="@color/color_a5a5a5"
+        app:met_helperText=""
+        app:met_maxCharacters="10"
+        app:met_primaryColor="#2196F3"
+        app:met_textColor="@color/color_343434"
+        app:met_textColorHint="@color/color_a5a5a5"
+        app:met_underlineColor="@color/color_a5a5a5" />
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_carlicence"
+        android:layout_marginStart="@dimen/dimen_dp_20"
+        android:text="@string/text_login_phone"
+        android:textColor="@color/colorTextGrey"
+        android:textSize="@dimen/dimen_sp_12"
+        android:textStyle="bold" />
+
+
+    <com.hansen.edittextlib.materialedittext.MaterialEditText
+        android:id="@+id/et_create_phone"
+        style="@style/style_materedit_login"
+        android:layout_below="@+id/tv_phone"
+        android:hint="请输入手机号"
+        android:inputType="phone"
+        app:met_baseColor="@color/color_a5a5a5"
+        app:met_helperText=""
+        app:met_maxCharacters="11"
+        app:met_primaryColor="#2196F3"
+        app:met_textColor="@color/color_343434"
+        app:met_textColorHint="@color/color_a5a5a5"
+        app:met_underlineColor="@color/color_a5a5a5" />
+
+
+
+
+
+</LinearLayout>

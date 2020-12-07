@@ -3,6 +3,7 @@ package com.carnetwork.hansen.mvp.model.http.api;
 
 import com.carnetwork.hansen.mvp.model.bean.AllCar;
 import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
+import com.carnetwork.hansen.mvp.model.bean.CarCreateEnity;
 import com.carnetwork.hansen.mvp.model.bean.CarListBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginBean;
 import com.carnetwork.hansen.mvp.model.bean.LoginEntity;
@@ -82,5 +83,9 @@ public interface MyApis {
 
     //獲取車隊列表
     @GET("car/can-use")
-    Flowable<MyHttpResponse<List<CarListBean>>> getCarCanUse();
+    Flowable<MyHttpResponse<List<CarListBean>>> getCarCanUse(@Header("X-APP-TOKEN") String token);
+
+    //添加车辆
+    @GET("car/create")
+    Observable<MyHttpResponse> createNewCar(@Body CarCreateEnity carCreateEnity, @Header("X-APP-TOKEN") String token);
 }

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Flowable;
+import retrofit2.http.Header;
 
 /**
 
@@ -34,6 +35,6 @@ public interface HttpHelper {
     Flowable<MyHttpResponse> createProject(ProjectEntity projectEntity);
     Flowable<MyHttpResponse<List<AllDrvier>>> getAllDriver(String carNo);
 
-    Flowable<MyHttpResponse<List<CarListBean>>> getCarCanUse();
+    Flowable<MyHttpResponse<List<CarListBean>>> getCarCanUse(@Header("X-APP-TOKEN") String token);
 
 }

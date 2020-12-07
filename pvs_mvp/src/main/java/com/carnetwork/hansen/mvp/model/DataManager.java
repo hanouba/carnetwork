@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Flowable;
+import retrofit2.http.Header;
 
 
 /**
@@ -110,8 +111,8 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
     }
 
     @Override
-    public Flowable<MyHttpResponse<List<CarListBean>>> getCarCanUse() {
-        return mHttpHelper.getCarCanUse();
+    public Flowable<MyHttpResponse<List<CarListBean>>> getCarCanUse(String token) {
+        return mHttpHelper.getCarCanUse(token);
     }
 
     @Override
