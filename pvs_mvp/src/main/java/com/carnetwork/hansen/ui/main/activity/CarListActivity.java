@@ -1,15 +1,18 @@
 package com.carnetwork.hansen.ui.main.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.TextureView;
 import android.view.View;
+import android.view.textservice.TextInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +28,10 @@ import com.carnetwork.hansen.mvp.model.bean.CarListBean;
 import com.carnetwork.hansen.mvp.model.http.NetWorkChangReceiver;
 import com.carnetwork.hansen.mvp.presenter.main.CarListPresenter;
 import com.carnetwork.hansen.ui.main.adapter.CarListAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -49,6 +55,10 @@ public class CarListActivity extends BaseActivity<CarListPresenter> implements C
 
 
     private CarListAdapter mCarListAdapter;
+    private String token;
+    private String selectedCarNo;
+    private List<CarListBean> mCarLists;
+
     @Override
     protected int getLayout() {
         return R.layout.activity_car_list;
@@ -57,8 +67,11 @@ public class CarListActivity extends BaseActivity<CarListPresenter> implements C
     @Override
     protected void initEventAndData() {
         showProcessDialog("");
-        String token = SPUtils.getInstance().getString(Constants.TOKEN);
+        token = SPUtils.getInstance().getString(Constants.TOKEN);
         mPresenter.getCarList(token);
+
+
+        rvCarList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
 
 
 
@@ -98,6 +111,7 @@ public class CarListActivity extends BaseActivity<CarListPresenter> implements C
 
                             CarCreateEnity carCreateEnity = new CarCreateEnity(carLicence,carNo,creatPhone,String.valueOf(projectId));
                             mPresenter.createCar(carCreateEnity);
+                            showProcessDialog("创建车辆中...");
                         }
                     }
                 });
@@ -113,6 +127,7 @@ public class CarListActivity extends BaseActivity<CarListPresenter> implements C
                 break;
             case R.id.bt_next:
                 //下一步 跳轉到主界面
+                mPresenter.selectCar(selectedCarNo);
                 break;
         }
     }
@@ -123,11 +138,27 @@ public class CarListActivity extends BaseActivity<CarListPresenter> implements C
      */
     @Override
     public void showCarList(List<CarListBean> carListBeans) {
+        if (mCarLists == null) {
+            mCarLists = new ArrayList<>();
+        }
+        mCarLists.clear();
+
+        mCarLists = carListBeans;
         dismissProcessDialog();
         if (mCarListAdapter == null) {
-            mCarListAdapter = new CarListAdapter(carListBeans);
-            rvCarList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+            mCarListAdapter = new CarListAdapter(mCarLists);
             rvCarList.setAdapter(mCarListAdapter);
+
+
+            mCarListAdapter.addChildClickViewIds(R.id.rl_content);
+            mCarListAdapter.setClickListener(new CarListAdapter.SubClickListener() {
+                @Override
+                public void onSubClickListener(String carNo) {
+                    selectedCarNo = carNo;
+
+                }
+            });
+
         }else {
             mCarListAdapter.setNewInstance(carListBeans);
         }
@@ -142,5 +173,17 @@ public class CarListActivity extends BaseActivity<CarListPresenter> implements C
 
         dismissProcessDialog();
         ToastUtils.showShort(msg);
+    }
+
+    @Override
+    public void update() {
+        dismissProcessDialog();
+        mPresenter.getCarList(token);
+    }
+
+    @Override
+    public void toMainActivity() {
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 }

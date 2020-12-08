@@ -14,6 +14,7 @@
     app:state_dragged="true">
 
     <RelativeLayout
+        android:id="@+id/rl_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -58,6 +59,16 @@
             android:text="鄂A12345"
             android:textColor="@color/colorTextGrey"
             android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/DeviceList_Select"
+            android:layout_width="@dimen/dimen_dp_30"
+            android:layout_height="@dimen/dimen_dp_30"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dimen_dp_10"
+            android:src="@mipmap/icon_selected"
+            android:visibility="invisible" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

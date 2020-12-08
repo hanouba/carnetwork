@@ -52,7 +52,7 @@ public class RxUtil {
                         if(tMyHttpResponse.isSuccess()) {
                             return createData(tMyHttpResponse.getModel());
                         } else {
-                            return Flowable.error(new ApiException(tMyHttpResponse.getErrorMessage(), Integer.parseInt(tMyHttpResponse.getErrorCode())));
+                            return Flowable.error(new ApiException(tMyHttpResponse.getErrorMessage(), tMyHttpResponse.getErrorCode()));
                         }
                     }
                 });

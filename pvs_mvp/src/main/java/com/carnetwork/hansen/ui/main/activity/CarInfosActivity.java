@@ -45,10 +45,7 @@ public class CarInfosActivity extends BaseActivity<DriverInfoPresenter> implemen
     private String carNo = "";
     private DriverInfosAdapter driverInfosAdapter;
 
-    private ArrayList<Music> arrayList;
-    private MusicAdapter mMusicAdapter;
-    private ListView mListView;
-    private SeekBar seekBar;
+
 
     @Override
     protected int getLayout() {

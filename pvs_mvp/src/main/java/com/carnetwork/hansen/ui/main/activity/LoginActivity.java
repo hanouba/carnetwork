@@ -155,6 +155,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         String token = loginBean.getModel().getToken();
         long projectId = loginBean.getModel().getProjectId();
         SPUtils.getInstance().put(Constants.PROJECT_PROJECTID,projectId);
+        SPUtils.getInstance().put(Constants.CAR_NAME,loginBean.getModel().getName());
         mPresenter.setToken(token);
         Intent intent = new Intent(this, CarListActivity.class);
         startActivity(intent);

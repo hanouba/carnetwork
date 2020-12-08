@@ -22,11 +22,14 @@ public interface CarListContract {
     interface View extends BaseView {
         void showCarList(List<CarListBean> carListBeans);
         void showErrorMsg(String msg);
+        void update();
+        void toMainActivity();
     }
 
     interface Presenter extends BasePresenter<CarListContract.View> {
         void getCarList(String token);
         void createCar(CarCreateEnity carCreateEnity);
+        void selectCar(String carNo);
 
 
     }

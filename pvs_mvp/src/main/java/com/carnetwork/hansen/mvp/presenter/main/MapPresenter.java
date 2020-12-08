@@ -186,7 +186,7 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
                 .subscribeWith(new CommonSubscriber<List<SateBean>>(mView) {
                     @Override
                     public void onNext(List<SateBean> sateBeans) {
-                        Log.i("", "onNext: 获取到起点终点"+sateBeans.toString());
+
                         mView.showAllSate(sateBeans);
                     }
 

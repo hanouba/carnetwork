@@ -8,6 +8,7 @@ package com.carnetwork.hansen.mvp.model.http.exception;
 public class ApiException extends Exception{
 
     private int code;
+    private String errorCode;
 
     public ApiException(String msg) {
         super(msg);
@@ -16,6 +17,10 @@ public class ApiException extends Exception{
     public ApiException(String msg, int code) {
         super(msg);
         this.code = code;
+    }
+    public ApiException(String msg, String errorCode) {
+        super(msg);
+        this.errorCode = errorCode;
     }
 
     public int getCode() {

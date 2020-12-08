@@ -86,6 +86,10 @@ public interface MyApis {
     Flowable<MyHttpResponse<List<CarListBean>>> getCarCanUse(@Header("X-APP-TOKEN") String token);
 
     //添加车辆
-    @GET("car/create")
+    @POST("car/create")
     Observable<MyHttpResponse> createNewCar(@Body CarCreateEnity carCreateEnity, @Header("X-APP-TOKEN") String token);
+
+    //选择车辆
+    @POST("car/select")
+    Observable<MyHttpResponse> selectCar(@Query("carNo") String carNo, @Header("X-APP-TOKEN") String token);
 }

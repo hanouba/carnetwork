@@ -80,39 +80,87 @@ public class CarListPresenter extends RxPresenter<CarListContract.View> implemen
                 .build();
 
         MyApis request = retrofit.create(MyApis.class);
+        String token = SPUtils.getInstance().getString(Constants.TOKEN);
 
-
-        Observable<MyHttpResponse> observable = request.createNewCar(carCreateEnity);
+        Observable<MyHttpResponse> observable = request.createNewCar(carCreateEnity,token);
 
         observable.subscribeOn(Schedulers.io())   // 切换到IO线程进行网络请求
                 .observeOn(AndroidSchedulers.mainThread())  //切换到主线程 处理请求结果
                 .subscribe(new Observer<MyHttpResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        LogUtils.d(TAG, "logOn  onSubscribe");
+
                     }
 
                     @Override
                     public void onNext(MyHttpResponse myHttpResponse) {
                         if (!myHttpResponse.isSuccess()) {
-                            //获取验证码成功
-                            ToastUtils.showShort("验证码获取失败");
+                            //创建车辆失败
+                            //关闭弹窗
+                            mView.showErrorMsg(myHttpResponse.getErrorMessage());
+
                         } else {
-                            //获取成功
-                            //读取短信验证码自动填写
+                            //创建车辆成功
+                            //关闭弹窗
+                            //刷新界面
+                            mView.update();
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtils.d(TAG, "logOn  onError");
                     }
 
                     @Override
                     public void onComplete() {
-                        LogUtils.d(TAG, "logOn  onComplete");
                     }
                 });
     }
+
+    @Override
+    public void selectCar(String carNo) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(MyApis.HOST)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        MyApis request = retrofit.create(MyApis.class);
+        String token = SPUtils.getInstance().getString(Constants.TOKEN);
+
+        Observable<MyHttpResponse> observable = request.selectCar(carNo,token);
+
+        observable.subscribeOn(Schedulers.io())   // 切换到IO线程进行网络请求
+                .observeOn(AndroidSchedulers.mainThread())  //切换到主线程 处理请求结果
+                .subscribe(new Observer<MyHttpResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(MyHttpResponse myHttpResponse) {
+                        if (!myHttpResponse.isSuccess()) {
+                            //选择车辆失败
+                            //不可以跳转过去
+                            mView.showErrorMsg(myHttpResponse.getErrorMessage());
+
+                        } else {
+                            //选择车辆成功
+                            //跳转到主界面
+                            //
+                            mView.toMainActivity();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
+
 }

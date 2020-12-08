@@ -107,26 +107,29 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
 
     @Override
     public void logout(String carNo) {
+        mDataManager.setToken("");
+        SPUtils.getInstance().put(Constants.TOKEN,"");
+        SPUtils.getInstance().put(Constants.IS_ON_WORK, false);
         addSubscribe(mDataManager.logout(carNo)
                 .compose(RxUtil.<MyHttpResponse>rxSchedulerHelper())
 
                 .subscribeWith(new CommonSubscriber<MyHttpResponse>(mView) {
                     @Override
                     public void onNext(MyHttpResponse httpResponse) {
-                        mDataManager.setToken("");
-                        SPUtils.getInstance().put(Constants.TOKEN,"");
-                        SPUtils.getInstance().put(Constants.IS_ON_WORK, false);
-                        mView.logOutSuccess();
+
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
                         mDataManager.setToken("");
-                        mView.logOutSuccess();
+
                     }
                 })
         );
+
+        mView.logOutSuccess();
     }
 
     @Override
