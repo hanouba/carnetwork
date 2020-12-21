@@ -250,4 +250,5 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         return super.onKeyUp(keyCode, event);
     }
 
+
 }

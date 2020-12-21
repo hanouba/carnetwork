@@ -251,22 +251,21 @@ class SellectActivity : AppCompatActivity() {
         }
     }
 
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        return if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
+    
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
             if (!acStateIsMap) {
                 mLlMap.visibility = View.VISIBLE
                 mLlSearch.visibility = View.GONE
                 acStateIsMap = true
                 false
             } else {
-                this.setResult(Activity.RESULT_CANCELED)
                 finish()
                 true
             }
-        } else {
-            super.onKeyDown(keyCode, event)
         }
+        //继续执行父类其他点击事件
+        return super.onKeyUp(keyCode, event)
     }
 
     /**
