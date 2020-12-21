@@ -39,13 +39,48 @@
 
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_car_list"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="@dimen/dimen_dp_100"
-        android:layout_height="match_parent">
 
-    </androidx.recyclerview.widget.RecyclerView>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_car_list"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/dimen_dp_100"
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+            <RelativeLayout
+                android:visibility="visible"
+                android:id="@+id/rl_nothing"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/dimen_dp_50"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_nothint"
+                    android:layout_width="@dimen/dimen_dp_100"
+                    android:layout_height="@dimen/dimen_dp_100"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/icon_nothing"></ImageView>
+
+                <TextView
+                    android:layout_marginTop="@dimen/dimen_dp_15"
+                    android:gravity="center"
+                android:layout_below="@id/iv_nothint"
+                    android:layout_width="match_parent"
+                    android:textSize="@dimen/dimen_sp_16"
+                    android:textColor="@color/grey"
+                    android:text="暂无车辆选择，请手动添加。"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+        </FrameLayout>
+
+
     </LinearLayout>
 
     <Button

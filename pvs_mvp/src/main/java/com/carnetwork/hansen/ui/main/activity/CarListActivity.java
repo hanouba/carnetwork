@@ -10,6 +10,7 @@ import android.view.textservice.TextInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -52,7 +53,8 @@ public class CarListActivity extends BaseActivity<CarListPresenter> implements C
     RecyclerView rvCarList;
     @BindView(R.id.bt_next)
     Button btNext;
-
+    @BindView(R.id.rl_nothing)
+    RelativeLayout relNothing;
 
     private CarListAdapter mCarListAdapter;
     private String token;
@@ -143,7 +145,16 @@ public class CarListActivity extends BaseActivity<CarListPresenter> implements C
         }
         mCarLists.clear();
 
+
         mCarLists = carListBeans;
+        if (mCarLists.size() > 0) {
+            relNothing.setVisibility(View.GONE);
+            rvCarList.setVisibility(View.VISIBLE);
+
+        }else {
+            relNothing.setVisibility(View.VISIBLE);
+            rvCarList.setVisibility(View.GONE);
+        }
         dismissProcessDialog();
         if (mCarListAdapter == null) {
             mCarListAdapter = new CarListAdapter(mCarLists);

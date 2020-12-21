@@ -258,6 +258,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
         SPUtils.getInstance().put(KEY_START_TIME, System.currentTimeMillis());
         Observable<MyHttpResponse> observable = request.getMessageCode(phone);
 
+
         observable.subscribeOn(Schedulers.io())   // 切换到IO线程进行网络请求
                 .observeOn(AndroidSchedulers.mainThread())  //切换到主线程 处理请求结果
                 .subscribe(new Observer<MyHttpResponse>() {
@@ -274,6 +275,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                         } else {
                             //获取成功
                             //读取短信验证码自动填写
+                            mView.updataVerifi();
                         }
                     }
 

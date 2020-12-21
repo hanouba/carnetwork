@@ -156,6 +156,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         long projectId = loginBean.getModel().getProjectId();
         SPUtils.getInstance().put(Constants.PROJECT_PROJECTID,projectId);
         SPUtils.getInstance().put(Constants.CAR_NAME,loginBean.getModel().getName());
+        
         mPresenter.setToken(token);
         Intent intent = new Intent(this, CarListActivity.class);
         startActivity(intent);
@@ -216,6 +217,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         dismissProcessDialog();
         ToastUtils.showShort(msg);
     }
+
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -310,10 +313,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
                 if (phone == null) {
                     return;
                 }
+
+
                 if (currentTime - startTime < COUNTDOWN * 1000) {
                     ToastUtils.showShort(R.string.smssdk_busy_hint);
                    return;
                 }
+
+
 
                 if (!SystemUtil.isNetworkConnected()) {
                     ToastUtils.showShort(R.string.smssdk_network_error);
@@ -322,6 +329,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
                 //检查验证码
                 mPresenter.getMessageCode(phone);
 
+                currentSecond = COUNTDOWN;
+                handler.sendEmptyMessage(0);
 
             break;
             case R.id.tv_createProejct:
@@ -330,15 +339,24 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
             default:
         }
     }
+    /**
+     * 刷新时间
+     */
+    @Override
+    public void updataVerifi() {
 
+
+
+    }
 
  Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (tvGetVer != null) {
                 if (currentSecond > 0) {
+
                     //更新 验证码计时显示
-                    tvGetVer.setText("获取验证码" + " (" + currentSecond + "s)");
+                    tvGetVer.setText(" (" + currentSecond + "s)");
                     tvGetVer.setEnabled(false);
                     //每次减少1秒
                     currentSecond--;
@@ -352,4 +370,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
             }
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+    }
 }

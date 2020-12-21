@@ -8,16 +8,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -45,7 +48,8 @@ public class CarInfosActivity extends BaseActivity<DriverInfoPresenter> implemen
     private String carNo = "";
     private DriverInfosAdapter driverInfosAdapter;
 
-
+    @BindView(R.id.rl_nothing)
+    RelativeLayout relNothing;
 
     @Override
     protected int getLayout() {
@@ -70,6 +74,14 @@ public class CarInfosActivity extends BaseActivity<DriverInfoPresenter> implemen
 
     @Override
     public void showAllDriver(List<AllDrvier> allCar) {
+        if (allCar.size() > 0) {
+            relNothing.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+
+        }else {
+            relNothing.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
         driverInfosAdapter = new DriverInfosAdapter(allCar);
         recyclerView.setAdapter(driverInfosAdapter);
     }
@@ -86,5 +98,17 @@ public class CarInfosActivity extends BaseActivity<DriverInfoPresenter> implemen
 
     @Override
     public void onClick(View v) {
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+            finish();
+
+            //不执行父类点击事件
+            return true;
+        }
+        //继续执行父类其他点击事件
+        return super.onKeyUp(keyCode, event);
     }
 }

@@ -83,7 +83,7 @@ import butterknife.OnClick;
  * @version: 2.1.67
  */
 public class MapFragment extends BaseFragment<MapPresenter> implements MapContract.View {
-
+    private final String TAG = "MapFragment_TAG";
     @BindView(R.id.map)
     MapView mMapView;
     @BindView(R.id.bt_reset)
@@ -153,7 +153,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
 
         carNo = SPUtils.getInstance().getString(Constants.CAR_NO);
 
-
+        LogUtils.d(TAG,"initEventAndData"+carNo);
         String token = SPUtils.getInstance().getString(Constants.TOKEN);
         //获取所以车联信息
         mPresenter.getAllCar(token, carNo);
@@ -450,6 +450,8 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
         mMapView.onResume();
         super.onResume();
         //获取所有的起点终点
+        carNo = SPUtils.getInstance().getString(Constants.CAR_NO);
+
         mPresenter.getSateList(carNo);
     }
 

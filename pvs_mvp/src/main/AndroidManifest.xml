@@ -31,8 +31,12 @@
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="n">
-        <activity android:name=".ui.main.activity.CarListActivity"></activity>
-        <activity android:name=".ui.main.activity.TestActivity" />
+        <activity android:name=".ui.main.activity.CarListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" ></activity>
+        <activity android:name=".ui.main.activity.TestActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.SellectActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />

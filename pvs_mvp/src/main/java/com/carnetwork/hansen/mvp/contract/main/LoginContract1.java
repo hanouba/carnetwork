@@ -25,6 +25,8 @@ public interface LoginContract1 {
         void showToLogin();
         void loginFail(String msg);
 
+        void updataVerifi();
+
 
     }
 

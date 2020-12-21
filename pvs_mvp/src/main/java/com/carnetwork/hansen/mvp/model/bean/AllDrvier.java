@@ -13,52 +13,84 @@ public class AllDrvier {
      */
 
 
+    /**
+     * carNum : 001
+     * <p>
+     * name : string
+     * phone : string
+     */
 
 
-        /**
-         * carNum : 001
+    private String carLicence;
+    private String carNo;
+    private String name;
+    private String phone;
+    private String onlineStatus;
+    private String createTime;
+    private String projectId;
 
-         * name : string
-         * phone : string
-         */
+    public String getCarLicence() {
+        return carLicence;
+    }
 
+    public void setCarLicence(String carLicence) {
+        this.carLicence = carLicence;
+    }
 
-        private String carLicence;
-        private String carNo;
-        private String name;
-        private String phone;
+    public String getCarNum() {
+        return carNo;
+    }
 
-        public String getCarLicence() {
-            return carLicence;
-        }
+    public void setCarNum(String carNum) {
+        this.carNo = carNum;
+    }
 
-        public void setCarLicence(String carLicence) {
-            this.carLicence = carLicence;
-        }
+    public String getName() {
+        return name;
+    }
 
-        public String getCarNum() {
-            return carNo;
-        }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        public void setCarNum(String carNum) {
-            this.carNo = carNum;
-        }
+    public String getPhone() {
+        return phone;
+    }
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getPhone() {
-            return phone;
-        }
-
-        public void setPhone(String phone) {
-            this.phone = phone;
-        }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
 
+    public String getCarNo() {
+        return carNo;
+    }
+
+    public void setCarNo(String carNo) {
+        this.carNo = carNo;
+    }
+
+    public String getOnlineStatus() {
+        return onlineStatus;
+    }
+
+    public void setOnlineStatus(String onlineStatus) {
+        this.onlineStatus = onlineStatus;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
 }
