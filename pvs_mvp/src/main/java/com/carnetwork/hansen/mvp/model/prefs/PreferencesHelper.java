@@ -11,7 +11,9 @@ import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 public interface PreferencesHelper {
 
     String getToken();
+    String getCarNo();
     void setToken(String token);
+    void setCarNo(String carNo);
 
     void setWorkState(boolean state);
     boolean getWorkState();

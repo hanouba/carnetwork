@@ -102,6 +102,11 @@ public class SplashPresenter extends RxPresenter<SplashContract.View> implements
         return mDataManager.getToken();
     }
 
+    @Override
+    public String getCarNo() {
+        return mDataManager.getCarNo();
+    }
+
 
     /**
      * 跳转到登录界面

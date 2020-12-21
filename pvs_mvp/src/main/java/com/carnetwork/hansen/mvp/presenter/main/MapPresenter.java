@@ -151,7 +151,10 @@ public class MapPresenter  extends RxPresenter<MapContract.View> implements MapC
 
     }
 
-
+    /**
+     * 提交位置信息
+     * @param uploadMapEntity
+     */
     @Override
     public void mapUpLoad(UploadMapEntity uploadMapEntity) {
         addSubscribe(mDataManager.upLoadMap(uploadMapEntity)

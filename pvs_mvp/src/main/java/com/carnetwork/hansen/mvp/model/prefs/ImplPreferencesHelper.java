@@ -18,6 +18,7 @@ import javax.inject.Inject;
 public class ImplPreferencesHelper implements PreferencesHelper {
 
     private static final String DEFAULT_TOKEN = "token";
+    private static final String DEFAULT_CARNO = "carno";
     private static final String DEFAULT_WORK_STATE = "workstate";
 
 
@@ -37,8 +38,18 @@ public class ImplPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
+    public String getCarNo() {
+        return mSPrefs.getString(DEFAULT_CARNO,"");
+    }
+
+    @Override
     public void setToken(String token) {
         mSPrefs.edit().putString(DEFAULT_TOKEN, token).apply();
+    }
+
+    @Override
+    public void setCarNo(String carNo) {
+        mSPrefs.edit().putString(DEFAULT_CARNO, carNo).apply();
     }
 
     @Override

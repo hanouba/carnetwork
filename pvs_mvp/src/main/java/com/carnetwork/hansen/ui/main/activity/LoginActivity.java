@@ -156,7 +156,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         long projectId = loginBean.getModel().getProjectId();
         SPUtils.getInstance().put(Constants.PROJECT_PROJECTID,projectId);
         SPUtils.getInstance().put(Constants.CAR_NAME,loginBean.getModel().getName());
-        
+        //不应该在这里设置token 因为会导致自动登录 后 的用户信息与创建的信息不一致
+        /**
+         * 如果之前登录过A的信息
+         * 在创建B车队  没有车辆信息
+         * 重新自动登录后 由于已经有token了 会自动跳转到主界面  用的信息还是之前选择的车辆信息
+         *
+         * 解决办法 不在这里设置token 在车辆选择界面设置token 车辆选择成功后才可以
+         */
         mPresenter.setToken(token);
         Intent intent = new Intent(this, CarListActivity.class);
         startActivity(intent);
@@ -356,7 +363,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
                 if (currentSecond > 0) {
 
                     //更新 验证码计时显示
-                    tvGetVer.setText(" (" + currentSecond + "s)");
+                    tvGetVer.setText("剩余" + currentSecond + "s");
                     tvGetVer.setEnabled(false);
                     //每次减少1秒
                     currentSecond--;
@@ -364,7 +371,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
                     handler.sendEmptyMessageDelayed(0, 1000);
                 } else {
                     //恢复默认
-                    tvGetVer.setText("获取验证码");
+                    tvGetVer.setText("重新发送");
                     tvGetVer.setEnabled(true);
                 }
             }

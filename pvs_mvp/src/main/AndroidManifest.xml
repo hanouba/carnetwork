@@ -148,7 +148,9 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".util.MusicService" />
+        <service android:name="com.carnetwork.service.MusicService" />
+
+
     </application>
 
 </manifest>

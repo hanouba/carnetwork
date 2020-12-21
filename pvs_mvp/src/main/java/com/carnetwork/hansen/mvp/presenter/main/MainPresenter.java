@@ -108,6 +108,7 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
     @Override
     public void logout(String carNo) {
         mDataManager.setToken("");
+        mDataManager.setCarNo("");
         SPUtils.getInstance().put(Constants.TOKEN,"");
         SPUtils.getInstance().put(Constants.IS_ON_WORK, false);
         addSubscribe(mDataManager.logout(carNo)

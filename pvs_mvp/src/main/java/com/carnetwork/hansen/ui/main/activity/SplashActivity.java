@@ -45,9 +45,10 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
 
         String token = mPresenter.getToken();
+        String carNo = mPresenter.getCarNo();
         SPUtils.getInstance().put(Constants.TOKEN, "");
-        LogUtils.d("tokentokentoken" + token);
-        if (!"".equals(token)) {
+        LogUtils.d("tokentokentoken" + token+"carNo--"+carNo);
+        if (!"".equals(token) && !"".equals(carNo)) {
             SPUtils.getInstance().put(Constants.TOKEN, token);
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -1,28 +1,13 @@
 package com.carnetwork.hansen.ui.main.activity;
 
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.carnetwork.hansen.R;
 import com.carnetwork.hansen.app.Constants;
@@ -31,13 +16,7 @@ import com.carnetwork.hansen.mvp.contract.main.CarInfoContract;
 import com.carnetwork.hansen.mvp.model.bean.AllDrvier;
 import com.carnetwork.hansen.mvp.presenter.main.DriverInfoPresenter;
 import com.carnetwork.hansen.ui.main.adapter.DriverInfosAdapter;
-import com.carnetwork.hansen.util.Music;
-import com.carnetwork.hansen.util.MusicAdapter;
-import com.carnetwork.hansen.util.MusicList;
-import com.carnetwork.hansen.util.MusicService;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

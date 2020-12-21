@@ -23,5 +23,6 @@ public interface SplashContract {
         void checkPermissions(RxPermissions rxPermissions,Activity activity);
         void getAutoLoginInfo(Activity  activity);
         String getToken();
+        String getCarNo();
     }
 }

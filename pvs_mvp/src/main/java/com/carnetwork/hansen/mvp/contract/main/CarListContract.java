@@ -31,6 +31,7 @@ public interface CarListContract {
         void createCar(CarCreateEnity carCreateEnity);
         void selectCar(String carNo);
 
+        void setCarNo(String carNo);
 
     }
 }

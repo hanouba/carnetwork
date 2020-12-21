@@ -24,7 +24,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface MyApis {
-
+    //192.168.3.132
 
     String HOST = "http://121.36.3.165:6006/";
 

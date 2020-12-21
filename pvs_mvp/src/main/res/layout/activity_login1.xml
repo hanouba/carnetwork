@@ -156,7 +156,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_get_ver"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:background="@drawable/border_blue_v"
                 android:layout_height="@dimen/dimen_dp_30"
                 android:layout_marginLeft="8dp"

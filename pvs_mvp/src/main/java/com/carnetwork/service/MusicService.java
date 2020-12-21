@@ -1,4 +1,4 @@
-package com.carnetwork.hansen.util;
+package com.carnetwork.service;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -7,10 +7,11 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.carnetwork.hansen.R;
+import com.carnetwork.hansen.util.Music;
+import com.carnetwork.hansen.util.MusicList;
 
 import java.io.IOException;
 import java.util.ArrayList;

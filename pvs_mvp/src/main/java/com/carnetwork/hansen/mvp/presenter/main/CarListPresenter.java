@@ -163,4 +163,9 @@ public class CarListPresenter extends RxPresenter<CarListContract.View> implemen
                 });
     }
 
+    @Override
+    public void setCarNo(String carNo) {
+        mDataManager.setCarNo(carNo);
+    }
+
 }

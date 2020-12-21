@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,7 +34,7 @@ import com.carnetwork.hansen.mvp.model.event.CommonEvent;
 import com.carnetwork.hansen.mvp.model.event.EventCode;
 import com.carnetwork.hansen.mvp.presenter.main.MainPresenter;
 import com.carnetwork.hansen.ui.main.fragment.MapFragment;
-import com.carnetwork.hansen.util.MusicService;
+import com.carnetwork.service.MusicService;
 import com.carnetwork.hansen.util.StatusBarUtil;
 import com.carnetwork.hansen.widget.SwitchButton;
 
@@ -42,16 +43,16 @@ import com.carnetwork.hansen.widget.SwitchButton;
  * Created by codeest on 16/8/9.
  */
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View,  View.OnClickListener {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, View.OnClickListener {
 
     private MusicService musicService;
-
 
 
     private TextView tvCarNo, tvCarLicence, tvUserName, tvUserPhone;
     private String userName, userPhone, carNo, carLicence;
     private Button carInfos;
     private PowerManager.WakeLock mwl;
+
     @Override
     protected int getLayout() {
         return R.layout.activity_main;
@@ -67,14 +68,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
 
-
-
     ServiceConnection conn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             musicService = ((MusicService.MusicBinder) service).getService();
             handler.sendEmptyMessage(0x01);
         }
+
         @Override
         public void onServiceDisconnected(ComponentName name) {
 
@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 0x01 ) {
+            if (msg.what == 0x01) {
                 handler.sendEmptyMessage(0x01);
             }
         }
@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         tvUserPhone = findViewById(R.id.tv_user_phone);
         Button logOut = findViewById(R.id.bt_logout);
         SwitchButton switchButton = findViewById(R.id.switch_button);
-         carInfos = findViewById(R.id.bt_opencarinfo);
+        carInfos = findViewById(R.id.bt_opencarinfo);
         String token = SPUtils.getInstance().getString(Constants.TOKEN);
 
 
@@ -120,40 +120,38 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         logOut.setOnClickListener(this::onClick);
         carInfos.setOnClickListener(this);
         //工作状态设置
-        boolean workState =   SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
+        boolean workState = SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
         switchButton.setChecked(workState);
         if (workState) {
-            mPresenter.logOn(carNo,token);
-        }else {
+            mPresenter.logOn(carNo, token);
+        } else {
 
         }
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SPUtils.getInstance().put(Constants.IS_ON_WORK, isChecked);
-                RxBus.getDefault().post(new CommonEvent(EventCode.WORK_STATE,isChecked));
+                RxBus.getDefault().post(new CommonEvent(EventCode.WORK_STATE, isChecked));
                 if (isChecked) {
-                    mPresenter.logOn(carNo,token);
-                }else {
-                    mPresenter.logOff(carNo,token);
+                    mPresenter.logOn(carNo, token);
+                } else {
+                    mPresenter.logOff(carNo, token);
                 }
             }
         });
         //        启动后台服务
-//      startService(new Intent(this, NoVoiceService.class));
-//        Intent intent = new Intent(this, MusicService.class);
-//        startService(intent);
-//        bindService(intent, conn, BIND_AUTO_CREATE);
+        startService(new Intent(this, NoVoiceService.class));
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.carnetwork.hansen.component.keepalive.NoVoiceService");
+        //        Intent intent = new Intent(this, MusicService.class);
+        //        startService(intent);
+        //        bindService(intent, conn, BIND_AUTO_CREATE);
     }
 
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
     }
-
-
-
-
 
 
     @Override
@@ -234,12 +232,22 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 mPresenter.logout(carNo);
                 break;
             case R.id.bt_opencarinfo:
-                startActivity(new Intent(this,CarInfosActivity.class));
+                startActivity(new Intent(this, CarInfosActivity.class));
 
                 break;
             default:
         }
     }
 
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+            finish();
+
+        }
+        //继续执行父类其他点击事件
+        return super.onKeyUp(keyCode, event);
+    }
 
 }

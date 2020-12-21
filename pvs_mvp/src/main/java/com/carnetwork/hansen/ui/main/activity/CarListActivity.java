@@ -129,6 +129,10 @@ public class CarListActivity extends BaseActivity<CarListPresenter> implements C
                 break;
             case R.id.bt_next:
                 //下一步 跳轉到主界面
+                if (TextUtils.isEmpty(selectedCarNo)) {
+                 ToastUtils.showShort("请先创建车辆");
+                 return;
+                }
                 mPresenter.selectCar(selectedCarNo);
                 break;
         }
@@ -194,6 +198,8 @@ public class CarListActivity extends BaseActivity<CarListPresenter> implements C
 
     @Override
     public void toMainActivity() {
+        //将选择的carno存储起来 待自动登录时使用
+        mPresenter.setCarNo(selectedCarNo);
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }

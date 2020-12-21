@@ -119,10 +119,19 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
     public String getToken() {
         return mPreferencesHelper.getToken();
     }
+    @Override
+    public String getCarNo() {
+        return mPreferencesHelper.getCarNo();
+    }
 
     @Override
     public void setToken(String token) {
         mPreferencesHelper.setToken(token);
+    }
+
+    @Override
+    public void setCarNo(String carNo) {
+        mPreferencesHelper.setCarNo(carNo);
     }
 
     @Override
