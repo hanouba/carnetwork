@@ -15,9 +15,11 @@ import android.os.PersistableBundle;
 import android.os.PowerManager;
 
 import androidx.annotation.Nullable;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -65,6 +67,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         mwl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyTag");
         mwl.acquire();//屏幕关闭后保持活动
+
     }
 
 
@@ -99,9 +102,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         tvUserName = findViewById(R.id.tv_user_name);
         tvUserPhone = findViewById(R.id.tv_user_phone);
         Button logOut = findViewById(R.id.bt_logout);
+        DrawerLayout drawerLayout = findViewById(R.id.view_main);
         SwitchButton switchButton = findViewById(R.id.switch_button);
         carInfos = findViewById(R.id.bt_opencarinfo);
         String token = SPUtils.getInstance().getString(Constants.TOKEN);
+        //屏幕长亮
+        drawerLayout.setKeepScreenOn(true);
 
 
         //获取用户信息

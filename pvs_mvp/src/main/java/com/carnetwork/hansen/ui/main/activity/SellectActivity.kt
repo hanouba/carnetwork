@@ -251,7 +251,7 @@ class SellectActivity : AppCompatActivity() {
         }
     }
 
-    
+
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
             if (!acStateIsMap) {

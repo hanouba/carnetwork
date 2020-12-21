@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/f7f7f7"
     android:focusable="false"
+    android:keepScreenOn="true"
     android:focusableInTouchMode="false">
 
 
     <FrameLayout
+
         android:id="@+id/fl_main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

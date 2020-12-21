@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import android.view.View;
+import android.view.WindowManager;
 
 
 import com.carnetwork.hansen.R;
@@ -28,7 +29,9 @@ public abstract class SimpleActivity extends SupportActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //屏幕长亮 无效
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(getLayout());
         mUnBinder = ButterKnife.bind(this);
 
