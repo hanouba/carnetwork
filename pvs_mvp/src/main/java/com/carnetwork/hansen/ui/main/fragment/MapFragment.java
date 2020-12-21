@@ -466,8 +466,10 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     public void onDestroy() {
         mLocationClient.stop();
         mBaiduMap.setMyLocationEnabled(false);
+        if (mMapView != null) {
         mMapView.onDestroy();
         mMapView = null;
+        }
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
 
