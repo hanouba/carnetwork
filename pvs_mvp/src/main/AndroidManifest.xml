@@ -31,10 +31,14 @@
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="n">
-        <activity android:name=".ui.main.activity.CarListActivity"
+        <activity android:name=".ui.main.activity.CreateProjectAddActivity"></activity>
+        <activity android:name=".ui.main.activity.CreatProject" />
+        <activity
+            android:name=".ui.main.activity.CarListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" ></activity>
-        <activity android:name=".ui.main.activity.TestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.TestActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
@@ -149,8 +153,6 @@
         </receiver>
 
         <service android:name="com.carnetwork.service.MusicService" />
-
-
     </application>
 
 </manifest>

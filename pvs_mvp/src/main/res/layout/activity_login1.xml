@@ -187,9 +187,9 @@
             android:layout_marginRight="@dimen/dimen_dp_20"
             android:layout_gravity="end"
             android:textSize="@dimen/dimen_sp_16"
-            android:visibility="gone"
+            android:visibility="visible"
             android:textColor="@color/color_blue"
-            android:text="新建项目"
+            android:text="新建车队"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
