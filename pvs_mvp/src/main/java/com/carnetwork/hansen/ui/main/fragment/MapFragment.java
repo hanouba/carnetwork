@@ -94,6 +94,8 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
     AppCompatButton btNewAddEnd;
     @BindView(R.id.bt_newAddStart)
     AppCompatButton btNewAddStart;
+
+
     private List<AllCar> carLists;
 
     private BaiduMap mBaiduMap;
@@ -130,6 +132,8 @@ public class MapFragment extends BaseFragment<MapPresenter> implements MapContra
                 return true;
             }
         });
+
+
 
 
     }

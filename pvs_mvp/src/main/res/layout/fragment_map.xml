@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
+    <!--标题栏-->
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_dp_60"
+        android:background="@color/color_blue">
 
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/dimen_dp_26"
+            android:layout_height="@dimen/dimen_dp_26"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dimen_dp_20"
+            android:background="@mipmap/back_white" />
 
+        <TextView
+            android:text="地图"
+            android:layout_marginTop="@dimen/dimen_dp_30"
+            android:id="@+id/info_title_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_sp_14"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <com.baidu.mapapi.map.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
@@ -26,7 +56,7 @@
         android:id="@+id/tv_work_state"
         android:padding="@dimen/dimen_dp_5"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_dp_60"/>
+        android:layout_height="@dimen/dimen_dp_30"/>
 
     <ImageButton
         android:id="@+id/bt_reset"
@@ -79,3 +109,4 @@
 
     </androidx.appcompat.widget.AppCompatButton>
 </RelativeLayout>
+</LinearLayout>

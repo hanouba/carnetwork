@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,61 +42,17 @@ import static com.carnetwork.hansen.app.Constants.KEY_START_TIME;
 public class CreateProjectAddActivity extends BaseActivity<LoginPresenter1>
         implements LoginContract1.View {
 
-
-    @BindView(R.id.iv_back)
-    ImageButton ivBack;
     @BindView(R.id.info_title_name)
     TextView infoTitleName;
-    @BindView(R.id.rl_title)
-    RelativeLayout rlTitle;
-    @BindView(R.id.iv_step)
-    ImageView ivStep;
-    @BindView(R.id.tv_create_step1)
-    TextView tvCreateStep1;
-    @BindView(R.id.tv_create_step1_tip)
-    TextView tvCreateStep1Tip;
-    @BindView(R.id.tv_create_step2)
-    TextView tvCreateStep2;
-    @BindView(R.id.tv_create_step2_tip)
-    TextView tvCreateStep2Tip;
-    @BindView(R.id.tv_create_step3)
-    TextView tvCreateStep3;
-    @BindView(R.id.tv_create_step3_tip)
-    TextView tvCreateStep3Tip;
-    @BindView(R.id.rl_step)
-    RelativeLayout rlStep;
-    @BindView(R.id.line1)
-    View line1;
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
-    @BindView(R.id.rl_selected_user)
-    RelativeLayout rlSelectedUser;
-    @BindView(R.id.line2)
-    View line2;
-    @BindView(R.id.tv_name)
-    TextView tvName;
     @BindView(R.id.et_name)
     EditText etName;
-    @BindView(R.id.tv_phone_num)
-    TextView tvPhoneNum;
     @BindView(R.id.et_phone_number)
     EditText etPhoneNumber;
-    @BindView(R.id.line)
-    View line;
-    @BindView(R.id.tv_admin)
-    TextView tvAdmin;
     @BindView(R.id.et_verification)
     EditText etVerification;
     @BindView(R.id.tv_get_ver)
     AppCompatTextView tvGetVer;
-    @BindView(R.id.rl_admin)
-    RelativeLayout rlAdmin;
-    @BindView(R.id.line3)
-    View line3;
-    @BindView(R.id.btn_continue_add)
-    Button btnContinueAdd;
-    @BindView(R.id.bt_next)
-    Button btNext;
+
     //车队名称
     private String motoName = "";
     private String phoneNumber = "";
@@ -115,7 +72,7 @@ public class CreateProjectAddActivity extends BaseActivity<LoginPresenter1>
     @Override
     protected void initEventAndData() {
         motoName = getIntent().getStringExtra(Constants.PROJECT_NAME);
-
+        SPUtils.getInstance().put(KEY_START_TIME, 0L);
         infoTitleName.setText("创建用户");
 
     }
@@ -170,7 +127,19 @@ public class CreateProjectAddActivity extends BaseActivity<LoginPresenter1>
     public void updataVerifi() {
 
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            try {
+                finish();
 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     @OnClick({R.id.iv_back, R.id.tv_get_ver, R.id.btn_continue_add, R.id.bt_next})
     public void onViewClicked(View view) {
@@ -180,10 +149,16 @@ public class CreateProjectAddActivity extends BaseActivity<LoginPresenter1>
                 break;
             case R.id.tv_get_ver:
                 //获取验证码
-                long startTime = SPUtils.getInstance().getLong(KEY_START_TIME, 0);
+                long startTime = 0;
+                try {
+                    startTime = SPUtils.getInstance().getLong(KEY_START_TIME, 0L);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
                 phoneNumber = etPhoneNumber.getText().toString().trim();
                 long currentTime = System.currentTimeMillis();
-                if (phoneNumber == null) {
+                if (TextUtils.isEmpty(phoneNumber)) {
+                    ToastUtils.showShort("手机号不能为空");
                     return;
                 }
 
@@ -206,6 +181,11 @@ public class CreateProjectAddActivity extends BaseActivity<LoginPresenter1>
                 break;
             case R.id.btn_continue_add:
                 //继续添加
+                if (handler != null) {
+                    handler.removeCallbacksAndMessages(null);
+                }
+                SPUtils.getInstance().put(KEY_START_TIME, 0L);
+                clearEditText();
                 break;
             case R.id.bt_next:
                 // 下一步
@@ -241,6 +221,17 @@ public class CreateProjectAddActivity extends BaseActivity<LoginPresenter1>
         }
     }
 
+    private void clearEditText() {
+        etName.setText("");
+        etPhoneNumber.setText("");
+        etVerification.setText("");
+
+        tvGetVer.setEnabled(true);
+        tvGetVer.setText("重新发送");
+
+
+    }
+
 
     Handler handler = new Handler() {
         @Override
@@ -270,5 +261,17 @@ public class CreateProjectAddActivity extends BaseActivity<LoginPresenter1>
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dismissProcessDialog();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        dismissProcessDialog();
     }
 }

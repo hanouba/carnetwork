@@ -27,7 +27,7 @@
             android:layout_gravity="center_vertical"
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_sp_14"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </RelativeLayout>
 
 

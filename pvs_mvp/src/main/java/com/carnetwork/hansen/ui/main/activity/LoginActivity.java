@@ -130,6 +130,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         }
 
         tvGetVer.setOnClickListener(this);
+        tvCreateProject.setOnClickListener(this);
 
         tvGetVer.setEnabled(true);
     }
@@ -289,10 +290,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         switch (v.getId()) {
             case R.id.tv_get_ver:
                 //            获取验证码
-                long startTime = SPUtils.getInstance().getLong(KEY_START_TIME, 0);
+                long startTime = 0;
+                try {
+                     startTime = SPUtils.getInstance().getLong(KEY_START_TIME, 0L);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 phone = etPhone.getText().toString().trim();
                 long currentTime = System.currentTimeMillis();
-                if (phone == null) {
+                if (TextUtils.isEmpty(phone)) {
+                    ToastUtils.showShort("手机号不能为空");
                     return;
                 }
 
@@ -375,8 +383,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         if (!TextUtils.isEmpty(temp_projectName) && !TextUtils.isEmpty(temp_phoneNum)) {
             etProjectName.setText(temp_projectName);
             etPhone.setText(temp_phoneNum);
+            if (handler != null) {
+                handler.removeCallbacksAndMessages(null);
+            }
+
             tvGetVer.setEnabled(true);
             tvGetVer.setText("重新发送");
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 }
