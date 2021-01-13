@@ -84,7 +84,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                         } else {
                             //切换到创建项目界面
                             if ("CAR100004".equals(sateBeans.getErrorCode())) {
-                                ToastUtils.showShort(sateBeans.getErrorMessage());
+                                mView.showErrorDialog(sateBeans.getErrorMessage());
                             }else {
                                 mView.changeToCreateProject(sateBeans.getErrorMessage());
                             }

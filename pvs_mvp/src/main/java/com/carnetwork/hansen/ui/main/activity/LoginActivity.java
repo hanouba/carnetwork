@@ -165,7 +165,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         mPresenter.setToken(token);
         Intent intent = new Intent(this, CarListActivity.class);
         startActivity(intent);
-        finish();
+        dismissProcessDialog();
+
     }
 
 

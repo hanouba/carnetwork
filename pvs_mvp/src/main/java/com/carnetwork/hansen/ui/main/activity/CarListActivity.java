@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.TextureView;
 import android.view.View;
 import android.view.textservice.TextInfo;
@@ -130,7 +131,7 @@ public class CarListActivity extends BaseActivity<CarListPresenter> implements C
             case R.id.bt_next:
                 //下一步 跳轉到主界面
                 if (TextUtils.isEmpty(selectedCarNo)) {
-                 ToastUtils.showShort("请先创建车辆");
+                 ToastUtils.showShort("请先创建或者选择车辆");
                  return;
                 }
                 mPresenter.selectCar(selectedCarNo);
@@ -202,5 +203,19 @@ public class CarListActivity extends BaseActivity<CarListPresenter> implements C
         mPresenter.setCarNo(selectedCarNo);
         Intent intent = new Intent(mContext,MainActivity.class);
         mContext.startActivity(intent);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            try {
+                finish();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
