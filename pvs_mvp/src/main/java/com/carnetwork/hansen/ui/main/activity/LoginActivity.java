@@ -105,7 +105,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     private String phone;
 
 
-    private boolean isCreatProject = false;
     private LoginEntity postingString;
 
     @Override
@@ -122,7 +121,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     @Override
     protected void initEventAndData() {
         List<LoginInfo> loginInfos = mPresenter.getLoginInfo();
-        if (loginInfos.size()>0) {
+        if (loginInfos.size() > 0) {
             LoginInfo loginInfo = loginInfos.get(0);
             String lastPhone = loginInfo.getPhone();
             String lastProject = loginInfo.getProjectName();
@@ -134,8 +133,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
         tvGetVer.setEnabled(true);
     }
-
-
 
 
     @Override
@@ -154,8 +151,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     public void gotoMainActivity(LoginBean loginBean) {
         String token = loginBean.getModel().getToken();
         long projectId = loginBean.getModel().getProjectId();
-        SPUtils.getInstance().put(Constants.PROJECT_PROJECTID,projectId);
-        SPUtils.getInstance().put(Constants.CAR_NAME,loginBean.getModel().getName());
+        SPUtils.getInstance().put(Constants.PROJECT_PROJECTID, projectId);
+        SPUtils.getInstance().put(Constants.CAR_NAME, loginBean.getModel().getName());
         //不应该在这里设置token 因为会导致自动登录 后 的用户信息与创建的信息不一致
         /**
          * 如果之前登录过A的信息
@@ -169,8 +166,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         startActivity(intent);
         finish();
     }
-
-
 
 
     @Override
@@ -193,13 +188,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //显示姓名
-                        tvName.setVisibility(View.VISIBLE);
-                        etName.setVisibility(View.VISIBLE);
-                        //登录按钮变成创建车队
-                        btLogin.setText("创建车队");
-                        isCreatProject = true;
                         etVerification.setText("");
+                        //打开创建界面
+                        Intent intent = new Intent(mContext,CreatProject.class);
+                        mContext.startActivity(intent);
                     }
                 });
         builder.show();
@@ -226,7 +218,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     }
 
 
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -240,7 +231,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
 
     @OnClick(R.id.bt_login)
@@ -265,8 +255,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
             ToastUtils.showLong("手机号不能为空");
 
             return;
-        }else {
-            if (!SystemUtil.isChinaPhoneLegal(phone)){
+        } else {
+            if (!SystemUtil.isChinaPhoneLegal(phone)) {
                 ToastUtils.showLong("手机号格式不对");
                 return;
             }
@@ -280,31 +270,16 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         SPUtils.getInstance().put(Constants.CAR_PHONE, phone);
         showProcessDialog("登录中...");
         // json传递
-        postingString = new LoginEntity(phone,verification,projectName);
+        postingString = new LoginEntity(phone, verification, projectName);
 
 
-
-        if (isCreatProject) {
-            //姓名
-
-            String userName = etName.getText().toString().trim();
-            if (TextUtils.isEmpty(userName)) {
-                ToastUtils.showLong("姓名不能为空");
-                return;
-            }
-            ProjectEntity projectEntity = new ProjectEntity(verification, phone, projectName, userName);
-            mPresenter.createProject(projectEntity);
-        }else {
-            /**
-             * 存储登录信息
-             * 手机号 车队名称
-             */
-            LoginInfo loginInfo = new LoginInfo("", phone,projectName);
-            mPresenter.inserLoginInfo(loginInfo);
-            mPresenter.login(postingString);
-        }
-
-
+        /**
+         * 存储登录信息
+         * 手机号 车队名称
+         */
+        LoginInfo loginInfo = new LoginInfo("", phone, projectName);
+        mPresenter.inserLoginInfo(loginInfo);
+        mPresenter.login(postingString);
 
 
     }
@@ -313,8 +288,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_get_ver:
-//            获取验证码
-                long startTime = SPUtils.getInstance().getLong(KEY_START_TIME,0);
+                //            获取验证码
+                long startTime = SPUtils.getInstance().getLong(KEY_START_TIME, 0);
                 phone = etPhone.getText().toString().trim();
                 long currentTime = System.currentTimeMillis();
                 if (phone == null) {
@@ -324,9 +299,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
                 if (currentTime - startTime < COUNTDOWN * 1000) {
                     ToastUtils.showShort(R.string.smssdk_busy_hint);
-                   return;
+                    return;
                 }
-
 
 
                 if (!SystemUtil.isNetworkConnected()) {
@@ -339,14 +313,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
                 currentSecond = COUNTDOWN;
                 handler.sendEmptyMessage(0);
 
-            break;
+                break;
             case R.id.tv_createProejct:
                 //新建车队
 
+                Intent intent = new Intent(mContext,CreatProject.class);
+                mContext.startActivity(intent);
                 break;
             default:
         }
     }
+
     /**
      * 刷新时间
      */
@@ -354,10 +331,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     public void updataVerifi() {
 
 
-
     }
 
- Handler handler = new Handler() {
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (tvGetVer != null) {
@@ -384,6 +360,23 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
         super.onDestroy();
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setExtraData(intent);
+    }
+
+    private void setExtraData(Intent intent) {
+        String temp_projectName = intent.getStringExtra(Constants.TEMP_PROJECT_NAME);
+        String temp_phoneNum = intent.getStringExtra(Constants.TEMP_USER_PHONE_NUM);
+        if (!TextUtils.isEmpty(temp_projectName) && !TextUtils.isEmpty(temp_phoneNum)) {
+            etProjectName.setText(temp_projectName);
+            etPhone.setText(temp_phoneNum);
+            tvGetVer.setEnabled(true);
+            tvGetVer.setText("重新发送");
         }
     }
 }

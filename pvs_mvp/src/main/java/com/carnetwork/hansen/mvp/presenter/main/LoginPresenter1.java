@@ -226,8 +226,8 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                     public void onNext(MyHttpResponse sateBeans) {
 
                         if (sateBeans.isSuccess()) {
-                            //登录到主页 提示创建成功 正在登录
-                            //登录成功后隐藏弹出
+                            // 提示创建成功 跳转到登录界面
+                            //信息显示在登录界面
                             mView.showToLogin();
                         } else {
                             //创建车队失败提示信息
@@ -239,7 +239,7 @@ public class LoginPresenter1 extends RxPresenter<LoginContract1.View> implements
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-                        Log.i("", "onNext: 获取到获取到起点终点onError" + e.toString());
+                        mView.showErrorDialog("" + e.getMessage());
                     }
                 })
         );

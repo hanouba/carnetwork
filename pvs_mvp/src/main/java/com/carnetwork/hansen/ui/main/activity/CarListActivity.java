@@ -200,7 +200,7 @@ public class CarListActivity extends BaseActivity<CarListPresenter> implements C
     public void toMainActivity() {
         //将选择的carno存储起来 待自动登录时使用
         mPresenter.setCarNo(selectedCarNo);
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(mContext,MainActivity.class);
+        mContext.startActivity(intent);
     }
 }

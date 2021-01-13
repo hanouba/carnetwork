@@ -238,7 +238,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 mPresenter.logout(carNo);
                 break;
             case R.id.bt_opencarinfo:
-                startActivity(new Intent(this, CarInfosActivity.class));
+                mContext.startActivity(new Intent(mContext, CarInfosActivity.class));
 
                 break;
             default:

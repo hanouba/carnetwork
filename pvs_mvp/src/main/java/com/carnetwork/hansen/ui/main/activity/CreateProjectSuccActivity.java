@@ -2,8 +2,6 @@ package com.carnetwork.hansen.ui.main.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -11,21 +9,20 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.carnetwork.hansen.R;
 import com.carnetwork.hansen.app.Constants;
 import com.carnetwork.hansen.base.SimpleActivity;
-import com.carnetwork.hansen.mvp.model.bean.ProjectEntity;
-import com.carnetwork.hansen.widget.LineEditText;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 创建新的车队
+ * 成功
  */
-public class CreatProject extends SimpleActivity {
+public class CreateProjectSuccActivity extends SimpleActivity {
 
 
     @BindView(R.id.iv_back)
@@ -50,48 +47,62 @@ public class CreatProject extends SimpleActivity {
     TextView tvCreateStep3Tip;
     @BindView(R.id.rl_step)
     RelativeLayout rlStep;
+    @BindView(R.id.tv_tip_succ)
+    TextView tvTipSucc;
+    @BindView(R.id.project_name)
+    TextView projectName;
     @BindView(R.id.tv_project_name)
     TextView tvProjectName;
-    @BindView(R.id.et_project_name)
-    LineEditText etProjectName;
-    @BindView(R.id.tv_tip)
-    TextView tvTip;
+    @BindView(R.id.project_username)
+    TextView projectUsername;
+    @BindView(R.id.tv_project_username)
+    TextView tvProjectUsername;
+    @BindView(R.id.tv_tip1)
+    TextView tvTip1;
+    @BindView(R.id.view_margin)
+    View viewMargin;
+    @BindView(R.id.added_user)
+    TextView addedUser;
+    @BindView(R.id.tv_added_user)
+    TextView tvAddedUser;
+    @BindView(R.id.tv_tip2)
+    TextView tvTip2;
+    @BindView(R.id.tv_tip3)
+    TextView tvTip3;
     @BindView(R.id.bt_next)
     Button btNext;
 
+    private String motoName;
     @Override
     protected int getLayout() {
-        return R.layout.activity_create_project_add;
+        return R.layout.activity_create_project_succ;
     }
 
     @Override
     protected void initEventAndData() {
-        infoTitleName.setText("创建车队");
+       motoName = getIntent().getStringExtra(Constants.PROJECT_NAME);
+        String userPhone = getIntent().getStringExtra(Constants.USER_PHONE_NUM);
+        tvProjectName.setText(motoName);
+        tvProjectUsername.setText(userPhone);
+
+        infoTitleName.setText("创建成功");
     }
 
-    @OnClick({R.id.iv_back, R.id.et_project_name, R.id.bt_next})
+
+
+    @OnClick({R.id.iv_back, R.id.bt_next})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.et_project_name:
-
-                break;
             case R.id.bt_next:
-                String motorCadeName  = etProjectName.getText().toString().trim();
-                if (TextUtils.isEmpty(motorCadeName))  {
-                    ToastUtils.showShort("请填写车队名称");
-                    return;
-                }
-
-                Intent intent = new Intent(mContext, CreateProjectAddActivity.class);
-                intent.putExtra(Constants.PROJECT_NAME, motorCadeName);
-                startActivityForResult(intent, 1000);
-
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.putExtra("LOGIN_TAG", true);
+                intent.putExtra(Constants.TEMP_PROJECT_NAME, motoName);
+                intent.putExtra(Constants.TEMP_USER_PHONE_NUM, tvProjectUsername.getText().toString());
+                startActivity(intent);
                 break;
         }
     }
-
-
 }

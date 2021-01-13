@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -62,6 +63,7 @@
             android:background="@color/color_underline" />
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/rl_selected_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,57 +86,10 @@
 
 
         <TextView
-            android:id="@+id/tv_car"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/line2"
-            android:layout_marginStart="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_15"
-            android:text="车队名称"
-            android:textColor="@color/colorTextGrey"
-            android:textSize="@dimen/dimen_sp_12" />
-
-        <EditText
-            android:id="@+id/et_car_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/line2"
-            android:layout_alignTop="@+id/tv_name"
-            android:layout_marginStart="@dimen/dimen_dp_20"
-            android:layout_marginEnd="@dimen/dimen_dp_20"
-            android:layout_toEndOf="@+id/tv_name"
-            android:background="@null"
-            android:hint="请输入姓名"
-            android:maxLength="20"
-            android:textColor="@color/color_343434"
-            android:textColorHint="@color/color_a5a5a5"
-            android:textSize="@dimen/dimen_sp_12" />
-
-        <View
-            android:id="@+id/line4"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_dp_1"
-            android:layout_below="@+id/tv_car"
-            android:layout_marginStart="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_10"
-            android:layout_marginEnd="@dimen/dimen_dp_20"
-            android:background="@color/grey1" />
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_dp_1"
-            android:layout_below="@+id/line4"
-            android:layout_marginStart="@dimen/dimen_dp_20"
-            android:layout_marginTop="@dimen/dimen_dp_10"
-            android:layout_marginEnd="@dimen/dimen_dp_20"
-            android:background="@color/grey1" />
-
-        <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line4"
+            android:layout_below="@+id/line2"
             android:layout_marginStart="@dimen/dimen_dp_20"
             android:layout_marginTop="@dimen/dimen_dp_15"
             android:text="请输入姓名"
@@ -145,7 +100,7 @@
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line4"
+            android:layout_below="@+id/line2"
             android:layout_alignTop="@+id/tv_name"
             android:layout_marginStart="@dimen/dimen_dp_20"
             android:layout_marginEnd="@dimen/dimen_dp_20"
@@ -188,7 +143,7 @@
             android:layout_marginEnd="@dimen/dimen_dp_20"
             android:layout_toEndOf="@+id/tv_phone_num"
             android:background="@null"
-            android:hint="请输入手机号以找回项目名称"
+            android:hint="请输入手机号"
             android:inputType="number"
             android:maxLength="11"
             android:textColor="@color/color_343434"
@@ -200,6 +155,8 @@
             android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_dp_1"
+
+
             android:layout_below="@+id/et_phone_number"
             android:layout_marginStart="@dimen/dimen_dp_20"
             android:layout_marginTop="@dimen/dimen_dp_10"
@@ -222,6 +179,43 @@
                 android:textColor="@color/colorTextGrey"
                 android:textSize="@dimen/dimen_sp_12" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dimen_dp_20"
+                android:layout_marginEnd="@dimen/dimen_dp_20"
+                android:layout_toEndOf="@+id/tv_admin"
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/et_verification"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:hint="请输入验证码"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:textColor="@color/color_343434"
+                    android:textColorHint="@color/color_a5a5a5"
+                    android:textSize="@dimen/dimen_sp_12" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_get_ver"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/border_blue_v"
+                    android:gravity="center"
+                    android:text="获取验证码"
+                    android:textColor="@color/smssdk_verify_textcolor_selector"
+                    android:visibility="visible" />
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -229,108 +223,6 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="@dimen/dimen_dp_20"
                 android:background="@color/grey1" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_unit"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_dp_40"
-            android:layout_below="@+id/rl_admin">
-
-            <TextView
-                android:id="@+id/tv_unit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/dimen_dp_20"
-                android:text="所属单位"
-                android:textColor="@color/colorTextGrey"
-                android:textSize="@dimen/dimen_sp_12" />
-
-            <EditText
-                android:id="@+id/et_unit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/dimen_dp_20"
-                android:layout_marginEnd="@dimen/dimen_dp_60"
-                android:layout_toEndOf="@+id/tv_unit"
-                android:background="@null"
-                android:focusable="false"
-                android:hint="请选择所属单位"
-                android:textColor="@color/color_343434"
-                android:textColorHint="@color/color_a5a5a5"
-                android:textSize="@dimen/dimen_sp_12" />
-
-            <ImageView
-                android:id="@+id/iv_select_unit"
-                android:layout_width="@dimen/dimen_dp_25"
-                android:layout_height="@dimen/dimen_dp_25"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dimen_dp_20"
-                android:src="@drawable/arrow_right_grey" />
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_dp_1"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="@dimen/dimen_dp_20"
-                android:layout_marginEnd="@dimen/dimen_dp_20"
-                android:background="@color/grey1" />
-
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/rl_job"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_dp_40"
-            android:layout_below="@+id/rl_unit">
-
-            <TextView
-                android:id="@+id/tv_job"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/dimen_dp_20"
-                android:text="所在岗位"
-                android:textColor="@color/colorTextGrey"
-                android:textSize="@dimen/dimen_sp_12" />
-
-            <EditText
-                android:id="@+id/et_job"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/dimen_dp_20"
-                android:layout_marginEnd="@dimen/dimen_dp_60"
-                android:layout_toEndOf="@+id/tv_job"
-                android:background="@null"
-                android:focusable="false"
-                android:hint="请选择所在岗位"
-                android:textColor="@color/color_343434"
-                android:textColorHint="@color/color_a5a5a5"
-                android:textSize="@dimen/dimen_sp_12" />
-
-            <ImageView
-                android:id="@+id/iv_select_job"
-                android:layout_width="@dimen/dimen_dp_25"
-                android:layout_height="@dimen/dimen_dp_25"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dimen_dp_20"
-                android:src="@drawable/arrow_right_grey" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_dp_1"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="@dimen/dimen_dp_20"
-                android:layout_marginEnd="@dimen/dimen_dp_20"
-                android:background="@color/grey1" />
-
         </RelativeLayout>
 
 
@@ -338,7 +230,7 @@
             android:id="@+id/line3"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_dp_10"
-            android:layout_below="@+id/rl_job"
+            android:layout_below="@+id/rl_admin"
             android:background="@color/color_underline" />
 
         <Button

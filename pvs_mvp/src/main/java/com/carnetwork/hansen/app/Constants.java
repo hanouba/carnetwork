@@ -42,5 +42,14 @@ public class Constants {
 
     public static final String KEY_START_TIME = "start_time";
 
+    //
+
+    public static final String PROJECT_NAME ="project_name";
+    public static final String USER_NAME ="user_name";
+    public static final String USER_PHONE_NUM ="user_phone_num";
+    public static final String TEMP_PROJECT_NAME ="temp_project_name";
+    public static String TEMP_USER_NAME = "temp_user_name";
+    public static String TEMP_USER_PHONE_NUM = "temp_user_phone_num";
+
 
 }

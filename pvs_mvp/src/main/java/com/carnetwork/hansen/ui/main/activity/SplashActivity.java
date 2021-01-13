@@ -50,9 +50,9 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
         LogUtils.d("tokentokentoken" + token+"carNo--"+carNo);
         if (!"".equals(token) && !"".equals(carNo)) {
             SPUtils.getInstance().put(Constants.TOKEN, token);
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(mContext, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            mContext.startActivity(intent);
         } else {
             mPresenter.checkPermissions(new RxPermissions(this), this);
         }

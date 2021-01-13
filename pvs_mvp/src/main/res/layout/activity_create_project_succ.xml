@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+        <!--标题栏-->
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_dp_45"
+            android:background="@color/color_blue">
+
+            <ImageButton
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/dimen_dp_26"
+                android:layout_height="@dimen/dimen_dp_26"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dimen_dp_20"
+                android:background="@mipmap/back_white" />
+
+            <TextView
+                android:id="@+id/info_title_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_sp_17"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_step"
+            android:layout_below="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_dp_32"
+            android:layout_marginEnd="@dimen/dimen_dp_40"
+            android:layout_marginStart="@dimen/dimen_dp_40"
+            android:layout_marginTop="@dimen/dimen_dp_20"
+            android:scaleType="fitXY"
+            android:src="@drawable/create_project_3" />
+
+        <include
+            android:id="@+id/rl_step"
+            layout="@layout/item_create_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_step" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_dp_10"
+            android:background="@color/color_underline"
+            android:layout_below="@+id/rl_step"/>
+
+        <TextView
+            android:id="@+id/tv_tip_succ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_step"
+            android:layout_marginStart="@dimen/dimen_dp_20"
+            android:layout_marginTop="@dimen/dimen_dp_20"
+            android:text="车队新建成功！"
+            android:textStyle="bold"
+            android:textColor="@color/color_3BD134"
+            android:textSize="@dimen/dimen_sp_20" />
+
+        <TextView
+            android:id="@+id/project_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_tip_succ"
+            android:layout_marginStart="@dimen/dimen_dp_20"
+            android:layout_marginTop="@dimen/dimen_dp_10"
+            android:text="车队名称："
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/dimen_sp_12" />
+
+
+        <TextView
+            android:id="@+id/tv_project_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_tip_succ"
+            android:layout_toEndOf="@+id/project_name"
+            android:layout_marginEnd="@dimen/dimen_dp_20"
+            android:layout_marginTop="@dimen/dimen_dp_10"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/dimen_sp_12" />
+
+        <TextView
+            android:id="@+id/project_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/project_name"
+            android:layout_marginStart="@dimen/dimen_dp_20"
+            android:layout_marginTop="@dimen/dimen_dp_8"
+            android:text="使用的手机号为："
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/dimen_sp_12" />
+
+
+        <TextView
+            android:id="@+id/tv_project_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/project_name"
+            android:layout_toEndOf="@+id/project_username"
+            android:layout_marginEnd="@dimen/dimen_dp_20"
+            android:layout_marginTop="@dimen/dimen_dp_8"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/dimen_sp_12" />
+
+
+        <TextView
+            android:id="@+id/tv_tip1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_project_username"
+            android:layout_marginEnd="@dimen/dimen_dp_20"
+            android:layout_marginStart="@dimen/dimen_dp_20"
+            android:layout_marginTop="@dimen/dimen_dp_10"
+            android:text="请妥善保管好您的车队名称。"
+            android:textColor="@color/color_hint"
+            android:textSize="@dimen/dimen_sp_12" />
+
+        <View
+            android:visibility="invisible"
+            android:id="@+id/view_margin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_dp_10"
+            android:layout_marginTop="@dimen/dimen_dp_20"
+            android:background="@color/color_underline"
+            android:layout_below="@+id/tv_tip1"/>
+
+
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/added_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_dp_20"
+            android:layout_below="@+id/view_margin"
+            android:layout_marginTop="@dimen/dimen_dp_20"
+            android:text="已添加用户："
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/dimen_sp_12" />
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_added_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_margin"
+            android:layout_toEndOf="@+id/added_user"
+            android:layout_marginEnd="@dimen/dimen_dp_20"
+            android:layout_marginTop="@dimen/dimen_dp_20"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/dimen_sp_12" />
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_tip2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_dp_20"
+            android:layout_below="@+id/tv_added_user"
+            android:layout_marginTop="@dimen/dimen_dp_20"
+            android:text="可告知他们项目名称，通过他们登录系统，初始密码：1"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/dimen_sp_12" />
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_tip3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_tip2"
+            android:layout_marginEnd="@dimen/dimen_dp_20"
+            android:layout_marginStart="@dimen/dimen_dp_20"
+            android:layout_marginTop="@dimen/dimen_dp_30"
+            android:text="电脑端登录地址：ivsom.wtoe.cn, 功能更强大，赶紧去体验吧！"
+            android:textColor="@color/color_hint"
+            android:textSize="@dimen/dimen_sp_12" />
+
+        <Button
+            android:id="@+id/bt_next"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_dp_40"
+            android:layout_below="@+id/tv_tip3"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/dimen_dp_20"
+            android:layout_marginStart="@dimen/dimen_dp_20"
+            android:layout_marginTop="@dimen/dimen_dp_40"
+            android:background="@drawable/login_background"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_sp_12" />
+
+    </RelativeLayout>
+
+
+
+</ScrollView>
