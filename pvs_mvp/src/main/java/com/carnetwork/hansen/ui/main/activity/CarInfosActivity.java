@@ -21,6 +21,7 @@ import java.util.List;
 
 /**
  * 车辆信息显示
+ * 改成  人员列表信息
  */
 public class CarInfosActivity extends BaseActivity<DriverInfoPresenter> implements CarInfoContract.View, View.OnClickListener {
     private RecyclerView recyclerView;
@@ -56,7 +57,6 @@ public class CarInfosActivity extends BaseActivity<DriverInfoPresenter> implemen
         if (allCar.size() > 0) {
             relNothing.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
-
         }else {
             relNothing.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);

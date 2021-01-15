@@ -11,6 +11,7 @@ import com.carnetwork.hansen.mvp.model.bean.ProjectEntity;
 import com.carnetwork.hansen.mvp.model.bean.SateBean;
 import com.carnetwork.hansen.mvp.model.bean.SateSaveEntity;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
+import com.carnetwork.hansen.mvp.model.bean.UserRoleEntity;
 import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
 
 import java.util.List;
@@ -92,4 +93,34 @@ public interface MyApis {
     //选择车辆
     @POST("car/select")
     Observable<MyHttpResponse> selectCar(@Query("carNo") String carNo, @Header("X-APP-TOKEN") String token);
+
+
+    //创建用户
+    @POST("user/create")
+    Flowable<MyHttpResponse> userCreate(@Body ProjectEntity projectEntity);
+    //禁用 启用 用户
+
+    /**
+     * {
+     *      *   "roleType": 1,
+     *      *   "userId": 1
+     *      * }
+     * @param userRoleEntity
+     * @return
+     */
+    @POST("user/disable")
+    Flowable<MyHttpResponse> userDisable(@Body UserRoleEntity userRoleEntity);
+
+    //修改用户权限
+
+    /**
+     *{
+     *      *   "roleType": 1,
+     *      *   "userId": 1
+     *      * }
+     * @param userRoleEntity
+     * @return
+     */
+    @POST("user/update-role")
+    Flowable<MyHttpResponse> userUpdateRole(@Body UserRoleEntity userRoleEntity);
 }

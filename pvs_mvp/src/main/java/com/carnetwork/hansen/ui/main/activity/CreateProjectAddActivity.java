@@ -106,12 +106,12 @@ public class CreateProjectAddActivity extends BaseActivity<LoginPresenter1>
 
     /**
      * 创建车队成功
-     * 跳转到登录界面
+     * 跳转到创建成功界面
+     * motoName 车队名称
+     * phoneNumber 手机号
      */
     @Override
     public void showToLogin() {
-
-
         Intent intent = new Intent(mContext, CreateProjectSuccActivity.class);
         intent.putExtra(Constants.PROJECT_NAME, motoName);
         intent.putExtra(Constants.USER_PHONE_NUM, phoneNumber);

@@ -85,6 +85,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     @BindView(R.id.tv_createProejct)
     TextView tvCreateProject;
     /**
+     * 创建用户
+     */
+    @BindView(R.id.tv_createUser)
+    TextView tvCreateUser;
+    /**
      * 验证码
      */
     @BindView(R.id.et_verification)
@@ -106,6 +111,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
 
 
     private LoginEntity postingString;
+    private Intent intent;
 
     @Override
     protected int getLayout() {
@@ -152,8 +158,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
     public void gotoMainActivity(LoginBean loginBean) {
         String token = loginBean.getModel().getToken();
         long projectId = loginBean.getModel().getProjectId();
+        int roleType = loginBean.getModel().getRoleType();
+
         SPUtils.getInstance().put(Constants.PROJECT_PROJECTID, projectId);
         SPUtils.getInstance().put(Constants.CAR_NAME, loginBean.getModel().getName());
+        SPUtils.getInstance().put(Constants.USER_ROLE_TYPE, roleType);
         //不应该在这里设置token 因为会导致自动登录 后 的用户信息与创建的信息不一致
         /**
          * 如果之前登录过A的信息
@@ -326,7 +335,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter1>
             case R.id.tv_createProejct:
                 //新建车队
 
-                Intent intent = new Intent(mContext,CreatProject.class);
+                intent = new Intent(mContext,CreatProject.class);
+                mContext.startActivity(intent);
+                break;
+            case R.id.tv_createUser:
+                //新建用户
+
+                Intent intent = new Intent(mContext,CreateUserActivity.class);
                 mContext.startActivity(intent);
                 break;
             default:

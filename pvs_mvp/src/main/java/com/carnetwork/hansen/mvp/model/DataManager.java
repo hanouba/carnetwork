@@ -12,6 +12,7 @@ import com.carnetwork.hansen.mvp.model.bean.ProjectEntity;
 import com.carnetwork.hansen.mvp.model.bean.SateBean;
 import com.carnetwork.hansen.mvp.model.bean.SateSaveEntity;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
+import com.carnetwork.hansen.mvp.model.bean.UserRoleEntity;
 import com.carnetwork.hansen.mvp.model.db.DBHelper;
 import com.carnetwork.hansen.mvp.model.db.LoginInfo;
 import com.carnetwork.hansen.mvp.model.http.HttpHelper;
@@ -113,6 +114,21 @@ public class DataManager implements HttpHelper, PreferencesHelper, DBHelper {
     @Override
     public Flowable<MyHttpResponse<List<CarListBean>>> getCarCanUse(String token) {
         return mHttpHelper.getCarCanUse(token);
+    }
+
+    @Override
+    public Flowable<MyHttpResponse> userCreate(ProjectEntity projectEntity) {
+        return mHttpHelper.userCreate(projectEntity);
+    }
+
+    @Override
+    public Flowable<MyHttpResponse> userDisable(UserRoleEntity userRoleEntity) {
+        return mHttpHelper.userDisable(userRoleEntity);
+    }
+
+    @Override
+    public Flowable<MyHttpResponse> userUpdateRole(UserRoleEntity userRoleEntity) {
+        return userUpdateRole(userRoleEntity);
     }
 
     @Override

@@ -310,7 +310,7 @@
     <string name="carl">请输入车辆牌照</string>
     <string name="text_login_name">姓名</string>
     <string name="text_login_phone">手机号</string>
-    <string name="bt_carinfo">车辆信息</string>
+    <string name="bt_carinfo">人员信息</string>
 
     <string name="smssdk_busy_hint">操作频繁请稍等</string>
     <string name="smssdk_network_error">网络异常，请稍后重试</string>

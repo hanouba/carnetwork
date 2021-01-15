@@ -57,6 +57,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private String userName, userPhone, carNo, carLicence;
     private Button carInfos;
     private PowerManager.WakeLock mwl;
+    private boolean workState;
+    private String token;
 
     @Override
     protected int getLayout() {
@@ -97,7 +99,43 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void initEventAndData() {
+        //工作状态设置
+        workState = SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
+        token = SPUtils.getInstance().getString(Constants.TOKEN);
+        //获取用户信息
+        userName = SPUtils.getInstance().getString(Constants.CAR_NAME);
+        userPhone = SPUtils.getInstance().getString(Constants.CAR_PHONE);
+        carNo = SPUtils.getInstance().getString(Constants.CAR_NO);
+        carLicence = SPUtils.getInstance().getString(Constants.CAR_LICENCE);
+        int roleType = SPUtils.getInstance().getInt(Constants.USER_ROLE_TYPE);
+        initView();
 
+
+        //设置用户信息
+        tvCarNo.setText(carNo);
+        tvCarLicence.setText(carLicence);
+        tvUserName.setText(userName);
+        tvUserPhone.setText(userPhone);
+        if (roleType == 1) {
+            //管理者
+            carInfos.setVisibility(View.VISIBLE);
+        }else {
+            //司机
+            carInfos.setVisibility(View.GONE);
+        }
+        carInfos.setOnClickListener(this);
+
+
+        //        启动后台服务
+        startService(new Intent(this, NoVoiceService.class));
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.carnetwork.hansen.component.keepalive.NoVoiceService");
+        //        Intent intent = new Intent(this, MusicService.class);
+        //        startService(intent);
+        //        bindService(intent, conn, BIND_AUTO_CREATE);
+    }
+
+    private void initView() {
         replaceFragment(new MapFragment(), R.id.fl_main_content);
         //  获取控件
         tvCarNo = findViewById(R.id.tv_car_no);
@@ -106,30 +144,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         tvUserPhone = findViewById(R.id.tv_user_phone);
         Button logOut = findViewById(R.id.bt_logout);
         DrawerLayout drawerLayout = findViewById(R.id.view_main);
+
+
         SwitchButton switchButton = findViewById(R.id.switch_button);
         carInfos = findViewById(R.id.bt_opencarinfo);
-        String token = SPUtils.getInstance().getString(Constants.TOKEN);
         //屏幕长亮
         drawerLayout.setKeepScreenOn(true);
-
-
-        //获取用户信息
-        userName = SPUtils.getInstance().getString(Constants.CAR_NAME);
-        userPhone = SPUtils.getInstance().getString(Constants.CAR_PHONE);
-        carNo = SPUtils.getInstance().getString(Constants.CAR_NO);
-        carLicence = SPUtils.getInstance().getString(Constants.CAR_LICENCE);
-
-        //设置用户信息
-        tvCarNo.setText(carNo);
-        tvCarLicence.setText(carLicence);
-        tvUserName.setText(userName);
-        tvUserPhone.setText(userPhone);
-
         //退出
         logOut.setOnClickListener(this::onClick);
-        carInfos.setOnClickListener(this);
-        //工作状态设置
-        boolean workState = SPUtils.getInstance().getBoolean(Constants.IS_ON_WORK);
         switchButton.setChecked(workState);
         if (workState) {
             mPresenter.logOn(carNo, token);
@@ -148,13 +170,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 }
             }
         });
-        //        启动后台服务
-        startService(new Intent(this, NoVoiceService.class));
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.carnetwork.hansen.component.keepalive.NoVoiceService");
-        //        Intent intent = new Intent(this, MusicService.class);
-        //        startService(intent);
-        //        bindService(intent, conn, BIND_AUTO_CREATE);
     }
 
     @Override

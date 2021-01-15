@@ -31,7 +31,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="n">
-        <activity android:name=".ui.main.activity.CreateProjectSuccActivity"></activity>
+        <activity android:name=".ui.main.activity.CreateUserActivity"></activity>
+        <activity android:name=".ui.main.activity.CreateProjectSuccActivity" />
         <activity android:name=".ui.main.activity.CreateProjectAddActivity" />
         <activity android:name=".ui.main.activity.CreatProject" />
         <activity

@@ -10,6 +10,7 @@ import com.carnetwork.hansen.mvp.model.bean.ProjectEntity;
 import com.carnetwork.hansen.mvp.model.bean.SateBean;
 import com.carnetwork.hansen.mvp.model.bean.SateSaveEntity;
 import com.carnetwork.hansen.mvp.model.bean.UploadMapEntity;
+import com.carnetwork.hansen.mvp.model.bean.UserRoleEntity;
 import com.carnetwork.hansen.mvp.model.http.api.MyApis;
 import com.carnetwork.hansen.mvp.model.http.response.MyHttpResponse;
 
@@ -89,5 +90,20 @@ public class RetrofitHelper implements HttpHelper {
     @Override
     public Flowable<MyHttpResponse<List<CarListBean>>> getCarCanUse(String token) {
         return mMyApiService.getCarCanUse(token);
+    }
+
+    @Override
+    public Flowable<MyHttpResponse> userCreate(ProjectEntity projectEntity) {
+        return mMyApiService.userCreate(projectEntity);
+    }
+
+    @Override
+    public Flowable<MyHttpResponse> userDisable(UserRoleEntity userRoleEntity) {
+        return mMyApiService.userDisable(userRoleEntity);
+    }
+
+    @Override
+    public Flowable<MyHttpResponse> userUpdateRole(UserRoleEntity userRoleEntity) {
+        return mMyApiService.userUpdateRole(userRoleEntity);
     }
 }
