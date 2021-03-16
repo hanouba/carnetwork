@@ -53,7 +53,7 @@
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
-            android:theme="@android:style/Theme.Translucent" /> <!-- 适配小米刘海屏 -->
+            android:theme="@android:style/Theme.Translucent" />
         <activity
             android:name=".ui.main.activity.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
